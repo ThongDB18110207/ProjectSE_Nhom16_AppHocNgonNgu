@@ -16,5 +16,4 @@ Danh sách các yêu cầu của đề tài:
 10	Chức năng ghi chú bằng flash card
 11	Xếp hạng học viên
 12	Diễn dàng trao đổi
-
 Hướng dẫn sử dụng:
