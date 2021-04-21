@@ -14,7 +14,7 @@ public class AudioActivity extends AppCompatActivity {
     RecyclerView dataList;
     List<String> units;
     Integer image;
-    Adapter adapter;
+    UnitAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class AudioActivity extends AppCompatActivity {
 
         image = R.drawable.ic_baseline_play_circle_outline;
 
-        adapter = new Adapter(this, units, image);
+        adapter = new UnitAdapter(this, units, image);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false);
         dataList.setLayoutManager(gridLayoutManager);
         dataList.setAdapter(adapter);
