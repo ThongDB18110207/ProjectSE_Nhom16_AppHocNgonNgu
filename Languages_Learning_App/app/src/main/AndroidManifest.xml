@@ -12,6 +12,7 @@
         <activity android:name=".FogotPassword"></activity>
         <activity android:name=".ProfileActivity" />
         <activity android:name=".RegisterUser" />
+        <activity android:name=".AudioActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
