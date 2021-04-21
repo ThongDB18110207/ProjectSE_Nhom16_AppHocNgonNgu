@@ -1,6 +1,7 @@
 package com.example.languages_learning_app;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,8 @@ public class LanguageAdapter extends RecyclerView.Adapter<LanguageAdapter.ViewHo
         View view = LayoutInflater.from(context).inflate(R.layout.language_layout, parent,false);
         return new ViewHolder(view);
     }
+
+
 
     @Override
     public void onBindViewHolder(@NonNull LanguageAdapter.ViewHolder holder, int position) {

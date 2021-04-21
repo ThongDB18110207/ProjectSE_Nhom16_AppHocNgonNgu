@@ -1,5 +1,6 @@
 package com.example.languages_learning_app;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -22,7 +23,7 @@ public class ChooseLanguage extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerview);
         listLanguage = new ArrayList<>();
         listLanguage.add(new Language(R.drawable.flag_of_england, "Tiếng Anh"));
-        listLanguage.add(new Language(R.drawable.flag_of_england, "Tiếng Trung Quốc"));
+        listLanguage.add(new Language(R.drawable.flag_of_china, "Tiếng Trung Quốc"));
 
         languageAdapter = new LanguageAdapter(getApplicationContext(), listLanguage);
 
