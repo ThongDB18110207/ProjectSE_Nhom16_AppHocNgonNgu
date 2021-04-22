@@ -38,15 +38,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(ProfileActivity.this, MainActivity.class));
-            }
-        });
-
-        showAudio = (Button) findViewById(R.id.btAudio);
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ProfileActivity.this, AudioActivity.class));
+                startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
             }
         });
 

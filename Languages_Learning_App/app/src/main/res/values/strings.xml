@@ -1,3 +1,13 @@
 <resources>
-    <string name="app_name">Languages_Learning_App</string>
+    <string name="app_name">Bottom Navigation</string>
+    <string name="en_home">Home</string>
+    <string name="vn_home">Trang chủ</string>
+    <string name="en_audio">Audio</string>
+    <string name="vn_audio">Âm thanh</string>
+    <string name="en_test">Test</string>
+    <string name="vn_test">Kiểm tra</string>
+    <string name="en_practice">Practice</string>
+    <string name="vn_practice">Luyện tập</string>
+    <string name="en_more">More</string>
+    <string name="vn_more">Mở rộng</string>
 </resources>
