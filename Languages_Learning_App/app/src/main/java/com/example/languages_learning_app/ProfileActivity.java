@@ -57,9 +57,9 @@ public class ProfileActivity extends AppCompatActivity {
                 User userProfile = snapshot.getValue(User.class);
 
                 if(userProfile != null){
-                    String fullName = userProfile.fullName;
+                    String fullName = "FullName: " + userProfile.fullName;
                     String email = userProfile.email;
-                    String phone = userProfile.phone;
+                    String phone = "Phone: " + userProfile.phone;
 
                     fullNameTextView.setText(fullName);
                     emailNameTextView.setText(email);

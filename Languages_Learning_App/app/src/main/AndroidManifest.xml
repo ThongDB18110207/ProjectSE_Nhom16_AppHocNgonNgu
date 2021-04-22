@@ -10,12 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Languages_Learning_App">
         <activity android:name=".MainActivity" />
-        <activity android:name=".FogotPassword"></activity>
+        <activity android:name=".FogotPassword"/>
         <activity android:name=".ProfileActivity" />
         <activity android:name=".RegisterUser" />
-        <activity android:name=".AudioActivity"></activity>
-        <activity android:name=".LoginActivity"></activity>
-        <activity android:name=".ChooseLanguage">
+        <activity android:name=".AudioActivity"/>
+        <activity android:name=".ChooseLanguage"/>
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

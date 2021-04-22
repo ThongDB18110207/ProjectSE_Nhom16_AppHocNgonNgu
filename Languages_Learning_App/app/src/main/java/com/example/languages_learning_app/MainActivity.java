@@ -1,5 +1,6 @@
 package com.example.languages_learning_app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -20,6 +21,13 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
+
+        //Lựa chọn ngôn ngữ
+        String language = "Tiếng anh";
+        Bundle extras = getIntent().getExtras();
+        if(extras != null){
+            language = extras.getString("Language");
+        }
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
@@ -45,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
                             selectedFragment = new MoreFragment();
                             break;
                     }
-
                         getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.fragmemt_container, selectedFragment).commit();
                         return true;
