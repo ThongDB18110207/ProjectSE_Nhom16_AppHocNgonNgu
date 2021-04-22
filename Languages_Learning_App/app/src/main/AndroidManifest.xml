@@ -14,7 +14,8 @@
         <activity android:name=".ProfileActivity" />
         <activity android:name=".RegisterUser" />
         <activity android:name=".AudioActivity"></activity>
-        <activity android:name=".LoginActivity">
+        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".ChooseLanguage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

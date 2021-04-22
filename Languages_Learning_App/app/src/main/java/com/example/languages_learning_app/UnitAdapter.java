@@ -12,13 +12,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class Adapter extends RecyclerView.Adapter<com.example.languages_learning_app.Adapter.ViewHolder> {
+public class UnitAdapter extends RecyclerView.Adapter<UnitAdapter.ViewHolder> {
 
     List<String> units;
     Integer image;
     LayoutInflater inflater;
 
-    public Adapter(Context context, List<String> units, Integer image) {
+    public UnitAdapter(Context context, List<String> units, Integer image) {
         this.units = units;
         this.image = image;
         this.inflater = LayoutInflater.from(context);
@@ -26,13 +26,13 @@ public class Adapter extends RecyclerView.Adapter<com.example.languages_learning
 
     @NonNull
     @Override
-    public com.example.languages_learning_app.Adapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.unit_layout, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull com.example.languages_learning_app.Adapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull UnitAdapter.ViewHolder holder, int position) {
         holder.unitTitle.setText(units.get(position));
         holder.icon.setImageResource(image);
     }

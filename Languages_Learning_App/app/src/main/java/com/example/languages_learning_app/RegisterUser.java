@@ -21,7 +21,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterUser extends AppCompatActivity implements View.OnClickListener  {
 
-    private TextView banner, registerUser;
+    private TextView banner;
+    private Button registerUser, back;
     private EditText editTextFullName, editTextPhone, editTextEmail, editTextPassword;
     private ProgressBar progressBar;
 
@@ -40,6 +41,9 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         registerUser = (Button) findViewById(R.id.btRegisterUser);
         registerUser.setOnClickListener(this);
 
+        back = (Button) findViewById(R.id.btBack);
+        back.setOnClickListener(this);
+
         editTextFullName = (EditText) findViewById(R.id.etFullName);
         editTextPhone = (EditText) findViewById(R.id.etPhone);
         editTextEmail = (EditText) findViewById(R.id.etEmail);
@@ -53,6 +57,9 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
             case R.id.btRegisterUser:
                 registerUser();
+                break;
+            case R.id.btBack:
+                finish();
                 break;
         }
     }
