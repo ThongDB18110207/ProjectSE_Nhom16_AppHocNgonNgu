@@ -1,6 +1,5 @@
-package com.example.languages_learning_app;
+package com.example.languages_learning_app.Controllers;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -8,10 +7,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.example.languages_learning_app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
+    public BottomNavigationView bottomNav;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,15 +20,8 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragmemt_container, new HomeFragment()).commit();
 
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
-
-        //Lựa chọn ngôn ngữ
-        String language = "Tiếng anh";
-        Bundle extras = getIntent().getExtras();
-        if(extras != null){
-            language = extras.getString("Language");
-        }
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =

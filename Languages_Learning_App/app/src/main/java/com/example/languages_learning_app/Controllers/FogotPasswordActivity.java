@@ -1,4 +1,4 @@
-package com.example.languages_learning_app;
+package com.example.languages_learning_app.Controllers;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,13 +11,12 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.languages_learning_app.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.regex.Pattern;
-
-public class FogotPassword extends AppCompatActivity {
+public class FogotPasswordActivity extends AppCompatActivity {
 
     private EditText emailEditText;
     private Button resetPasswordButton;
@@ -66,10 +65,10 @@ public class FogotPassword extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(FogotPassword.this, "Check your email to reset your password!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(FogotPasswordActivity.this, "Check your email to reset your password!", Toast.LENGTH_LONG).show();
                 }
                 else {
-                    Toast.makeText(FogotPassword.this, "Try again! Something wrong happened!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(FogotPasswordActivity.this, "Try again! Something wrong happened!", Toast.LENGTH_LONG).show();
                 }
                 progressBar.setVisibility(View.GONE);
             }

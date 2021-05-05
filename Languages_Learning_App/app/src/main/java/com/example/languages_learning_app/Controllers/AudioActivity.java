@@ -1,10 +1,13 @@
-package com.example.languages_learning_app;
+package com.example.languages_learning_app.Controllers;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.languages_learning_app.Adapters.UnitAdapter;
+import com.example.languages_learning_app.R;
 
 import java.util.ArrayList;
 import java.util.List;

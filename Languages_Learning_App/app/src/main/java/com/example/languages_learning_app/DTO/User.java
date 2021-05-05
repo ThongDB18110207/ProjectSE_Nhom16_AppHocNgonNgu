@@ -1,4 +1,4 @@
-package com.example.languages_learning_app;
+package com.example.languages_learning_app.DTO;
 
 public class User {
     public String fullName, phone, email;
@@ -11,4 +11,3 @@ public class User {
         this.email = email;
     }
 }
-

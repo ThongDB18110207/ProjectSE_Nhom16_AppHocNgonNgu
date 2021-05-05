@@ -1,4 +1,4 @@
-package com.example.languages_learning_app;
+package com.example.languages_learning_app.Controllers;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.example.languages_learning_app.R;
 
 public class PracticeFragment extends Fragment {
     @Nullable

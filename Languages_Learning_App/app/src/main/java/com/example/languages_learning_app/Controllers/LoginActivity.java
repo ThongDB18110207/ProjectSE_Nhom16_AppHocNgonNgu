@@ -1,4 +1,4 @@
-package com.example.languages_learning_app;
+package com.example.languages_learning_app.Controllers;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.languages_learning_app.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -41,25 +42,28 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         editTextEmail = (EditText) findViewById(R.id.etEmail);
         editTextPassword = (EditText) findViewById(R.id.etPassword);
 
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
-
-        mAuth = FirebaseAuth.getInstance();
+        editTextEmail.setText("lenhattuong12345@gmail.com");
+        editTextPassword.setText("12345678");
 
         fogotPassword = (TextView) findViewById(R.id.tvForgotPassword);
         fogotPassword.setOnClickListener(this);
+
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
+        mAuth = FirebaseAuth.getInstance();
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.tvRegister:
-                startActivity(new Intent(this,RegisterUser.class));
+                startActivity(new Intent(this, RegisterUserActivity.class));
                 break;
             case R.id.btLogin:
                 userLogin();
                 break;
             case R.id.tvForgotPassword:
-                startActivity(new Intent(this, FogotPassword.class));
+                startActivity(new Intent(this, FogotPasswordActivity.class));
                 break;
         }
     }
@@ -87,13 +91,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
 
         if(password.length() < 8){
-            editTextPassword.setError("Min password lenght is 8 characters!");
+            editTextPassword.setError("Min password length is 8 characters!");
             editTextPassword.requestFocus();
             return;
         }
 
         progressBar.setVisibility(View.VISIBLE);
 
+        //Add eamil to auth
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -102,7 +107,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     if(user.isEmailVerified()){
                         // redirect to user profile
-                        startActivity(new Intent(LoginActivity.this, ChooseLanguage.class));
+                        startActivity(new Intent(LoginActivity.this, ChooseLanguageActivity.class));
                     }
                     else{
                         user.sendEmailVerification();

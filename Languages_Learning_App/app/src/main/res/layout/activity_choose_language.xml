@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ChooseLanguage"
+    tools:context=".Controllers.ChooseLanguageActivity"
     android:background="@color/main_color">
 
     <Button
@@ -58,6 +58,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
-        tools:listitem="@layout/language_layout" />
+        tools:listitem="@layout/layout_language" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

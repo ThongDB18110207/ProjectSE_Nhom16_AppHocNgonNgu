@@ -1,7 +1,6 @@
-package com.example.languages_learning_app;
+package com.example.languages_learning_app.Adapters;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +9,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.languages_learning_app.DTO.Language;
+import com.example.languages_learning_app.R;
 
 import java.util.ArrayList;
 
@@ -30,7 +32,7 @@ public class LanguageAdapter extends RecyclerView.Adapter<LanguageAdapter.ViewHo
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.language_layout, parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.layout_language, parent,false);
 
         return new ViewHolder(view);
     }
@@ -39,7 +41,7 @@ public class LanguageAdapter extends RecyclerView.Adapter<LanguageAdapter.ViewHo
     public void onBindViewHolder(@NonNull LanguageAdapter.ViewHolder holder, int position) {
         Language language = listLanguage.get(position);
 
-        holder.tvlanguage.setText(language.getName());
+        holder.tvlanguage.setText(language.getDisplayName());
         holder.imageView.setImageResource(language.getImage());
     }
 

@@ -1,20 +1,24 @@
-package com.example.languages_learning_app;
+package com.example.languages_learning_app.Controllers;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
+
+import com.example.languages_learning_app.Adapters.LanguageAdapter;
+import com.example.languages_learning_app.DTO.Language;
+import com.example.languages_learning_app.R;
 
 import java.util.ArrayList;
 
-public class ChooseLanguage extends AppCompatActivity {
+public class ChooseLanguageActivity extends AppCompatActivity {
     Button back;
+    RadioButton rbChoose;
     RecyclerView recyclerView;
     ArrayList<Language> listLanguage;
     LanguageAdapter languageAdapter;
@@ -29,8 +33,8 @@ public class ChooseLanguage extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerview);
         listLanguage = new ArrayList<>();
-        listLanguage.add(new Language(R.drawable.flag_of_england, "Tiếng Anh"));
-        listLanguage.add(new Language(R.drawable.flag_of_china, "Tiếng Trung Quốc"));
+        listLanguage.add(new Language(R.drawable.flag_of_england,"england", "Tiếng Anh"));
+        listLanguage.add(new Language(R.drawable.flag_of_china, "china", "Tiếng Trung Quốc"));
 
         languageAdapter = new LanguageAdapter(getApplicationContext(), listLanguage, listener);
 
@@ -42,8 +46,7 @@ public class ChooseLanguage extends AppCompatActivity {
         back = (Button) findViewById(R.id.btBack);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                finish();
+            public void onClick(View v) { finish();
             }
         });
     }
@@ -52,10 +55,18 @@ public class ChooseLanguage extends AppCompatActivity {
         listener = new LanguageAdapter.RecyclerViewClickListener() {
             @Override
             public void onClick(View v, int position) {
+                finish();
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                intent.putExtra("Language", listLanguage.get(position).getName());
+                intent.putExtra("LanguageN", listLanguage.get(position).getName());
+                intent.putExtra("LanguageDN", listLanguage.get(position).getDisplayName());
+                //Convert int to string
+                intent.putExtra("LanguageIM", String.valueOf(listLanguage.get(position).getImage()));
                 startActivity(intent);
             }
         };
+    }
+
+    public void LoadListLanguage(){
+
     }
 }
