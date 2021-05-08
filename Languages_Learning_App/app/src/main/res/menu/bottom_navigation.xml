@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/nav_home"
+        android:id="@+id/nav_language"
         android:icon="@drawable/ic_baseline_home_24"
         android:title="@string/en_home" />
     <item
-        android:id="@+id/nav_audio"
+        android:id="@+id/nav_manager"
         android:icon="@drawable/ic_baseline_headphones_24"
         android:title="@string/en_audio" />
     <item
-        android:id="@+id/nav_test"
+        android:id="@+id/nav_trainee"
         android:icon="@drawable/ic_baseline_test_24"
         android:title="@string/en_test" />
     <item

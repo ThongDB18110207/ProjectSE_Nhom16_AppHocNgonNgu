@@ -13,6 +13,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.languages_learning_app.DAO.UserDAO;
+import com.example.languages_learning_app.DTO.User;
 import com.example.languages_learning_app.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -98,7 +100,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         progressBar.setVisibility(View.VISIBLE);
 
-        //Add eamil to auth
+        //Add email to auth
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -107,6 +109,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     if(user.isEmailVerified()){
                         // redirect to user profile
+
+
+                        User user1 = UserDAO.getInstance().getUserById(user.getUid());
+
                         startActivity(new Intent(LoginActivity.this, ChooseLanguageActivity.class));
                     }
                     else{

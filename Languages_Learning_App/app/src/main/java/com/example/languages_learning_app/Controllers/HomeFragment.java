@@ -41,7 +41,7 @@ public class HomeFragment extends Fragment {
         btAudio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity)getActivity()).bottomNav.setSelectedItemId(R.id.nav_audio);
+                ((MainActivity)getActivity()).bottomNav.setSelectedItemId(R.id.nav_manager);
             }
         });
 
@@ -49,7 +49,7 @@ public class HomeFragment extends Fragment {
         btTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity)getActivity()).bottomNav.setSelectedItemId(R.id.nav_test);
+                ((MainActivity)getActivity()).bottomNav.setSelectedItemId(R.id.nav_trainee);
             }
         });
 

@@ -9,12 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Languages_Learning_App">
+        <activity android:name=".Controllers.AdminMainActivity"></activity>
         <activity android:name=".Controllers.MainActivity" />
-        <activity android:name=".Controllers.FogotPasswordActivity"/>
+        <activity android:name=".Controllers.FogotPasswordActivity" />
         <activity android:name=".Controllers.ProfileActivity" />
         <activity android:name=".Controllers.RegisterUserActivity" />
-        <activity android:name=".Controllers.AudioActivity"/>
-        <activity android:name=".Controllers.ChooseLanguageActivity"/>
+        <activity android:name=".Controllers.AudioActivity" />
+        <activity android:name=".Controllers.ChooseLanguageActivity" />
         <activity android:name=".Controllers.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -15,9 +15,9 @@
         android:fontFamily="sans-serif-black"
         android:text="LLA"
         android:textAlignment="center"
+        android:textColor="@color/white"
         android:textSize="60sp"
         android:textStyle="bold"
-        android:textColor="@color/white"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -28,9 +28,9 @@
         android:layout_height="wrap_content"
         android:text="Languages Learning App"
         android:textAlignment="center"
+        android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="italic"
-        android:textColor="@color/white"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvBanner" />
@@ -43,20 +43,19 @@
         android:fontFamily="sans-serif-black"
         android:text="Đăng nhập"
         android:textAlignment="center"
+        android:textColor="@color/main_color"
         android:textSize="40sp"
         android:textStyle="bold"
-        android:textColor="@color/main_color"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvBannerDescription"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/tvBannerDescription" />
 
     <EditText
         android:id="@+id/etEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="32dp"
         android:layout_marginRight="16dp"
         android:background="@drawable/input_bg"
         android:ems="10"
@@ -76,7 +75,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="24dp"
         android:layout_marginRight="16dp"
         android:background="@drawable/input_bg"
         android:ems="10"
@@ -104,16 +103,29 @@
         android:textColor="@color/white"
         android:textSize="26sp"
         android:textStyle="bold"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/rgRoles" />
+
+    <TextView
+        android:id="@+id/tvRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="28dp"
+        android:text="Register"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btLogin" />
 
     <TextView
         android:id="@+id/tvForgotPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
         android:text="Forgot Password?"
         android:textSize="16dp"
         android:textStyle="bold"
@@ -121,16 +133,16 @@
         app:layout_constraintTop_toBottomOf="@+id/btLogin" />
 
     <TextView
-        android:id="@+id/tvRegister"
+        android:id="@+id/tvRoles"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:layout_marginRight="24dp"
-        android:text="Register"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="Vai trò"
         android:textSize="16dp"
         android:textStyle="bold"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btLogin" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etPassword" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -144,5 +156,37 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="Missing Constraint" />
+
+    <RadioGroup
+        android:id="@+id/rgRoles"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:checkedButton="@id/rbTrainee"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvRoles">
+
+        <RadioButton
+            android:id="@+id/rbAdmin"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:text="Admin" />
+
+        <RadioButton
+            android:id="@+id/rbManager"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:text="Manager" />
+
+        <RadioButton
+            android:id="@+id/rbTrainee"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:text="Trainee" />
+    </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

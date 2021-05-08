@@ -10,4 +10,9 @@
     <string name="vn_practice">Luyện tập</string>
     <string name="en_more">More</string>
     <string name="vn_more">Mở rộng</string>
+
+    <string name="vn_language">Ngôn ngữ</string>
+    <string name="vn_manager">Quản lý</string>
+    <string name="vn_trainee">Học viên</string>
+
 </resources>

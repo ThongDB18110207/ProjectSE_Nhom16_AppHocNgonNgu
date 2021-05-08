@@ -12,6 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.languages_learning_app.Common.Common;
 import com.example.languages_learning_app.DTO.User;
 import com.example.languages_learning_app.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -114,7 +115,7 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            User user = new User(fullName, phone, email);
+                            User user = new User(fullName, phone, email, Common.RoleTrainee);
 
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())

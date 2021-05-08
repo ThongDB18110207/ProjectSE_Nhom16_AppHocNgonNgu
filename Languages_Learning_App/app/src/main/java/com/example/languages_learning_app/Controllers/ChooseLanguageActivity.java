@@ -33,8 +33,8 @@ public class ChooseLanguageActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerview);
         listLanguage = new ArrayList<>();
-        listLanguage.add(new Language(R.drawable.flag_of_england,"england", "Tiếng Anh"));
-        listLanguage.add(new Language(R.drawable.flag_of_china, "china", "Tiếng Trung Quốc"));
+        listLanguage.add(new Language(R.drawable.flag_of_england,"england", "Tiếng Anh", "Anh"));
+        listLanguage.add(new Language(R.drawable.flag_of_china, "china", "Tiếng Trung Quốc", "Trung"));
 
         languageAdapter = new LanguageAdapter(getApplicationContext(), listLanguage, listener);
 

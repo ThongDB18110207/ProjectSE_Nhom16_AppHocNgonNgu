@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragmemt_container, new HomeFragment()).commit();
+                .replace(R.id.admin_fragmemt_container, new HomeFragment()).commit();
 
         bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
@@ -31,13 +31,13 @@ public class MainActivity extends AppCompatActivity {
                     Fragment selectedFragment = null;
 
                     switch (item.getItemId()) {
-                        case R.id.nav_home:
+                        case R.id.nav_language:
                             selectedFragment = new HomeFragment();
                             break;
-                        case R.id.nav_audio:
+                        case R.id.nav_manager:
                             selectedFragment = new AudioFragment();
                             break;
-                        case R.id.nav_test:
+                        case R.id.nav_trainee:
                             selectedFragment = new TestFragment();
                             break;
                         case R.id.nav_practice:
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                             break;
                     }
                         getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.fragmemt_container, selectedFragment).commit();
+                                .replace(R.id.admin_fragmemt_container, selectedFragment).commit();
                         return true;
                     }
             };
