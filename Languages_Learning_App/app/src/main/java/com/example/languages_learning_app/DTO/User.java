@@ -12,6 +12,7 @@ public class User {
         this.phone = phone;
         this.email = email;
         this.role = role;
+        this.isActive = true;
     }
 
     public String getFullName() {

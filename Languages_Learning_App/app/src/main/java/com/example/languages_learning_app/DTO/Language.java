@@ -3,6 +3,7 @@ package com.example.languages_learning_app.DTO;
 public class Language {
     private int image;
     private String name, displayName, briefName;
+    public boolean isActived;
 
     public Language(){}
 
@@ -11,6 +12,7 @@ public class Language {
         this.name = name;
         this.displayName = displayName;
         this.briefName = briefName;
+        this.isActived = true;
     }
 
     public int getImage() {
@@ -43,6 +45,14 @@ public class Language {
 
     public void setBriefName(String briefName) {
         this.briefName = briefName;
+    }
+
+    public boolean isActive() {
+        return isActived;
+    }
+
+    public void setActive(boolean active) {
+        isActived = active;
     }
 }
 

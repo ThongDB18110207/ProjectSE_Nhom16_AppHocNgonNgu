@@ -14,5 +14,7 @@
     <string name="vn_language">Ngôn ngữ</string>
     <string name="vn_manager">Quản lý</string>
     <string name="vn_trainee">Học viên</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

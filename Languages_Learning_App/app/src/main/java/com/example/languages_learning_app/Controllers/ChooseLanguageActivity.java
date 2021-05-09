@@ -6,9 +6,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RadioButton;
 
 import com.example.languages_learning_app.Adapters.LanguageAdapter;
 import com.example.languages_learning_app.DTO.Language;
@@ -18,7 +18,6 @@ import java.util.ArrayList;
 
 public class ChooseLanguageActivity extends AppCompatActivity {
     Button back;
-    RadioButton rbChoose;
     RecyclerView recyclerView;
     ArrayList<Language> listLanguage;
     LanguageAdapter languageAdapter;
@@ -31,7 +30,7 @@ public class ChooseLanguageActivity extends AppCompatActivity {
 
         setOnClickListener();
 
-        recyclerView = findViewById(R.id.recyclerview);
+        recyclerView = findViewById(R.id.rvLanguages);
         listLanguage = new ArrayList<>();
         listLanguage.add(new Language(R.drawable.flag_of_england,"england", "Tiếng Anh", "Anh"));
         listLanguage.add(new Language(R.drawable.flag_of_china, "china", "Tiếng Trung Quốc", "Trung"));
@@ -63,10 +62,12 @@ public class ChooseLanguageActivity extends AppCompatActivity {
                 intent.putExtra("LanguageIM", String.valueOf(listLanguage.get(position).getImage()));
                 startActivity(intent);
             }
+
+            @Override
+            public void onCreateContextMenu(ContextMenu menu, int position) {
+                menu.add(position,0,0,"Edit");
+                menu.add(position,1,1,"Delete");
+            }
         };
-    }
-
-    public void LoadListLanguage(){
-
     }
 }

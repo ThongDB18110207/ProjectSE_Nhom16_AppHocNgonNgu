@@ -10,9 +10,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.languages_learning_app.Common.Common;
 import com.example.languages_learning_app.DAO.UserDAO;
 import com.example.languages_learning_app.DTO.User;
 import com.example.languages_learning_app.R;
@@ -21,13 +23,18 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private  TextView register, fogotPassword;
     private EditText editTextEmail, editTextPassword;
     private Button signIn;
-
+    private RadioButton rbAdmin, rbManager, rbTrainee;
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
     @Override
@@ -35,22 +42,26 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        register = (TextView) findViewById((R.id.tvRegister));
-        register.setOnClickListener(this);
-
-        signIn = (Button) findViewById(R.id.btLogin);
-        signIn.setOnClickListener(this);
-
         editTextEmail = (EditText) findViewById(R.id.etEmail);
         editTextPassword = (EditText) findViewById(R.id.etPassword);
 
         editTextEmail.setText("lenhattuong12345@gmail.com");
         editTextPassword.setText("12345678");
 
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
+        rbAdmin = (RadioButton) findViewById(R.id.rbAdmin);
+        rbManager = (RadioButton) findViewById(R.id.rbManager);
+        rbTrainee = (RadioButton) findViewById(R.id.rbTrainee);
+
+        register = (TextView) findViewById((R.id.tvRegister));
+        register.setOnClickListener(this);
+
+        signIn = (Button) findViewById(R.id.btLogin);
+        signIn.setOnClickListener(this);
+
         fogotPassword = (TextView) findViewById(R.id.tvForgotPassword);
         fogotPassword.setOnClickListener(this);
-
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         mAuth = FirebaseAuth.getInstance();
     }
@@ -109,11 +120,29 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     if(user.isEmailVerified()){
                         // redirect to user profile
+                        if(rbAdmin.isChecked()){
+                            startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
+                        }
 
+                        if(rbTrainee.isChecked()){
+                            startActivity(new Intent(LoginActivity.this, ChooseLanguageActivity.class));
+                        }
 
-                        User user1 = UserDAO.getInstance().getUserById(user.getUid());
+                        /*Common.user = UserDAO.getInstance().getUserById(user.getUid());
 
-                        startActivity(new Intent(LoginActivity.this, ChooseLanguageActivity.class));
+                        if(Common.user != null){
+                            if (Common.user.getRole().equals(Common.RoleAdmin)) {
+                                if (rbAdmin.isChecked()) {
+                                    startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
+                                }
+                                if (rbTrainee.isChecked()){
+                                    startActivity(new Intent(LoginActivity.this, ChooseLanguageActivity.class));
+                                }
+                            }
+                            if (Common.user.getRole().equals(Common.RoleTrainee)) {
+                                startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
+                            }
+                        }*/
                     }
                     else{
                         user.sendEmailVerification();

@@ -71,7 +71,7 @@ public class ProfileActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(ProfileActivity.this, "Something wrong happend!", Toast.LENGTH_LONG).show();
+                Toast.makeText(ProfileActivity.this, "Something wrong happen!", Toast.LENGTH_LONG).show();
             }
         });
     }

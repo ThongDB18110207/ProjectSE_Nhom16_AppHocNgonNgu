@@ -1,13 +1,16 @@
 package com.example.languages_learning_app.Adapters;
 
 import android.content.Context;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.languages_learning_app.DTO.Language;
@@ -41,8 +44,9 @@ public class LanguageAdapter extends RecyclerView.Adapter<LanguageAdapter.ViewHo
     public void onBindViewHolder(@NonNull LanguageAdapter.ViewHolder holder, int position) {
         Language language = listLanguage.get(position);
 
-        holder.tvlanguage.setText(language.getDisplayName());
+        holder.tvLanguage.setText(language.getDisplayName());
         holder.imageView.setImageResource(language.getImage());
+        holder.rbIsChecked.setChecked(language.isActived);
     }
 
     @Override
@@ -50,17 +54,29 @@ public class LanguageAdapter extends RecyclerView.Adapter<LanguageAdapter.ViewHo
         return listLanguage.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnCreateContextMenuListener{
         ImageView imageView;
-        TextView tvlanguage;
+        TextView tvLanguage;
+        RadioButton rbIsChecked;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            ConstraintLayout itemLanguage;
 
             imageView = itemView.findViewById(R.id.imageView);
-            tvlanguage = itemView.findViewById(R.id.tvLanguage);
+            tvLanguage = itemView.findViewById(R.id.tvLanguage);
+            rbIsChecked = itemView.findViewById(R.id.rbIsChecked);
 
             itemView.setOnClickListener(this);
+
+            // Set context menu
+            itemLanguage = itemView.findViewById(R.id.item_language);
+            itemLanguage.setOnCreateContextMenuListener(this);
+        }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+            listener.onCreateContextMenu(menu, getAdapterPosition());
         }
 
         @Override
@@ -71,5 +87,7 @@ public class LanguageAdapter extends RecyclerView.Adapter<LanguageAdapter.ViewHo
 
     public interface RecyclerViewClickListener{
         void onClick(View v, int position);
+
+        void onCreateContextMenu(ContextMenu menu, int position);
     }
 }
