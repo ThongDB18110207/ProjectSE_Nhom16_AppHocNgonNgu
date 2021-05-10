@@ -38,6 +38,4 @@ public class UserDAO {
     public UserDAO(){
         path = "Users";
     }
-
-
 }
