@@ -3,6 +3,7 @@ package com.example.languages_learning_app.DAO;
 import androidx.annotation.NonNull;
 
 import com.example.languages_learning_app.DTO.Language;
+import com.example.languages_learning_app.DTO.User;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -12,7 +13,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class LanguageDAO {
+public class LanguageDAO<changeIsActivedLanguage> {
     String path;
     DatabaseReference mDatabase;
 
@@ -32,29 +33,23 @@ public class LanguageDAO {
         path = "Languages";
     }
 
-    public void addLanguage(Language language){
+    public void setLanguageValue(Language language){
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child(path).child(language.getName()).setValue(language);
+        mDatabase.child(path).child(String.valueOf(language.getId())).setValue(language);
     }
 
-    public ArrayList<Language> getListLanguage(){
-        ArrayList<Language> listLanguage = new ArrayList<>();
+    public boolean deleteLanguage(int id) {
+        try {
+            mDatabase = FirebaseDatabase.getInstance().getReference();
+            mDatabase.child(path).child(String.valueOf(id)).removeValue();
+            return true;
+        } catch (Error error){
+            return false;
+        }
+    }
 
-        mDatabase = FirebaseDatabase.getInstance().getReference(path);
-        mDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Language language = dataSnapshot.getValue(Language.class);
-                    listLanguage.add(language);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-        return listLanguage;
+    public void changeStatusLanguage(Language language){
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child(path).child(String.valueOf(language.getId())).child("status").setValue(!language.getStatus());
     }
 }

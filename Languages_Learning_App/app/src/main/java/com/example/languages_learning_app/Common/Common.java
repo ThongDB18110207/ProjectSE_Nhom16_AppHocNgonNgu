@@ -10,4 +10,11 @@ public class Common {
     public static String RoleAdmin = "Admin";
     public static String RoleManager = "Manager";
     public static String RoleTrainee = "Trainee";
+
+    public enum mode{
+        create,
+        read,
+        update,
+        delete
+    }
 }

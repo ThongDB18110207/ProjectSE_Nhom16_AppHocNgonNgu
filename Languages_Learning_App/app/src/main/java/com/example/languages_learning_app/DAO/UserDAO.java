@@ -39,27 +39,5 @@ public class UserDAO {
         path = "Users";
     }
 
-    public User getUserById(String userId){
-        final User[] user = new User[1];
-        mDatabase = FirebaseDatabase.getInstance().getReference("Users");
-
-        mDatabase.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User userProfile = snapshot.getValue(User.class);
-
-                if(userProfile != null){
-                    user[0] = userProfile;
-                    int i = 1;
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
-        return user[0];
-    }
-
 
 }

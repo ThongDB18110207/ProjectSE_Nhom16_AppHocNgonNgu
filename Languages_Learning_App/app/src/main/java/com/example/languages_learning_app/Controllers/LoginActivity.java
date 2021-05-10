@@ -35,8 +35,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText editTextEmail, editTextPassword;
     private Button signIn;
     private RadioButton rbAdmin, rbManager, rbTrainee;
-    private FirebaseAuth mAuth;
     private ProgressBar progressBar;
+
+    private FirebaseAuth mAuth;
+    DatabaseReference mDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,6 +121,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     // Validate Email
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     if(user.isEmailVerified()){
+
+                        //chooseRole(user.getUid());
                         // redirect to user profile
                         if(rbAdmin.isChecked()){
                             startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
@@ -127,22 +131,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         if(rbTrainee.isChecked()){
                             startActivity(new Intent(LoginActivity.this, ChooseLanguageActivity.class));
                         }
-
-                        /*Common.user = UserDAO.getInstance().getUserById(user.getUid());
-
-                        if(Common.user != null){
-                            if (Common.user.getRole().equals(Common.RoleAdmin)) {
-                                if (rbAdmin.isChecked()) {
-                                    startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
-                                }
-                                if (rbTrainee.isChecked()){
-                                    startActivity(new Intent(LoginActivity.this, ChooseLanguageActivity.class));
-                                }
-                            }
-                            if (Common.user.getRole().equals(Common.RoleTrainee)) {
-                                startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
-                            }
-                        }*/
                     }
                     else{
                         user.sendEmailVerification();
@@ -153,6 +141,36 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Toast.makeText(LoginActivity.this, "Failed to Login! Please check your credentials", Toast.LENGTH_LONG).show();
                 }
                 progressBar.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    public void chooseRole(String userId){
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("Users").child(userId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                }
+                else {
+                    Common.user = task.getResult().getValue(User.class);
+
+                    if(Common.user != null){
+                        if (Common.user.getRole().equals(Common.RoleAdmin)) {
+                            if (rbAdmin.isChecked()) {
+                                startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
+                            }
+                            if (rbTrainee.isChecked()){
+                                startActivity(new Intent(LoginActivity.this, ChooseLanguageActivity.class));
+                            }
+                        }
+                        if (Common.user.getRole().equals(Common.RoleTrainee)) {
+                            if (rbTrainee.isChecked()){
+                                startActivity(new Intent(LoginActivity.this, ChooseLanguageActivity.class));
+                            }
+                        }
+                    }
+                }
             }
         });
     }

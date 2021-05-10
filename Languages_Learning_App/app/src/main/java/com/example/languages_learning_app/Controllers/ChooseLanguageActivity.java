@@ -32,8 +32,8 @@ public class ChooseLanguageActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.rvLanguages);
         listLanguage = new ArrayList<>();
-        listLanguage.add(new Language(R.drawable.flag_of_england,"england", "Tiếng Anh", "Anh"));
-        listLanguage.add(new Language(R.drawable.flag_of_china, "china", "Tiếng Trung Quốc", "Trung"));
+        //listLanguage.add(new Language(R.drawable.flag_of_england,"england", "Tiếng Anh", "Anh"));
+        //listLanguage.add(new Language(R.drawable.flag_of_china, "china", "Tiếng Trung Quốc", "Trung"));
 
         languageAdapter = new LanguageAdapter(getApplicationContext(), listLanguage, listener);
 
@@ -65,8 +65,11 @@ public class ChooseLanguageActivity extends AppCompatActivity {
 
             @Override
             public void onCreateContextMenu(ContextMenu menu, int position) {
-                menu.add(position,0,0,"Edit");
-                menu.add(position,1,1,"Delete");
+            }
+
+            @Override
+            public void onTouch(View v, int position) {
+
             }
         };
     }
