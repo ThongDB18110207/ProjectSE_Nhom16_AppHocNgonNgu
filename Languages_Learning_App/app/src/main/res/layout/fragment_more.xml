@@ -8,12 +8,13 @@
 
 
     <Button
-        android:id="@+id/btLogOut"
+        android:id="@+id/btUpdate"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
-        android:background="@drawable/button_bg"
         android:backgroundTint="#0ED6B9"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:text="Log Out"
         android:textColor="@color/white"
         android:textSize="20sp"

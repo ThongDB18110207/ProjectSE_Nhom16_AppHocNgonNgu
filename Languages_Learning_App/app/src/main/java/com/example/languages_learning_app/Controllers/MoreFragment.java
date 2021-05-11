@@ -13,6 +13,7 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.example.languages_learning_app.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MoreFragment extends Fragment {
     @Nullable
@@ -22,6 +23,7 @@ public class MoreFragment extends Fragment {
 
         CardView cvManageProfile = (CardView) view.findViewById(R.id.cvManageProfile);
         CardView cvChangePassword = (CardView) view.findViewById(R.id.cvChangePassword);
+        Button btLogOut = (Button) view.findViewById(R.id.btUpdate);
 
         cvManageProfile.setOnClickListener((View v) -> {
             startActivity(new Intent(getActivity(), ProfileActivity.class));
@@ -29,6 +31,12 @@ public class MoreFragment extends Fragment {
 
         cvChangePassword.setOnClickListener((View v) -> {
             startActivity(new Intent(getActivity(), ProfileActivity.class));
+        });
+
+        btLogOut.setOnClickListener((View v) -> {
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(this.getContext(), LoginActivity.class));
+            this.getActivity().finish();
         });
 
         return view;

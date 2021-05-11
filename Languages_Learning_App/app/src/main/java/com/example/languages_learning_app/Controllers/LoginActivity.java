@@ -122,15 +122,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     if(user.isEmailVerified()){
 
-                        //chooseRole(user.getUid());
+                        chooseRole(user.getUid());
                         // redirect to user profile
+                        /*
                         if(rbAdmin.isChecked()){
                             startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
                         }
 
                         if(rbTrainee.isChecked()){
                             startActivity(new Intent(LoginActivity.this, ChooseLanguageActivity.class));
-                        }
+                        }*/
                     }
                     else{
                         user.sendEmailVerification();
