@@ -103,7 +103,7 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
         }
 
         if(password.length()<8){
-            editTextPassword.setError("Min password length should be 6 characters!");
+            editTextPassword.setError("Min password length should be 8 characters!");
             editTextPassword.requestFocus();
             return;
         }
@@ -135,7 +135,7 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
                             });
                         }
                         else {
-                            Toast.makeText(RegisterUserActivity.this, "Failed to  1 register! Try again", Toast.LENGTH_LONG).show();
+                            Toast.makeText(RegisterUserActivity.this, "Failed to register! Try again", Toast.LENGTH_LONG).show();
                             progressBar.setVisibility(View.GONE);
                         }
                     }

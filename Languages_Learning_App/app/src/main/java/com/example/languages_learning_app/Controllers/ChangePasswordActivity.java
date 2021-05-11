@@ -1,5 +1,6 @@
 package com.example.languages_learning_app.Controllers;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -11,7 +12,15 @@ import com.example.languages_learning_app.Common.Common;
 import com.example.languages_learning_app.DAO.UserDAO;
 import com.example.languages_learning_app.DTO.User;
 import com.example.languages_learning_app.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import org.jetbrains.annotations.NotNull;
 
 
 public class ChangePasswordActivity extends AppCompatActivity {
@@ -22,7 +31,6 @@ public class ChangePasswordActivity extends AppCompatActivity {
     private enum Ouput {
         valid,
         empty_password,
-        wrong_password,
         empty_newPassword,
         invalid_newPassword,
         empty_reNewPassword,
@@ -53,14 +61,10 @@ public class ChangePasswordActivity extends AppCompatActivity {
 
         switch (result){
             case valid:
-                saveNewPassword(newPassword);
+                saveNewPassword(currentPassword, newPassword);
                 break;
             case empty_password:
-                tetCurrentPassword.setError("Password is required!");
-                tetCurrentPassword.requestFocus();
-                break;
-            case wrong_password:
-                tetCurrentPassword.setError("Password is wrong!");
+                tetCurrentPassword.setError("Enter your current password!");
                 tetCurrentPassword.requestFocus();
                 break;
             case empty_newPassword:
@@ -68,7 +72,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 tetNewPassword.requestFocus();
                 break;
             case invalid_newPassword:
-                tetNewPassword.setError("Invalid new password!");
+                tetNewPassword.setError("Min password length should be 8 characters!");
                 tetNewPassword.requestFocus();
                 break;
             case empty_reNewPassword:
@@ -85,11 +89,6 @@ public class ChangePasswordActivity extends AppCompatActivity {
     private Ouput validateInput(String currentPassword, String newPassword, String reNewPassword){
         if(currentPassword.isEmpty()){
             return Ouput.empty_password;
-        }
-
-        // HELP ME HERE!
-        if(currentPassword != "123"){
-            return Ouput.wrong_password;
         }
 
         if(newPassword.isEmpty()){
@@ -111,14 +110,43 @@ public class ChangePasswordActivity extends AppCompatActivity {
         return Ouput.valid;
     }
 
-    private void saveNewPassword(String newPassword){
+    private void saveNewPassword(String currentPassword, String newPassword){
 
-        // get auth
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        AuthCredential credential = EmailAuthProvider
+                .getCredential(Common.user.getEmail(), currentPassword);
 
         try {
-            // AND HERE
-            // HOW TO UPDATE PASSWORD
-            Toast.makeText(getApplicationContext(), "Change password successfully!", Toast.LENGTH_SHORT).show();
+            user.reauthenticate(credential)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull @NotNull Task<Void> task) {
+                            if(task.isSuccessful()){
+                                user.updatePassword(newPassword).addOnCompleteListener(
+                                        new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull @NotNull Task<Void> task) {
+                                        if(task.isSuccessful()){
+                                            Toast.makeText(
+                                                    getApplicationContext(),
+                                                    "Change password successfully!",
+                                                    Toast.LENGTH_SHORT).show();
+                                        }
+                                        else {
+                                            Toast.makeText(
+                                                    getApplicationContext(),
+                                                    "Sorry. Change password failed!",
+                                                    Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                            }
+                            else {
+                                tetCurrentPassword.setError("Password is wrong!");
+                                tetCurrentPassword.requestFocus();
+                            }
+                        }
+                    });
         }
         catch (Exception e){
             Toast.makeText(getApplicationContext(), "Sorry. Change password failed!", Toast.LENGTH_SHORT).show();
