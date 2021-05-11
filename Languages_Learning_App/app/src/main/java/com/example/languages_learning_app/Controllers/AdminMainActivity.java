@@ -36,10 +36,10 @@ public class AdminMainActivity extends AppCompatActivity {
                             selectedFragment = new AdminLanguageFragment();
                             break;
                         case R.id.nav_manager:
-                            selectedFragment = new AudioFragment();
+                            selectedFragment = new AdminManagerFragment();
                             break;
                         case R.id.nav_trainee:
-                            selectedFragment = new TestFragment();
+                            selectedFragment = new AdminTraineeFragment();
                             break;
                         case R.id.nav_admin_more:
                             selectedFragment = new MoreFragment();

@@ -1,11 +1,9 @@
 package com.example.languages_learning_app.Controllers;
 
 import android.app.AlertDialog;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,9 +20,7 @@ import android.widget.Toast;
 import com.example.languages_learning_app.Adapters.LanguageAdapter;
 import com.example.languages_learning_app.Common.Common;
 import com.example.languages_learning_app.DAO.LanguageDAO;
-import com.example.languages_learning_app.DAO.UserDAO;
 import com.example.languages_learning_app.DTO.Language;
-import com.example.languages_learning_app.DTO.User;
 import com.example.languages_learning_app.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
@@ -34,7 +30,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class AdminLanguageFragment extends Fragment implements View.OnClickListener{
     RecyclerView recyclerView;
@@ -83,7 +78,7 @@ public class AdminLanguageFragment extends Fragment implements View.OnClickListe
     private void openDialog(Common.mode mode, int position) {
         // Show alert dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        View view = getLayoutInflater().inflate(R.layout.dialog_add_language, null);
+        View view = getLayoutInflater().inflate(R.layout.dialog_language, null);
         alertDialog = builder.create();
         alertDialog.setView(view);
         alertDialog.show();
@@ -108,7 +103,6 @@ public class AdminLanguageFragment extends Fragment implements View.OnClickListe
             }
             if (mode == Common.mode.read){
                 btSetLanguage.setVisibility(View.GONE);
-                edtName.setActivated(false);
             }
         }
 

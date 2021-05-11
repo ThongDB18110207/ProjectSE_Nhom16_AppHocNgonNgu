@@ -11,6 +11,8 @@ public class Common {
     public static String RoleManager = "Manager";
     public static String RoleTrainee = "Trainee";
 
+    public static String defaltPass = "12345678";
+
     public enum mode{
         create,
         read,

@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Controllers.AdminLanguageFragment"
+    tools:context=".Controllers.AdminManagerFragment"
     android:background="#F9F9F9">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvLanguages"
+        android:id="@+id/rvManager"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -17,24 +17,13 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView"
-        tools:listitem="@layout/layout_language" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btOpenLanguageDialog"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:clickable="true"
-        android:src="@android:drawable/ic_input_add"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        tools:listitem="@layout/layout_user" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        app:layout_constraintEnd_toEndOf="@+id/rvLanguages"
+        app:layout_constraintEnd_toEndOf="@+id/rvManager"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -43,13 +32,13 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/tvTitleLanguage"
+                android:id="@+id/tvTitleManager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:background="#FFFFFF"
                 android:ellipsize="none"
-                android:text="Languages"
+                android:text="Manager"
                 android:textAlignment="center"
                 android:textColor="@color/main_color"
                 android:textSize="24sp"
@@ -60,5 +49,16 @@
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btOpenUserDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:src="@android:drawable/ic_input_add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

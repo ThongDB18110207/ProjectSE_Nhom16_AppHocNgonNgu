@@ -115,10 +115,11 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            User user = new User(fullName, phone, email, Common.RoleTrainee);
+                            String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                            User user = new User(userId, fullName, phone, email, Common.RoleTrainee);
 
                             FirebaseDatabase.getInstance().getReference("Users")
-                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                    .child(userId)
                                     .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {

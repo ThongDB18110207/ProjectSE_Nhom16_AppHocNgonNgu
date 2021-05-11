@@ -1,5 +1,6 @@
 package com.example.languages_learning_app.Controllers;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +14,11 @@ import android.widget.Button;
 import com.example.languages_learning_app.Adapters.LanguageAdapter;
 import com.example.languages_learning_app.DTO.Language;
 import com.example.languages_learning_app.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -21,6 +27,8 @@ public class ChooseLanguageActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ArrayList<Language> listLanguage;
     LanguageAdapter languageAdapter;
+
+    DatabaseReference mDatabase;
     private LanguageAdapter.RecyclerViewClickListener listener;
 
     @Override
@@ -29,18 +37,7 @@ public class ChooseLanguageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_choose_language);
 
         setOnClickListener();
-
-        recyclerView = findViewById(R.id.rvLanguages);
-        listLanguage = new ArrayList<>();
-        //listLanguage.add(new Language(R.drawable.flag_of_england,"england", "Tiếng Anh", "Anh"));
-        //listLanguage.add(new Language(R.drawable.flag_of_china, "china", "Tiếng Trung Quốc", "Trung"));
-
-        languageAdapter = new LanguageAdapter(getApplicationContext(), listLanguage, listener);
-
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(gridLayoutManager);
-
-        recyclerView.setAdapter(languageAdapter);
+        setRecyclerView();
 
         back = (Button) findViewById(R.id.btBack);
         back.setOnClickListener(new View.OnClickListener() {
@@ -72,5 +69,37 @@ public class ChooseLanguageActivity extends AppCompatActivity {
 
             }
         };
+    }
+
+    private void setRecyclerView(){
+        listLanguage = new ArrayList<>();
+        recyclerView = findViewById(R.id.rvLanguages);
+
+        languageAdapter = new LanguageAdapter(getApplicationContext(), listLanguage, listener);
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(gridLayoutManager);
+
+        recyclerView.setAdapter(languageAdapter);
+
+        // Get data from firebase
+        mDatabase = FirebaseDatabase.getInstance().getReference("Languages");
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                listLanguage.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    Language language = dataSnapshot.getValue(Language.class);
+                    if(language.getStatus()){
+                        listLanguage.add(language);
+                    }
+                }
+                languageAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
     }
 }
