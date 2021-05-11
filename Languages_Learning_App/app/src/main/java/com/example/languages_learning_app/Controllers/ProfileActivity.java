@@ -1,13 +1,10 @@
 package com.example.languages_learning_app.Controllers;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.languages_learning_app.Common.Common;
@@ -15,16 +12,9 @@ import com.example.languages_learning_app.DAO.UserDAO;
 import com.example.languages_learning_app.DTO.User;
 import com.example.languages_learning_app.R;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 public class ProfileActivity extends AppCompatActivity {
-    
+
     private TextInputEditText tetName, tetEmail, tetPhone;
     private Button btUpdate;
 
@@ -76,10 +66,10 @@ public class ProfileActivity extends AppCompatActivity {
             user.setPhone(phone);
             UserDAO.getInstance().setUserValue(user);
 
-            Toast.makeText(this, "Update profile successfully!", Toast.LENGTH_SHORT);
+            Toast.makeText(getApplicationContext(), "Update profile successfully!", Toast.LENGTH_SHORT).show();
         }
         catch (Exception e){
-            Toast.makeText(this, "Sorry. Update failed!", Toast.LENGTH_SHORT);
+            Toast.makeText(getApplicationContext(), "Sorry. Update failed!", Toast.LENGTH_SHORT).show();
         }
     }
 }

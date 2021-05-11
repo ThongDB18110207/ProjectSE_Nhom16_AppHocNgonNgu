@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Languages_Learning_App">
-        <activity android:name=".Controllers.AdminMainActivity"></activity>
+        <activity android:name=".Controllers.ChangePasswordActivity"></activity>
+        <activity android:name=".Controllers.AdminMainActivity" />
         <activity android:name=".Controllers.MainActivity" />
         <activity android:name=".Controllers.FogotPasswordActivity" />
         <activity android:name=".Controllers.ProfileActivity" />

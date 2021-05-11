@@ -30,7 +30,7 @@ public class MoreFragment extends Fragment {
         });
 
         cvChangePassword.setOnClickListener((View v) -> {
-            startActivity(new Intent(getActivity(), ProfileActivity.class));
+            startActivity(new Intent(getActivity(), ChangePasswordActivity.class));
         });
 
         btLogOut.setOnClickListener((View v) -> {
