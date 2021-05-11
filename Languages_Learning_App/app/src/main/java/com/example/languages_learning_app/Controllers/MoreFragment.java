@@ -9,6 +9,7 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.example.languages_learning_app.R;
@@ -19,13 +20,17 @@ public class MoreFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_more, container, false);
 
-        Button btnShow = (Button) view.findViewById(R.id.showProfile);
-        btnShow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), ProfileActivity.class));
-            }
+        CardView cvManageProfile = (CardView) view.findViewById(R.id.cvManageProfile);
+        CardView cvChangePassword = (CardView) view.findViewById(R.id.cvChangePassword);
+
+        cvManageProfile.setOnClickListener((View v) -> {
+            startActivity(new Intent(getActivity(), ProfileActivity.class));
         });
+
+        cvChangePassword.setOnClickListener((View v) -> {
+            startActivity(new Intent(getActivity(), ProfileActivity.class));
+        });
+
         return view;
     }
 }
