@@ -100,9 +100,9 @@ public class AdminTraineeFragment extends Fragment{
                 listUser.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     User user = dataSnapshot.getValue(User.class);
-                    //if(user.getRole().equals(Common.RoleTrainee)){
+                    if(user.getRole().equals(Common.RoleTrainee)){
                         listUser.add(user);
-                    //}
+                    }
                 }
                 userAdapter.notifyDataSetChanged();
             }
