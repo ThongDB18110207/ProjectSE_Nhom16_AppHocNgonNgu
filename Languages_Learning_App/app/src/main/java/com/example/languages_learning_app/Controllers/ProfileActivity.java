@@ -24,10 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class ProfileActivity extends AppCompatActivity {
-
-    private FirebaseUser user;
-    private DatabaseReference reference;
-    private String userID;
+    
     private TextInputEditText tetName, tetEmail, tetPhone;
     private Button btUpdate;
 
@@ -40,22 +37,7 @@ public class ProfileActivity extends AppCompatActivity {
         tetEmail = (TextInputEditText) findViewById(R.id.tetEmail);
         tetPhone = (TextInputEditText) findViewById(R.id.tetPhone);
 
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        reference = FirebaseDatabase.getInstance().getReference("Users");
-        userID = user.getUid();
-
-        reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User userProfile = snapshot.getValue(User.class);
-                fillInUserInfo(userProfile);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(ProfileActivity.this, "Something wrong happen!", Toast.LENGTH_LONG).show();
-            }
-        });
+        fillInUserInfo(Common.user);
 
         btUpdate = (Button) findViewById(R.id.btUpdate);
         btUpdate.setOnClickListener((View v) -> {
