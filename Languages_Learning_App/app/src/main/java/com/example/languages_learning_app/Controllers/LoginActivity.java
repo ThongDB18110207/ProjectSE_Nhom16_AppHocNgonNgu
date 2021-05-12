@@ -165,14 +165,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         if (Common.user.getRole().equals(Common.RoleAdmin)) {
                             if (rbAdmin.isChecked()) {
                                 startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
+                                return;
                             }
                             if (rbTrainee.isChecked()){
                                 startActivity(new Intent(LoginActivity.this, ChooseLanguageActivity.class));
+                                return;
                             }
                         }
                         if (Common.user.getRole().equals(Common.RoleTrainee)) {
                             if (rbTrainee.isChecked()){
                                 startActivity(new Intent(LoginActivity.this, ChooseLanguageActivity.class));
+                                return;
                             }
                         }
                         Toast.makeText(LoginActivity.this, "Your account doesn't have permission!", Toast.LENGTH_LONG).show();
