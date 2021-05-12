@@ -155,6 +155,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
                 else {
                     Common.user = task.getResult().getValue(User.class);
+                    
+                    if(!Common.user.isActive()){
+                        Toast.makeText(LoginActivity.this, "Your account has been clocked!", Toast.LENGTH_LONG).show();
+                        return;
+                    }
 
                     if(Common.user != null){
                         if (Common.user.getRole().equals(Common.RoleAdmin)) {
@@ -170,6 +175,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 startActivity(new Intent(LoginActivity.this, ChooseLanguageActivity.class));
                             }
                         }
+                        Toast.makeText(LoginActivity.this, "Your account doesn't have permission!", Toast.LENGTH_LONG).show();
                     }
                 }
             }

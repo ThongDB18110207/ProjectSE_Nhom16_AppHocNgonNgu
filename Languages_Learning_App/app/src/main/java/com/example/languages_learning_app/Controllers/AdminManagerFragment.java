@@ -105,6 +105,7 @@ public class AdminManagerFragment extends Fragment implements View.OnClickListen
 
             if(mode == Common.mode.update){
                 btSetUser.setText("Update");
+                edtEmail.setEnabled(false);
             }
             if (mode == Common.mode.read){
                 btSetUser.setVisibility(View.GONE);
@@ -137,6 +138,13 @@ public class AdminManagerFragment extends Fragment implements View.OnClickListen
                 }
 
                 if(mode == Common.mode.create){
+                    for(int i=0;i<listUser.size();i++){
+                        if(email.equals(listUser.get(i).getEmail())){
+                            edtEmail.setError("Email is duplicated");
+                            return;
+                        }
+                    }
+
                     User user = new User("", fullName, phone, email, Common.RoleManager);
                     createUser(user);
                 }
