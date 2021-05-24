@@ -18,12 +18,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.languages_learning_app.Adapters.LanguageAdapter;
 import com.example.languages_learning_app.Adapters.UserAdapter;
 import com.example.languages_learning_app.Common.Common;
-import com.example.languages_learning_app.DAO.LanguageDAO;
 import com.example.languages_learning_app.DAO.UserDAO;
-import com.example.languages_learning_app.DTO.Language;
 import com.example.languages_learning_app.DTO.User;
 import com.example.languages_learning_app.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -83,7 +80,7 @@ public class AdminManagerFragment extends Fragment implements View.OnClickListen
     private void openDialog(Common.mode mode, int position) {
         // Show alert dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        View view = getLayoutInflater().inflate(R.layout.dialog_user, null);
+        View view = getLayoutInflater().inflate(R.layout.dialog_account, null);
         alertDialog = builder.create();
         alertDialog.setView(view);
         alertDialog.show();

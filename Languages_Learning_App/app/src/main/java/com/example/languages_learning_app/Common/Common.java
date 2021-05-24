@@ -6,6 +6,7 @@ import com.example.languages_learning_app.DTO.User;
 public class Common {
     public static User user;
     public static Language language;
+    public static String role = "Admin";
 
     public static String RoleAdmin = "Admin";
     public static String RoleManager = "Manager";

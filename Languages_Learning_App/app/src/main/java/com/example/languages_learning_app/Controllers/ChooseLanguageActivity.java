@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.languages_learning_app.Adapters.LanguageAdapter;
+import com.example.languages_learning_app.Common.Common;
 import com.example.languages_learning_app.DTO.Language;
 import com.example.languages_learning_app.R;
 import com.google.firebase.database.DataSnapshot;
@@ -52,11 +53,22 @@ public class ChooseLanguageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v, int position) {
                 finish();
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+
+                Intent intent;
+
+                if(Common.role == Common.RoleTrainee){
+                    intent = new Intent(getApplicationContext(), MainActivity.class);
+                } else {
+                    intent = new Intent(getApplicationContext(), ManagerMainActivity.class);
+                }
+
+
                 intent.putExtra("LanguageN", listLanguage.get(position).getName());
                 intent.putExtra("LanguageDN", listLanguage.get(position).getDisplayName());
                 //Convert int to string
                 intent.putExtra("LanguageIM", String.valueOf(listLanguage.get(position).getImage()));
+
+                Common.language = listLanguage.get(position);
                 startActivity(intent);
             }
 
