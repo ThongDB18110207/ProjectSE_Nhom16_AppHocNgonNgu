@@ -15,7 +15,7 @@ import com.example.languages_learning_app.Adapters.LanguageAdapter;
 import com.example.languages_learning_app.Common.Common;
 import com.example.languages_learning_app.DTO.Language;
 import com.example.languages_learning_app.R;
-import com.example.languages_learning_app.Views.Manager.Fragments.ManagerMainActivity;
+import com.example.languages_learning_app.Views.Manager.ManagerMainActivity;
 import com.example.languages_learning_app.Views.Trainee.TraineeMainActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

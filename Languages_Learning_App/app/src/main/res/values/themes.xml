@@ -13,13 +13,4 @@
         <item name="android:statusBarColor" tools:targetApi="l">@color/main_color</item>
         <!-- Customize your theme here. -->
     </style>
-
-    <!-- Custom style for checkbox -->
-    <style name="white_checkBox" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- selected checkbox color -->
-        <item name="colorAccent">@color/white</item>
-        <!-- default/unselected checkbox color -->
-        <item name="android:textColorSecondary">@color/white</item>
-    </style>
-
 </resources>
