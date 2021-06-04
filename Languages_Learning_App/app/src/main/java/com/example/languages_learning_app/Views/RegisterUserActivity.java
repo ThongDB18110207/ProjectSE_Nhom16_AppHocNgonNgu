@@ -1,8 +1,5 @@
 package com.example.languages_learning_app.Views;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -11,6 +8,9 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.languages_learning_app.Common.Common;
 import com.example.languages_learning_app.DTO.User;
@@ -116,7 +116,12 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                            User user = new User(userId, fullName, phone, email, Common.RoleTrainee);
+                            User user = new User.UserBuilder(Common.RoleTrainee, false)
+                                    .setUserId(userId)
+                                    .setFullName(fullName)
+                                    .setEmail(email)
+                                    .setPhone(phone)
+                                    .build();
 
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(userId)

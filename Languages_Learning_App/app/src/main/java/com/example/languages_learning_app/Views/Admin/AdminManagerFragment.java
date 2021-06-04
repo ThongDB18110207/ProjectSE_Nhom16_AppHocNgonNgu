@@ -2,12 +2,6 @@ package com.example.languages_learning_app.Views.Admin;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Patterns;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -17,6 +11,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.languages_learning_app.Adapters.UserAdapter;
 import com.example.languages_learning_app.Common.Common;
@@ -142,7 +141,12 @@ public class AdminManagerFragment extends Fragment implements View.OnClickListen
                         }
                     }
 
-                    User user = new User("", fullName, phone, email, Common.RoleManager);
+                    User user = new User.UserBuilder(Common.RoleManager, false)
+                            .setFullName(fullName)
+                            .setPhone(phone)
+                            .setEmail(email)
+                            .build();
+
                     createUser(user);
                 }
                 if (mode == Common.mode.update){
