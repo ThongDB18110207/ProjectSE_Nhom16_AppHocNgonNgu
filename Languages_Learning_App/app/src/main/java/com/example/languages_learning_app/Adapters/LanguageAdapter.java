@@ -45,8 +45,8 @@ public class LanguageAdapter extends RecyclerView.Adapter<LanguageAdapter.ViewHo
     public void onBindViewHolder(@NonNull LanguageAdapter.ViewHolder holder, int position) {
         Language language = listLanguage.get(position);
 
-        holder.tvLanguage.setText(language.getDisplayName());
         holder.imageView.setImageResource(language.getImage());
+        holder.tvLanguage.setText(language.getDisplayName());
         holder.rbIsChecked.setChecked(language.isStatus());
     }
 
