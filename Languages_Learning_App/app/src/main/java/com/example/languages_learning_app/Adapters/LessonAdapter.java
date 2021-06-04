@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -14,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.languages_learning_app.DTO.Language;
 import com.example.languages_learning_app.DTO.Lesson;
 import com.example.languages_learning_app.R;
 
@@ -37,7 +35,7 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.ViewHolder
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.layout_lesson, parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_lesson, parent,false);
 
         return new ViewHolder(view);
     }

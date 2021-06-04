@@ -1,5 +1,7 @@
 package com.example.languages_learning_app.DTO;
 
+import android.text.format.DateFormat;
+
 import java.util.Date;
 
 public class User {
@@ -19,7 +21,7 @@ public class User {
         this.role = role;
         this.isActive = true;
 
-        createDate = android.text.format.DateFormat.format("yyyy-MM-dd hh:mm:ss", new java.util.Date()).toString();
+        createDate = DateFormat.format("yyyy-MM-dd hh:mm:ss", new java.util.Date()).toString();
     }
 
     public String getUserId() {

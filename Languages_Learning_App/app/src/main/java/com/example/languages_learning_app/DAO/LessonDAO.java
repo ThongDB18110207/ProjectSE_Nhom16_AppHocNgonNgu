@@ -1,5 +1,6 @@
 package com.example.languages_learning_app.DAO;
 
+import com.example.languages_learning_app.Common.Common;
 import com.example.languages_learning_app.DTO.Language;
 import com.example.languages_learning_app.DTO.Lesson;
 import com.google.firebase.database.DatabaseReference;
@@ -26,14 +27,20 @@ public class LessonDAO<changeIsActivedLanguage> {
     }
 
     public void setLessonValue(Lesson lesson){
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child(path).child(String.valueOf(lesson.getId())).setValue(lesson);
+        mDatabase = FirebaseDatabase.getInstance().getReference(path);
+
+        if(lesson.getId() == null) {
+            String key = mDatabase.push().getKey();
+            lesson.setId(key);
+        }
+
+        mDatabase.child(Common.language.getId()).child(lesson.getId()).setValue(lesson);
     }
 
-    public boolean deleteLesson(int id) {
+    public boolean deleteLesson(String id) {
         try {
-            mDatabase = FirebaseDatabase.getInstance().getReference();
-            mDatabase.child(path).child(String.valueOf(id)).removeValue();
+            mDatabase = FirebaseDatabase.getInstance().getReference(path);
+            mDatabase.child(Common.language.getId()).child(id).removeValue();
             return true;
         } catch (Error error){
             return false;
@@ -41,7 +48,7 @@ public class LessonDAO<changeIsActivedLanguage> {
     }
 
     public void changeStatusLesson(Lesson lesson){
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child(path).child(String.valueOf(lesson.getId())).child("status").setValue(!lesson.isStatus());
+        mDatabase = FirebaseDatabase.getInstance().getReference(path);
+        mDatabase.child(Common.language.getId()).child(lesson.getId()).child("status").setValue(!lesson.isStatus());
     }
 }

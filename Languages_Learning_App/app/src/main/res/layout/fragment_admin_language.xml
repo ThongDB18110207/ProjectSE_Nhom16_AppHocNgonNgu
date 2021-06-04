@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Controllers.AdminLanguageFragment"
+    tools:context=".Views.Admin.AdminLanguageFragment"
     android:background="#F9F9F9">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -17,7 +17,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView"
-        tools:listitem="@layout/layout_language" />
+        tools:listitem="@layout/item_language" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btOpenLanguageDialog"

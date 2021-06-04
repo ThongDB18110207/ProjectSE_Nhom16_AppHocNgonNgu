@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Controllers.AdminTraineeFragment"
+    tools:context=".Views.Admin.AdminTraineeFragment"
     android:background="#F9F9F9">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -17,7 +17,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView"
-        tools:listitem="@layout/layout_account" />
+        tools:listitem="@layout/item_account" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"

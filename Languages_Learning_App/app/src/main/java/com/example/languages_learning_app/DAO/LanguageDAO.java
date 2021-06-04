@@ -35,13 +35,17 @@ public class LanguageDAO<changeIsActivedLanguage> {
 
     public void setLanguageValue(Language language){
         mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        String key = mDatabase.push().getKey();
+        language.setId(key);
+
         mDatabase.child(path).child(String.valueOf(language.getId())).setValue(language);
     }
 
-    public boolean deleteLanguage(int id) {
+    public boolean deleteLanguage(String id) {
         try {
             mDatabase = FirebaseDatabase.getInstance().getReference();
-            mDatabase.child(path).child(String.valueOf(id)).removeValue();
+            mDatabase.child(path).child(id).removeValue();
             return true;
         } catch (Error error){
             return false;
@@ -50,6 +54,6 @@ public class LanguageDAO<changeIsActivedLanguage> {
 
     public void changeStatusLanguage(Language language){
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child(path).child(String.valueOf(language.getId())).child("status").setValue(!language.getStatus());
+        mDatabase.child(path).child(String.valueOf(language.getId())).child("status").setValue(!language.isStatus());
     }
 }
