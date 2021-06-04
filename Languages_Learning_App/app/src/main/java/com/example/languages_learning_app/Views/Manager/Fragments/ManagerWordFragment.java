@@ -1,6 +1,7 @@
 package com.example.languages_learning_app.Views.Manager.Fragments;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import com.example.languages_learning_app.Adapters.LessonAdapter;
 import com.example.languages_learning_app.Common.Common;
 import com.example.languages_learning_app.DTO.Lesson;
 import com.example.languages_learning_app.R;
+import com.example.languages_learning_app.Views.Manager.ManagerVocabularyActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -79,7 +81,15 @@ public class ManagerWordFragment extends Fragment {
         listener = new LessonAdapter.RecyclerViewClickListener() {
             @Override
             public void onClick(View v, int position) {
+                Lesson lesson = listLesson.get(position);
 
+                Bundle bundle = new Bundle();
+                bundle.putString("lessonId", lesson.getId());
+                bundle.putString("lessonName", lesson.getName());
+
+                Intent intent = new Intent(getActivity(), ManagerVocabularyActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
 
             @Override
