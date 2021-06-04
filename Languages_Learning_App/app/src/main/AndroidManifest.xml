@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Languages_Learning_App">
-        <activity android:name=".Views.Manager.ManagerMainActivity" />
+        <activity android:name=".Views.Manager.Fragments.ManagerMainActivity" />
         <activity android:name=".Views.ChangePasswordActivity" />
         <activity android:name=".Views.Admin.AdminMainActivity" />
         <activity android:name=".Views.Trainee.TraineeMainActivity" />

@@ -1,4 +1,4 @@
-package com.example.languages_learning_app.Views.Manager;
+package com.example.languages_learning_app.Views.Manager.Fragments;
 
 import android.os.Bundle;
 
@@ -12,10 +12,10 @@ import com.example.languages_learning_app.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ManagerPracticeFragment#newInstance} factory method to
+ * Use the {@link ManagerMusicFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ManagerPracticeFragment extends Fragment {
+public class ManagerMusicFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class ManagerPracticeFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public ManagerPracticeFragment() {
+    public ManagerMusicFragment() {
         // Required empty public constructor
     }
 
@@ -36,11 +36,11 @@ public class ManagerPracticeFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ManagerPracticeFragment.
+     * @return A new instance of fragment ManagerMusicFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ManagerPracticeFragment newInstance(String param1, String param2) {
-        ManagerPracticeFragment fragment = new ManagerPracticeFragment();
+    public static ManagerMusicFragment newInstance(String param1, String param2) {
+        ManagerMusicFragment fragment = new ManagerMusicFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,6 +61,6 @@ public class ManagerPracticeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_manager_practice, container, false);
+        return inflater.inflate(R.layout.fragment_manager_music, container, false);
     }
 }
