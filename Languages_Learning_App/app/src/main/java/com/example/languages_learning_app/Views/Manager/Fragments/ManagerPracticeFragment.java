@@ -1,4 +1,4 @@
-package com.example.languages_learning_app.Views.Manager;
+package com.example.languages_learning_app.Views.Manager.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;

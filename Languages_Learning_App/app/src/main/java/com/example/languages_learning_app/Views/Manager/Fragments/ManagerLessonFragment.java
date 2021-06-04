@@ -1,4 +1,4 @@
-package com.example.languages_learning_app.Views.Manager;
+package com.example.languages_learning_app.Views.Manager.Fragments;
 
 import android.app.AlertDialog;
 import android.os.Bundle;

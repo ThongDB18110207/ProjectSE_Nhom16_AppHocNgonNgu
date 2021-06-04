@@ -1,4 +1,4 @@
-package com.example.languages_learning_app.Views.Manager;
+package com.example.languages_learning_app.Views.Manager.Fragments;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
