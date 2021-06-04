@@ -25,7 +25,7 @@ public class VocabularyDAO<changeIsActivedLanguage> {
         path = "Vocabularies";
     }
 
-    public boolean deleteLesson(String id) {
+    public boolean delete(String id) {
         try {
             mDatabase = FirebaseDatabase.getInstance().getReference(path);
             mDatabase.child(Common.language.getId()).child(id).removeValue();

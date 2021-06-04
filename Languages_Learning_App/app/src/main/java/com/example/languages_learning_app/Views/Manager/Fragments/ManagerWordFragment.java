@@ -1,4 +1,4 @@
-package com.example.languages_learning_app.Views.Manager;
+package com.example.languages_learning_app.Views.Manager.Fragments;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -84,8 +84,7 @@ public class ManagerWordFragment extends Fragment {
                 Lesson lesson = listLesson.get(position);
 
                 Bundle bundle = new Bundle();
-                bundle.putString("lessonId", lesson.getId());
-                bundle.putString("lessonName", lesson.getName());
+                bundle.putSerializable("lesson", lesson);
 
                 Intent intent = new Intent(getActivity(), ManagerVocabularyActivity.class);
                 intent.putExtras(bundle);

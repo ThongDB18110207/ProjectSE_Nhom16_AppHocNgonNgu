@@ -7,9 +7,9 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -17,6 +17,7 @@ import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +29,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.languages_learning_app.Adapters.Manager.VocabularyAdapter;
 import com.example.languages_learning_app.Common.Common;
+import com.example.languages_learning_app.DAO.LessonDAO;
 import com.example.languages_learning_app.DAO.VocabularyDAO;
+import com.example.languages_learning_app.DTO.Lesson;
 import com.example.languages_learning_app.DTO.Vocabulary;
 import com.example.languages_learning_app.R;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -50,47 +53,62 @@ import java.util.ArrayList;
 
 public class ManagerVocabularyActivity extends AppCompatActivity {
 
+    // Const
     private static final int PICK_IMAGE_REQUEST = 1;
+    private static final int INSERT_MODE = 1;
+    private static final int UPDATE_MODE = 2;
 
+    // Variables used for recycler view
     private RecyclerView recyclerView;
     private ArrayList<Vocabulary> vocabularies;
     private VocabularyAdapter adapter;
     private VocabularyAdapter.RecyclerViewClickListener listener;
 
+    // Variables used for mapping views
     private FloatingActionButton fabAddVocab;
+    private ProgressBar progressBar;
+    private TextView txtTittle;
     private EditText edWord, edMeaning;
     private ImageView imgVocab;
 
+    // Variables used for connecting with Firebase
     private StorageReference mStorage;
     private DatabaseReference mDataBase;
     private Uri mImageUri;
     private StorageTask mUploadTask;
 
-    private String lessonId, lessonName;
+    // Current lesson - it means vocabs showed in the activity are on this lesson
+    private Lesson lesson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_vocabulary);
 
-        // Get data from intent
+        // Get data from intent (data is current lesson)
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
-            lessonId = bundle.getString("lessonId");
-            lessonName = bundle.getString("lessonName");
+            lesson = (Lesson) bundle.getSerializable("lesson");
         }
 
+        // Firebase storage and database
         mStorage = FirebaseStorage.getInstance().getReference("Vocabularies");
         mDataBase = FirebaseDatabase.getInstance().getReference("Vocabularies/" + Common.language.getId());
 
+        // Tool bar on the top on screen
         setToolbar();
+
+        // For recycler view
         setOnClickListener();
         setRecyclerView();
 
+        // Mapping progress bar and float action button
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
         fabAddVocab = findViewById(R.id.fabAdd);
         fabAddVocab.setOnClickListener((View v) -> {
-            openDialog();
+            // Open dialog to insert new word when clicking on float action button
+            openDialog(INSERT_MODE, -1);
         });
     }
 
@@ -104,11 +122,18 @@ public class ManagerVocabularyActivity extends AppCompatActivity {
 
         // Set name for activity
         TextView txtToolbarName = findViewById(R.id.activity_name);
-        txtToolbarName.setText(lessonName);
+        txtToolbarName.setText(lesson.getName());
     }
 
-    private void openDialog() {
+    /**
+     * Open dialog to enter vocabulary's info
+     * @param mode: insert or update
+     * @param position: position of selected vocab (equal -1 if mode is insert)
+     */
+    private void openDialog(int mode, int position ) {
         final Dialog dialog = new Dialog(this);
+
+        // Set some attributes for dialog
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_add_vocabulary);
 
@@ -124,29 +149,56 @@ public class ManagerVocabularyActivity extends AppCompatActivity {
         windowAttributes.gravity = Gravity.CENTER;
         window.setAttributes(windowAttributes);
 
+        // Mapping
+        txtTittle = dialog.findViewById(R.id.txtTittle);
         edWord = dialog.findViewById(R.id.edWord);
         edMeaning = dialog.findViewById(R.id.edMeaning);
 
+        // Open file chooser when clicking on the image
         imgVocab = dialog.findViewById(R.id.imgVocab);
         imgVocab.setOnClickListener((View v) -> {
             openFileChooser();
         });
 
+        // Button save and cancel
         Button btnSave = dialog.findViewById(R.id.btnSave);
         Button btnCancel = dialog.findViewById(R.id.btnClose);
 
+        // Update mode: get vocabulary in list with position
+        if(mode == UPDATE_MODE) {
+            Vocabulary vocabulary = vocabularies.get(position);
+
+            // Set some information of vocab to dialog
+            txtTittle.setText("Chỉnh sửa từ vựng");
+            edWord.setText(vocabulary.getWord());
+            edMeaning.setText(vocabulary.getMeaning());
+            Picasso.get().load(vocabulary.getImageUrl())
+                    .fit()
+                    .centerCrop()
+                    .into(imgVocab);
+        }
+
+        // Dismiss dialog when clicking cancel
         btnCancel.setOnClickListener((View v) -> {
             dialog.dismiss();
         });
 
+        // Save vocab
         btnSave.setOnClickListener((View v) -> {
-            saveNewVocab();
+            if(mUploadTask != null && mUploadTask.isInProgress()) {
+                // Show notice if user click on button when task is not successful
+                Toast.makeText(this, "Đang lưu...", Toast.LENGTH_SHORT).show();
+            } else {
+                // Call save with mode and position
+                saveVocab(mode, position);
+            }
             dialog.dismiss();
         });
 
         dialog.show();
     }
 
+    // Open file chooser
     private void openFileChooser(){
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -158,6 +210,7 @@ public class ManagerVocabularyActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        // Get image's uri and show it into image view
         if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             mImageUri = data.getData();
 
@@ -165,6 +218,7 @@ public class ManagerVocabularyActivity extends AppCompatActivity {
         }
     }
 
+    // Get file extension
     private String getFileExtension(Uri uri) {
         ContentResolver contentResolver = getContentResolver();
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
@@ -172,11 +226,47 @@ public class ManagerVocabularyActivity extends AppCompatActivity {
     }
 
 
-    private void saveNewVocab() {
+    /**
+     * Save vocabulary to database
+     * @param mode: insert or update
+     * @param position: position of selected vocab (equal -1 if mode is insert)
+     */
+    private void saveVocab(int mode, int position) {
         if(mImageUri != null) {
-            StorageReference fileReference = mStorage.child(System.currentTimeMillis()
-                    + "." + getFileExtension(mImageUri));
 
+            String vocabId = mDataBase.push().getKey();
+            String vocabWord = edWord.getText().toString().trim();
+            String vocabMeaning = edMeaning.getText().toString().trim();
+
+            if(vocabWord.equals("")) {
+                edWord.setError("Từ vựng không được để trống!");
+                return;
+            }
+
+            if(vocabMeaning.equals("")) {
+                edMeaning.setError("Nghĩa không được để trống!");
+            }
+
+            Vocabulary vocab;
+
+            if(mode == INSERT_MODE) {
+                vocab = new Vocabulary.VocabularyBuilder(vocabId, vocabWord, vocabMeaning)
+                        .setLessonId(lesson.getId())
+                        .build();
+            } else {
+                vocab = vocabularies.get(position);
+                vocab.setWord(vocabWord);
+                vocab.setMeaning(vocabMeaning);
+            }
+
+            // This comment will save file with file extension.
+            // But I don't use it because I want file name is as same as vocab id
+            // It's easy for when I upload or delete a word --> I will delete file with name = vocab id
+            // StorageReference fileReference = mStorage.child(vocab.getId() + "." + getFileExtension(mImageUri));
+            StorageReference fileReference = mStorage.child(vocab.getId());
+
+            // Show progress bar when start task
+            progressBar.setVisibility(View.VISIBLE);
             mUploadTask = fileReference.putFile(mImageUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -184,30 +274,20 @@ public class ManagerVocabularyActivity extends AppCompatActivity {
                             fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
+                                    // Set image url
+                                    vocab.setImageUrl(uri.toString());
+                                    // Save vocab into Firebase Database
+                                    mDataBase.child(vocab.getId()).setValue(vocab);
 
-                                    String vocabId = mDataBase.push().getKey();
-                                    String vocabWord = edWord.getText().toString().trim();
-                                    String vocabMeaning = edMeaning.getText().toString().trim();
-
-                                    if(vocabWord.equals("")) {
-                                        edWord.setError("Từ vựng không được để trống!");
-                                        return;
+                                    // If mode is insert -> increase word count 1
+                                    if (mode == INSERT_MODE) {
+                                        lesson.setWordCount(lesson.getWordCount() + 1);
+                                        LessonDAO.getInstance().setLessonValue(lesson);
                                     }
 
-                                    if(vocabMeaning.equals("")) {
-                                        edMeaning.setError("Nghĩa không được để trống!");
-                                    }
-
-                                    Log.e("Lesson Id", lessonId);
-                                    Vocabulary vocab = new Vocabulary.VocabularyBuilder(vocabId, vocabWord, vocabMeaning)
-                                            .setLessonId(lessonId)
-                                            .setImageUrl(uri.toString())
-                                            .build();
-
-
-                                    mDataBase.child(vocabId).setValue(vocab);
-
-                                    Toast.makeText(ManagerVocabularyActivity.this, "Thêm từ vựng thành công!", Toast.LENGTH_SHORT).show();
+                                    // Hide progress bar when task finish
+                                    progressBar.setVisibility(View.GONE);
+                                    Toast.makeText(ManagerVocabularyActivity.this, "Lưu thành công!", Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }
@@ -215,6 +295,8 @@ public class ManagerVocabularyActivity extends AppCompatActivity {
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
+                            // Hide progress bar when task fail
+                            progressBar.setVisibility(View.GONE);
                             Toast.makeText(ManagerVocabularyActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -227,17 +309,20 @@ public class ManagerVocabularyActivity extends AppCompatActivity {
         listener = new VocabularyAdapter.RecyclerViewClickListener() {
             @Override
             public void onClick(View v, int position) {
-                //openDialog(Common.mode.read, position);
+                // Open vocabulary dialog when clicking on an item in recycler view
+                openDialog(UPDATE_MODE, position);
             }
 
             @Override
             public void onCreateContextMenu(ContextMenu menu, int position) {
-                menu.add(position,0,0,"Edit");
-                menu.add(position,1,1,"Delete");
+                // Add context menu
+                menu.add(position,0,0,"Chỉnh sửa");
+                menu.add(position,1,1,"Xóa");
             }
 
             @Override
             public void onTouch(View v, int position) {
+                // Change status of vocabulary when check/uncheck
                 if(position >= 0) {
                     Vocabulary vocabulary = vocabularies.get(position);
                     VocabularyDAO.getInstance().changeStatus(vocabulary);
@@ -246,21 +331,48 @@ public class ManagerVocabularyActivity extends AppCompatActivity {
         };
     }
 
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        int position = item.getGroupId();
+        switch (item.getItemId()){
+            case 0:
+                // Open dialog with update mode when selecting update
+                openDialog(UPDATE_MODE, position);
+                return true;
+            case 1:
+                // Delete vocabulary when selecting delete
+                Vocabulary vocabulary = vocabularies.get(position);
+                if(VocabularyDAO.getInstance().delete(vocabulary.getId())){
+                    // Delete file in storage with have name = vocab id
+                    StorageReference fileReference = mStorage.child(vocabulary.getId());
+                    fileReference.delete();
+
+                    // Decrease word count 1
+                    lesson.setWordCount(lesson.getWordCount() - 1);
+                    LessonDAO.getInstance().setLessonValue(lesson);
+
+                    Toast.makeText(this, "Xóa từ vựng thành công!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Đã xảy ra lỗi. Vui lòng thử lại!", Toast.LENGTH_SHORT).show();
+                }
+                return true;
+        }
+        return super.onContextItemSelected(item);
+    }
+
     private void setRecyclerView(){
-        recyclerView = findViewById(R.id.rvListVocabularies);
-
         vocabularies = new ArrayList<>();
-
+        recyclerView = findViewById(R.id.rvListVocabularies);
         adapter = new VocabularyAdapter(this, vocabularies, listener);
-
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(gridLayoutManager);
 
         recyclerView.setAdapter(adapter);
 
         // Get data from firebase
+        // Data is list vocabularies in current lesson
         mDataBase = FirebaseDatabase.getInstance().getReference("Vocabularies").child(Common.language.getId());
-        Query query = mDataBase.orderByChild("lessonId").equalTo(lessonId);
+        Query query = mDataBase.orderByChild("lessonId").equalTo(lesson.getId());
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
