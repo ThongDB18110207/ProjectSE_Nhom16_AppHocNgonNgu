@@ -1,66 +1,96 @@
 package com.example.languages_learning_app.Views.Manager;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.example.languages_learning_app.Adapters.Manager.LessonPracticeAdapter;
+import com.example.languages_learning_app.Common.Common;
+import com.example.languages_learning_app.DTO.Lesson;
 import com.example.languages_learning_app.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ManagerPracticeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.io.Serializable;
+import java.util.ArrayList;
+
+
 public class ManagerPracticeFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    RecyclerView recyclerView;
+    ArrayList<Lesson> lessons;
+    LessonPracticeAdapter adapter;
+    DatabaseReference mDatabase;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private LessonPracticeAdapter.RecyclerViewClickListener listener;
 
-    public ManagerPracticeFragment() {
-        // Required empty public constructor
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+
+        View root = inflater.inflate(R.layout.fragment_manager_practice, container, false);
+
+        setOnClickListener();
+        setRecyclerView(root);
+
+        return root;
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ManagerPracticeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ManagerPracticeFragment newInstance(String param1, String param2) {
-        ManagerPracticeFragment fragment = new ManagerPracticeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    private void setOnClickListener() {
+        listener = new LessonPracticeAdapter.RecyclerViewClickListener() {
+            @Override
+            public void onClick(View v, int position) {
+                Intent intent = new Intent(getActivity(), ManagerPracticeActivity.class );
+
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("lesson", (Serializable)lessons.get(position));
+                intent.putExtras(bundle);
+
+                startActivity(intent);
+            }
+        };
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    private void setRecyclerView(View root){
+        recyclerView = root.findViewById(R.id.rvLessonPractice);
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_manager_practice, container, false);
+        lessons = new ArrayList<>();
+
+        adapter = new LessonPracticeAdapter(getContext(), lessons, listener);
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(gridLayoutManager);
+
+        recyclerView.setAdapter(adapter);
+
+        // Get data from firebase
+        mDatabase = FirebaseDatabase.getInstance().getReference("Lessons");
+        mDatabase.child(Common.language.getId()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                lessons.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    Lesson lesson = dataSnapshot.getValue(Lesson.class);
+                    lessons.add(lesson);
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

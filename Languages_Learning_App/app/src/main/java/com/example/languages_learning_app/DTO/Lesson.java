@@ -2,7 +2,9 @@ package com.example.languages_learning_app.DTO;
 
 import android.text.format.DateFormat;
 
-public class Lesson {
+import java.io.Serializable;
+
+public class Lesson implements Serializable {
     private String id;
     private String languageId;
     private int image;

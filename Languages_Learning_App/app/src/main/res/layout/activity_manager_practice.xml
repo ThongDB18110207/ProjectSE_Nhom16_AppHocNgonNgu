@@ -4,16 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F9F9F9"
-    tools:context=".Views.Students.StudentTuitionActivity">
-
-    <include
-        android:id="@+id/include"
-        layout="@layout/toolbar" />
-
-    <!-- Schedule Card View -->
-
-    <!-- Class Card View -->
+    tools:context=".Views.Manager.ManagerPracticeActivity">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvPaidTuition"
@@ -36,21 +27,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="ĐÃ ĐÓNG"
+                android:text="CÂU DỄ"
                 android:textAlignment="center"
                 android:textColor="@color/main_color"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvPaidTuition" />
+                app:layout_constraintTop_toBottomOf="@+id/tvEasyPracticeCount" />
 
             <TextView
-                android:id="@+id/tvPaidTuition"
+                android:id="@+id/tvEasyPracticeCount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="0 VND"
+                android:text="1 CÂU"
                 android:textAlignment="center"
                 android:textColor="@color/main_color"
                 android:textSize="20sp"
@@ -83,22 +74,22 @@
 
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="CÒN PHẢI ĐÓNG"
+                android:text="CÂU KHÓ"
                 android:textAlignment="center"
                 android:textColor="@color/holo_red_light"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvMuchPaidTuition" />
+                app:layout_constraintTop_toBottomOf="@+id/tvHardPracticeCount" />
 
             <TextView
-                android:id="@+id/tvMuchPaidTuition"
+                android:id="@+id/tvHardPracticeCount"
                 android:layout_width="match_parent"
 
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="0 VND"
+                android:text="10 CÂU"
                 android:textAlignment="center"
                 android:textColor="@color/holo_red_light"
                 android:textSize="20sp"
@@ -110,18 +101,36 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
+    <include
+        android:id="@+id/include"
+        layout="@layout/toolbar">
+    </include>
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvStudentTuiton"
+        android:id="@+id/rvLesson"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cvPaidTuition"
-        tools:listitem="@layout/item_student_tuition" />
+        tools:listitem="@layout/item_manager_practice" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btOpenLessonDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:src="@android:drawable/ic_input_add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

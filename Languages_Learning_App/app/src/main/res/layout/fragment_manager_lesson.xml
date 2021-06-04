@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Views.Manager.ManagerLessonFragment"
-    android:background="#F9F9F9">
+    android:background="@color/background_color"
+    tools:context=".Views.Manager.ManagerLessonFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvLesson"
