@@ -1,4 +1,4 @@
-package com.example.languages_learning_app.Adapters.Manager;
+package com.example.languages_learning_app.Adapters.Trainee;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,21 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.languages_learning_app.DTO.Lesson;
+import com.example.languages_learning_app.DTO.Score;
 import com.example.languages_learning_app.R;
 
 import java.util.ArrayList;
 
 
-public class LessonPracticeAdapter extends RecyclerView.Adapter<LessonPracticeAdapter.ViewHolder>{
+public class ScorePracticeAdapter extends RecyclerView.Adapter<ScorePracticeAdapter.ViewHolder> {
     Context context;
-    ArrayList<Lesson> listLesson;
+    ArrayList<Score> scores;
 
     private RecyclerViewClickListener listener;
 
 
-    public LessonPracticeAdapter(Context context, ArrayList<Lesson> listLesson, RecyclerViewClickListener listener){
+    public ScorePracticeAdapter(Context context, ArrayList<Score> scores, RecyclerViewClickListener listener){
         this.context = context;
-        this.listLesson = listLesson;
+        this.scores = scores;
         this.listener = listener;
     }
 
@@ -37,21 +38,22 @@ public class LessonPracticeAdapter extends RecyclerView.Adapter<LessonPracticeAd
     }
 
     @Override
-    public void onBindViewHolder(@NonNull LessonPracticeAdapter.ViewHolder holder, int position) {
-        Lesson lesson = listLesson.get(position);
+    public void onBindViewHolder(@NonNull ScorePracticeAdapter.ViewHolder holder, int position) {
+        Score score = scores.get(position);
 
-        holder.tvLessonName.setText(lesson.getName());
-        holder.tvEasyPracticeCount.setText(lesson.getEasyPracticeCount() + " câu");
-        holder.tvHardPracticeCount.setText(lesson.getHardPracticeCount() + " câu");
+        holder.tvLessonName.setText(score.getLessonName());
+        holder.tvEasyPracticeCount.setText(score.getPracticeEasyPercentile() + " %");
+        holder.tvHardPracticeCount.setText(score.getPracticeHardPercentile() + " %");
     }
 
     @Override
     public int getItemCount() {
-        return listLesson.size();
+        return scores.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView tvLessonName, tvEasyPracticeCount, tvHardPracticeCount;
+        TextView tvEasyPractice, tvHardPractice;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -60,12 +62,16 @@ public class LessonPracticeAdapter extends RecyclerView.Adapter<LessonPracticeAd
             tvEasyPracticeCount = itemView.findViewById(R.id.tvEasyPracticeCount);
             tvHardPracticeCount = itemView.findViewById(R.id.tvHardPracticeCount);
 
-            itemView.setOnClickListener(this);
+            tvEasyPractice = itemView.findViewById(R.id.tvEasyPractice);
+            tvHardPractice = itemView.findViewById(R.id.tvHardPractice);
+
+            tvEasyPractice.setOnClickListener(this);
+            tvHardPractice.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            listener.onClick(itemView, getAdapterPosition());
+            listener.onClick(v, getAdapterPosition());
         }
     }
 

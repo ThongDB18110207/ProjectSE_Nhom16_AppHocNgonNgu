@@ -51,4 +51,11 @@ public class LessonDAO<changeIsActivedLanguage> {
         mDatabase = FirebaseDatabase.getInstance().getReference(path);
         mDatabase.child(Common.language.getId()).child(lesson.getId()).child("status").setValue(!lesson.isStatus());
     }
+
+    public void updateNumOfPractice(String lessonId, int numEasy, int numHard){
+        mDatabase = FirebaseDatabase.getInstance().getReference(path);
+
+        mDatabase.child(Common.language.getId()).child(lessonId).child("easyPracticeCount").setValue(numEasy);
+        mDatabase.child(Common.language.getId()).child(lessonId).child("hardPracticeCount").setValue(numHard);
+    }
 }

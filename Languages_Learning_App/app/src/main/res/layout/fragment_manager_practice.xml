@@ -17,7 +17,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView"
-        tools:listitem="@layout/item_manager_lesson_practice" />
+        tools:listitem="@layout/item_lesson_practice" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"

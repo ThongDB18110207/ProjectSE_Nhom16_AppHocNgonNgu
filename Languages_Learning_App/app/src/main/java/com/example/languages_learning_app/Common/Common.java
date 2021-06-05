@@ -12,6 +12,10 @@ public class Common {
     public static String RoleManager = "Manager";
     public static String RoleTrainee = "Trainee";
 
+    // Set for practice type
+    public static int PRACTICE_TYPE_EASY = 0;
+    public static int PRACTICE_TYPE_HARD = 1;
+
     public static String defaltPass = "12345678";
 
     public enum mode{
