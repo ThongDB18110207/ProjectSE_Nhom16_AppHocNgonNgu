@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.languages_learning_app.Adapters.Trainee.ScorePracticeAdapter;
 import com.example.languages_learning_app.Adapters.Trainee.ScoreTestAdapter;
 import com.example.languages_learning_app.Common.Common;
 import com.example.languages_learning_app.DTO.Lesson;
@@ -57,13 +56,13 @@ public class TraineeTestFragment extends Fragment {
                 
                 switch (v.getId()) {
                     case R.id.tvWriting:
-                        intent = new Intent(getActivity(), TraineePracticeActivity.class);
+                        intent = new Intent(getActivity(), TraineeWritingTestActivity.class);
                         break;
                     case R.id.tvSelection:
-                        intent = new Intent(getActivity(), TraineeSelectionActivity.class);
+                        intent = new Intent(getActivity(), TraineeSelectionTestActivity.class);
                         break;
                     case R.id.tvAudio:
-                        intent = new Intent(getActivity(), TraineePracticeActivity.class);
+                        intent = new Intent(getActivity(), TraineeAudioTestActivity.class);
                         break;
                     default:
                         throw new IllegalStateException("Unexpected value: " + v.getId());
@@ -104,11 +103,7 @@ public class TraineeTestFragment extends Fragment {
 
                     for (int i=0;i<scores.size();i++){
                         if(scores.get(i).getLessonId().equals(score.getLessonId())){
-                            scores.get(i).setId(score.getId());
-                            scores.get(i).setPracticeEasyScore(score.getPracticeEasyScore());
-                            scores.get(i).setPracticeEasyPercentile(score.getPracticeEasyPercentile());
-                            scores.get(i).setPracticeHardScore(score.getPracticeHardScore());
-                            scores.get(i).setPracticeHardPercentile(score.getPracticeHardPercentile());
+                            scores.set(i, score);
                         }
                     }
                 }

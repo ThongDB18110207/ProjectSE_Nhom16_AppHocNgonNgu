@@ -21,7 +21,6 @@ import android.widget.Toast;
 
 import com.example.languages_learning_app.Common.Common;
 import com.example.languages_learning_app.DAO.ScoreDAO;
-import com.example.languages_learning_app.DTO.Practice;
 import com.example.languages_learning_app.DTO.Score;
 import com.example.languages_learning_app.DTO.Vocabulary;
 import com.example.languages_learning_app.R;
@@ -37,18 +36,15 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class TraineePracticeActivity extends AppCompatActivity {
+public class TraineeAudioTestActivity extends AppCompatActivity {
     ImageView ivShowResult;
-    TextView tvSentence, tvAnswer_1, tvAnswer_2, tvAnswer_3;
+    TextView tvWord, tvAnswer_1, tvAnswer_2, tvAnswer_3;
     CardView cvAnswer_1, cvAnswer_2, cvAnswer_3;
     Button btNextQuestion;
 
     Score score;
-    ArrayList<Practice> practices;
     ArrayList<Vocabulary> vocabularies;
-    Boolean NEED_TO_ADD_PRACTICE;
     Boolean NEED_TO_ADD_VOCABULARY;
-    int PRACTICE_TYPE;
     int totalQuestion, totalCorrectAnswer;
     int indexQuestion, indexVocabulary;
     String chooseAnswer, correctAnswer;
@@ -60,19 +56,16 @@ public class TraineePracticeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_trainee_practice);
+        setContentView(R.layout.activity_trainee_audio_test);
 
-        NEED_TO_ADD_PRACTICE = true;
         NEED_TO_ADD_VOCABULARY = true;
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        if (bundle!=null){
+        if (bundle != null) {
             score = (Score) bundle.getSerializable("score");
-            PRACTICE_TYPE = bundle.getInt("PRACTICE_TYPE");
         }
 
-        practices = new ArrayList<>();
         vocabularies = new ArrayList<>();
         totalCorrectAnswer = 0;
         indexQuestion = 0;
@@ -80,11 +73,11 @@ public class TraineePracticeActivity extends AppCompatActivity {
         mpIncorrect = MediaPlayer.create(this, R.raw.audio_incorrect);
 
         mapAndSetView();
-        getListPractice();
+        getListVocabulary();
     }
 
-    private void mapAndSetView(){
-        tvSentence = findViewById(R.id.tvSentence);
+    private void mapAndSetView() {
+        tvWord = findViewById(R.id.tvWord);
 
         tvAnswer_1 = findViewById(R.id.tvAnswer_1);
         tvAnswer_2 = findViewById(R.id.tvAnswer_2);
@@ -116,15 +109,11 @@ public class TraineePracticeActivity extends AppCompatActivity {
             showNextQuestion();
         });
 
-        if(PRACTICE_TYPE == Common.PRACTICE_TYPE_EASY){
-            setToolbar("Luyện tập - Dễ");
-        } else if(PRACTICE_TYPE == Common.PRACTICE_TYPE_HARD){
-            setToolbar("Luyện tập - Khó");
-        }
+        setToolbar(Common.language.getBriefName() + " - Việt");
 
     }
 
-    private void showNextQuestion(){
+    private void showNextQuestion() {
         cvAnswer_1.setEnabled(true);
         cvAnswer_1.setCardBackgroundColor(Color.WHITE);
         cvAnswer_2.setEnabled(true);
@@ -134,46 +123,52 @@ public class TraineePracticeActivity extends AppCompatActivity {
         btNextQuestion.setEnabled(false);
         ivShowResult.setVisibility(View.GONE);
 
-        if(indexQuestion == totalQuestion){
+        if (indexQuestion == totalQuestion) {
             donePractice();
             return;
         }
 
-        Practice practice = practices.get(indexQuestion);
+        Vocabulary vocabulary = vocabularies.get(indexQuestion);
 
-        tvSentence.setText(practice.getSentence());
-        correctAnswer = practice.getCorrectAnswer();
+        tvWord.setText(vocabulary.getWord());
+        correctAnswer = vocabulary.getMeaning();
 
         chooseOtherVocabulary();
+        
+        startAudio(vocabulary.getWord());
 
         indexQuestion++;
     }
 
-    private void chooseOtherVocabulary(){
+    private void startAudio(String word) {
+    }
+
+    private void chooseOtherVocabulary() {
         indexVocabulary = indexQuestion;
         String answer_1, answer_2, answer_3;
         answer_1 = correctAnswer;
 
-        while (vocabularies.get(indexVocabulary).getWord().equals(answer_1)){
-            if(indexVocabulary == vocabularies.size() - 1){
+        while (vocabularies.get(indexVocabulary).getMeaning().equals(answer_1)) {
+            if (indexVocabulary == vocabularies.size() - 1) {
                 indexVocabulary = -1;
             }
             indexVocabulary++;
         }
-        answer_2 = vocabularies.get(indexVocabulary).getWord();
+        answer_2 = vocabularies.get(indexVocabulary).getMeaning();
 
-        while (vocabularies.get(indexVocabulary).getWord().equals(answer_1) || vocabularies.get(indexVocabulary).getWord().equals(answer_2)){
-            if(indexVocabulary == vocabularies.size() -1){
+        while (vocabularies.get(indexVocabulary).getMeaning().equals(answer_1)
+                || vocabularies.get(indexVocabulary).getMeaning().equals(answer_2)) {
+            if (indexVocabulary == vocabularies.size() - 1) {
                 indexVocabulary = -1;
             }
             indexVocabulary++;
         }
-        answer_3 = vocabularies.get(indexVocabulary).getWord();
+        answer_3 = vocabularies.get(indexVocabulary).getMeaning();
 
         Random random = new Random();
         int type = random.nextInt(6);
 
-        switch (type){
+        switch (type) {
             case 0:
                 setAnswer(answer_1, answer_2, answer_3);
                 break;
@@ -201,14 +196,14 @@ public class TraineePracticeActivity extends AppCompatActivity {
         tvAnswer_3.setText(answer_3);
     }
 
-    private void checkAnswer(CardView cvAnswer){
+    private void checkAnswer(CardView cvAnswer) {
         cvAnswer_1.setEnabled(false);
         cvAnswer_2.setEnabled(false);
         cvAnswer_3.setEnabled(false);
         btNextQuestion.setEnabled(true);
         ivShowResult.setVisibility(View.VISIBLE);
 
-        if(chooseAnswer.equals(correctAnswer)){
+        if (chooseAnswer.equals(correctAnswer)) {
             totalCorrectAnswer++;
 
             mpCorrect.start();
@@ -223,17 +218,14 @@ public class TraineePracticeActivity extends AppCompatActivity {
         }
     }
 
-    private void donePractice(){
+    private void donePractice() {
         btNextQuestion.setEnabled(false);
 
-        int percentile = (totalCorrectAnswer*100)/totalQuestion;
-        if(PRACTICE_TYPE == Common.PRACTICE_TYPE_EASY) {
-            score.setPracticeEasyScore(totalCorrectAnswer);
-            score.setPracticeEasyPercentile(percentile);
-        } else {
-            score.setPracticeHardScore(totalCorrectAnswer);
-            score.setPracticeHardPercentile(percentile);
-        }
+        int percentile = (totalCorrectAnswer * 100) / totalQuestion;
+
+        score.setSelectionScore(totalCorrectAnswer);
+        score.setSelectionPercentile(percentile);
+
         ScoreDAO.getInstance().setValue(score);
         openDialogNotification();
     }
@@ -245,7 +237,7 @@ public class TraineePracticeActivity extends AppCompatActivity {
         dialog.setCancelable(false);
 
         Window window = dialog.getWindow();
-        if(window == null) {
+        if (window == null) {
             return;
         }
 
@@ -258,7 +250,7 @@ public class TraineePracticeActivity extends AppCompatActivity {
 
         TextView tvClose = dialog.findViewById(R.id.tvClose);
         TextView tvMessage = dialog.findViewById(R.id.tvMessage);
-        tvMessage.setText("Hoàn thành luyện tập với " + totalCorrectAnswer +"/" + totalQuestion + " câu");
+        tvMessage.setText("Hoàn thành kiểm tra với " + totalCorrectAnswer + "/" + totalQuestion + " câu");
         tvClose.setOnClickListener((View v) -> {
             dialog.dismiss();
             finish();
@@ -267,37 +259,7 @@ public class TraineePracticeActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void getListPractice(){
-        // Get data from firebase
-        mDataBase = FirebaseDatabase.getInstance().getReference("Practices").child(Common.language.getId());
-        Query query = mDataBase.orderByChild("lessonId").equalTo(score.getLessonId());
-
-        ValueEventListener valueEventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                if(NEED_TO_ADD_PRACTICE) {
-                    practices.clear();
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        Practice practice = dataSnapshot.getValue(Practice.class);
-
-                        if (practice.getType() == PRACTICE_TYPE) {
-                            practices.add(practice);
-                        }
-                    }
-                    NEED_TO_ADD_PRACTICE = false;
-                    getListVocabulary();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError error) {
-
-            }
-        };
-        query.addValueEventListener(valueEventListener);
-    }
-
-    private void getListVocabulary(){
+    private void getListVocabulary() {
         // Get data from firebase
         mDataBase = FirebaseDatabase.getInstance().getReference("Vocabularies").child(Common.language.getId());
         Query query = mDataBase.orderByChild("lessonId").equalTo(score.getLessonId());
@@ -305,7 +267,7 @@ public class TraineePracticeActivity extends AppCompatActivity {
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                if(NEED_TO_ADD_VOCABULARY) {
+                if (NEED_TO_ADD_VOCABULARY) {
                     vocabularies.clear();
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         Vocabulary vocabulary = dataSnapshot.getValue(Vocabulary.class);
@@ -313,11 +275,11 @@ public class TraineePracticeActivity extends AppCompatActivity {
                     }
                     NEED_TO_ADD_VOCABULARY = false;
 
-                    if(vocabularies.size() >= 3 && practices.size() > 0){
-                        totalQuestion = practices.size();
+                    if (vocabularies.size() >= 3) {
+                        totalQuestion = vocabularies.size();
                         showNextQuestion();
                     } else {
-                        Toast.makeText(TraineePracticeActivity.this, "Không đủ câu hỏi để luyện tập", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TraineeAudioTestActivity.this, "Không đủ từ vựng kiểm tra", Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 }

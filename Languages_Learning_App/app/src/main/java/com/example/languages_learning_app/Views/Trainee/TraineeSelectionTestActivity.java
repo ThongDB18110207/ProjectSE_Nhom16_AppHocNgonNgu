@@ -21,7 +21,6 @@ import android.widget.Toast;
 
 import com.example.languages_learning_app.Common.Common;
 import com.example.languages_learning_app.DAO.ScoreDAO;
-import com.example.languages_learning_app.DTO.Practice;
 import com.example.languages_learning_app.DTO.Score;
 import com.example.languages_learning_app.DTO.Vocabulary;
 import com.example.languages_learning_app.R;
@@ -37,7 +36,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class TraineeSelectionActivity extends AppCompatActivity {
+public class TraineeSelectionTestActivity extends AppCompatActivity {
     ImageView ivShowResult;
     TextView tvWord, tvAnswer_1, tvAnswer_2, tvAnswer_3;
     CardView cvAnswer_1, cvAnswer_2, cvAnswer_3;
@@ -46,7 +45,6 @@ public class TraineeSelectionActivity extends AppCompatActivity {
     Score score;
     ArrayList<Vocabulary> vocabularies;
     Boolean NEED_TO_ADD_VOCABULARY;
-    int PRACTICE_TYPE;
     int totalQuestion, totalCorrectAnswer;
     int indexQuestion, indexVocabulary;
     String chooseAnswer, correctAnswer;
@@ -58,7 +56,7 @@ public class TraineeSelectionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_trainee_selection);
+        setContentView(R.layout.activity_trainee_selection_test);
 
         NEED_TO_ADD_VOCABULARY = true;
 
@@ -146,8 +144,8 @@ public class TraineeSelectionActivity extends AppCompatActivity {
         answer_1 = correctAnswer;
 
         while (vocabularies.get(indexVocabulary).getMeaning().equals(answer_1)) {
-            if (indexVocabulary >= vocabularies.size()) {
-                indexVocabulary = 0;
+            if (indexVocabulary == vocabularies.size() - 1) {
+                indexVocabulary = -1;
             }
             indexVocabulary++;
         }
@@ -155,8 +153,8 @@ public class TraineeSelectionActivity extends AppCompatActivity {
 
         while (vocabularies.get(indexVocabulary).getMeaning().equals(answer_1)
                 || vocabularies.get(indexVocabulary).getMeaning().equals(answer_2)) {
-            if (indexVocabulary >= vocabularies.size()) {
-                indexVocabulary = 0;
+            if (indexVocabulary == vocabularies.size() - 1) {
+                indexVocabulary = -1;
             }
             indexVocabulary++;
         }
@@ -207,7 +205,6 @@ public class TraineeSelectionActivity extends AppCompatActivity {
 
             cvAnswer.setCardBackgroundColor(Color.CYAN);
             ivShowResult.setImageResource(R.drawable.bg_correct);
-            showNextQuestion();
         } else {
             mpIncorrect.start();
 
@@ -277,7 +274,7 @@ public class TraineeSelectionActivity extends AppCompatActivity {
                         totalQuestion = vocabularies.size();
                         showNextQuestion();
                     } else {
-                        Toast.makeText(TraineeSelectionActivity.this, "Không đủ từ vựng kiểm tra", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TraineeSelectionTestActivity.this, "Không đủ từ vựng kiểm tra", Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 }

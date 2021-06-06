@@ -105,11 +105,7 @@ public class TraineePracticeFragment extends Fragment {
 
                     for (int i=0;i<scores.size();i++){
                         if(scores.get(i).getLessonId().equals(score.getLessonId())){
-                            scores.get(i).setId(score.getId());
-                            scores.get(i).setPracticeEasyScore(score.getPracticeEasyScore());
-                            scores.get(i).setPracticeEasyPercentile(score.getPracticeEasyPercentile());
-                            scores.get(i).setPracticeHardScore(score.getPracticeHardScore());
-                            scores.get(i).setPracticeHardPercentile(score.getPracticeHardPercentile());
+                            scores.set(i, score);
                         }
                     }
                 }
