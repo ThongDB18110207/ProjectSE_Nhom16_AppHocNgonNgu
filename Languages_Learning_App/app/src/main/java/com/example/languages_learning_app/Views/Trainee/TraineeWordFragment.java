@@ -1,4 +1,4 @@
-package com.example.languages_learning_app.Views.Manager.Fragments;
+package com.example.languages_learning_app.Views.Trainee;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,7 +16,6 @@ import com.example.languages_learning_app.Adapters.LessonVocabAdapter;
 import com.example.languages_learning_app.Common.Common;
 import com.example.languages_learning_app.DTO.Lesson;
 import com.example.languages_learning_app.R;
-import com.example.languages_learning_app.Views.Manager.ManagerVocabularyActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,43 +24,21 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ManagerWordFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class ManagerWordFragment extends Fragment {
+public class TraineeWordFragment extends Fragment {
 
     RecyclerView recyclerView;
     ArrayList<Lesson> listLesson;
-    LessonVocabAdapter lessonAdapter;
+    LessonVocabAdapter adapter;
     DatabaseReference mDatabase;
 
     private LessonVocabAdapter.RecyclerViewClickListener listener;
 
 
-    public ManagerWordFragment() {
-        // Required empty public constructor
-    }
 
-    public static ManagerWordFragment newInstance() {
-        ManagerWordFragment fragment = new ManagerWordFragment();
-        return fragment;
-    }
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View root = inflater.inflate(R.layout.fragment_manager_word, container, false);
+        View root = inflater.inflate(R.layout.fragment_trainee_flascard_lesson, container, false);
 
         setToolbarWithoutBack(root);
         setOnClickListener();
@@ -79,7 +56,7 @@ public class ManagerWordFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("lesson", lesson);
 
-                Intent intent = new Intent(getActivity(), ManagerVocabularyActivity.class);
+                Intent intent = new Intent(getActivity(), TraineeVocabularyActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -94,12 +71,12 @@ public class ManagerWordFragment extends Fragment {
         recyclerView = root.findViewById(R.id.rvLesson);
         listLesson = new ArrayList<>();
         // Mode 0 is manager mode
-        lessonAdapter = new LessonVocabAdapter(getContext(), listLesson, 0, listener);
+        adapter = new LessonVocabAdapter(getContext(), listLesson, 1, listener);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(gridLayoutManager);
 
-        recyclerView.setAdapter(lessonAdapter);
+        recyclerView.setAdapter(adapter);
 
         // Get data from firebase
         // Data is list lessons
@@ -112,7 +89,7 @@ public class ManagerWordFragment extends Fragment {
                     Lesson lesson = dataSnapshot.getValue(Lesson.class);
                     listLesson.add(lesson);
                 }
-                lessonAdapter.notifyDataSetChanged();
+                adapter.notifyDataSetChanged();
             }
 
             @Override

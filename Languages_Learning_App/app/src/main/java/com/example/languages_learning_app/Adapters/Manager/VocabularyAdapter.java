@@ -84,7 +84,7 @@ public class VocabularyAdapter extends RecyclerView.Adapter<VocabularyAdapter.Vi
 
         @Override
         public boolean onTouch(View v, MotionEvent event) {
-            listener.onTouch(itemView, getAdapterPosition());
+            listener.onTouch(v, getAdapterPosition());
             return true;
         }
     }

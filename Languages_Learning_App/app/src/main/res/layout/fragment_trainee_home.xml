@@ -49,18 +49,44 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btAudio" />
+        app:layout_constraintTop_toBottomOf="@+id/cvFlashcard" />
 
-    <Button
-        android:id="@+id/btAudio"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvFlashcard"
         android:layout_width="110dp"
         android:layout_height="100dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="5dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/button_learn"
-        android:text="@string/vn_audio"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/textView5">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_above="@+id/txtFlashcard"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="4dp"
+                android:src="@drawable/ic_flashcard"/>
+
+            <TextView
+                android:id="@+id/txtFlashcard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Flascard"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="20dp" />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
 
     <Button
         android:id="@+id/btSong"
@@ -97,8 +123,8 @@
         android:background="@drawable/button_learn"
         android:text="@string/vn_test"
         app:layout_constraintEnd_toStartOf="@+id/btPractice"
-        app:layout_constraintStart_toEndOf="@+id/btAudio"
-        app:layout_constraintTop_toTopOf="@+id/btAudio" />
+        app:layout_constraintStart_toEndOf="@+id/cvFlashcard"
+        app:layout_constraintTop_toTopOf="@+id/cvFlashcard" />
 
     <Button
         android:id="@+id/btPractice"
@@ -108,7 +134,7 @@
         android:background="@drawable/button_learn"
         android:text="@string/vn_practice"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btAudio" />
+        app:layout_constraintTop_toTopOf="@+id/cvFlashcard" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

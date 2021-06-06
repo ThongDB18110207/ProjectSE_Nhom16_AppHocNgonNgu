@@ -8,33 +8,21 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <ImageView
-            android:id="@+id/left_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:padding="16dp"
-            android:src="@drawable/ic_baseline_arrow_back_ios_24"
-            app:tint="@color/main_color"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp">
 
         <TextView
             android:id="@+id/activity_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
             android:text="@string/app_name"
             android:textAlignment="center"
-<<<<<<< Updated upstream
-            android:textColor="@color/white"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-=======
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/main_color"/>
->>>>>>> Stashed changes
 
     </RelativeLayout>
 

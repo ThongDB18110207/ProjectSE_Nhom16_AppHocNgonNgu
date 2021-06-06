@@ -5,9 +5,9 @@
         android:icon="@drawable/ic_baseline_home_24"
         android:title="@string/en_home" />
     <item
-        android:id="@+id/nav_audio"
-        android:icon="@drawable/ic_baseline_headphones_24"
-        android:title="@string/en_audio" />
+        android:id="@+id/nav_flashcard"
+        android:icon="@drawable/ic_flashcard_24"
+        android:title="Flashcard" />
     <item
         android:id="@+id/nav_test"
         android:icon="@drawable/ic_baseline_test_24"

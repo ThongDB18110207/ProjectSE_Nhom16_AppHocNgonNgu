@@ -35,8 +35,8 @@ public class TraineeMainActivity extends AppCompatActivity {
                         case R.id.nav_home:
                             selectedFragment = new TraineeHomeFragment();
                             break;
-                        case R.id.nav_audio:
-                            selectedFragment = new TraineeAudioFragment();
+                        case R.id.nav_flashcard:
+                            selectedFragment = new TraineeWordFragment();
                             break;
                         case R.id.nav_test:
                             selectedFragment = new TraineeTestFragment();

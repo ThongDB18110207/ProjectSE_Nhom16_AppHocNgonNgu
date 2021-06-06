@@ -10,6 +10,7 @@ public class Lesson implements Serializable {
     private int image;
     private String name, description;
     private int wordCount;
+    private int activeWordCount;
     private int easyPracticeCount;
     private int hardPracticeCount;
     private boolean status;
@@ -24,6 +25,7 @@ public class Lesson implements Serializable {
         this.name = name;
         this.description = description;
         this.wordCount = 0;
+        this.activeWordCount = 0;
         this.easyPracticeCount = 0;
         this.hardPracticeCount = 0;
         status = false;
@@ -76,6 +78,14 @@ public class Lesson implements Serializable {
 
     public void setWordCount(int wordCount) {
         this.wordCount = wordCount;
+    }
+
+    public int getActiveWordCount() {
+        return activeWordCount;
+    }
+
+    public void setActiveWordCount(int activeWordCount) {
+        this.activeWordCount = activeWordCount;
     }
 
     public int getEasyPracticeCount() {

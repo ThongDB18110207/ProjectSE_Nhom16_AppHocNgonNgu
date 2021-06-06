@@ -57,6 +57,10 @@ public class ManagerVocabularyActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int INSERT_MODE = 1;
     private static final int UPDATE_MODE = 2;
+    private static Dialog dialog;
+
+    // Flag
+    private boolean chooseFileFlag = false;
 
     // Variables used for recycler view
     private RecyclerView recyclerView;
@@ -79,6 +83,8 @@ public class ManagerVocabularyActivity extends AppCompatActivity {
 
     // Current lesson - it means vocabs showed in the activity are on this lesson
     private Lesson lesson;
+    private Vocabulary vocab;
+    //private String phonetic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,8 +109,7 @@ public class ManagerVocabularyActivity extends AppCompatActivity {
         setOnClickListener();
         setRecyclerView();
 
-        // Mapping progress bar and float action button
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        // Mapping float action button
         fabAddVocab = findViewById(R.id.fabAdd);
         fabAddVocab.setOnClickListener((View v) -> {
             // Open dialog to insert new word when clicking on float action button
@@ -131,7 +136,7 @@ public class ManagerVocabularyActivity extends AppCompatActivity {
      * @param position: position of selected vocab (equal -1 if mode is insert)
      */
     private void openDialog(int mode, int position ) {
-        final Dialog dialog = new Dialog(this);
+        dialog = new Dialog(this);
 
         // Set some attributes for dialog
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -153,6 +158,7 @@ public class ManagerVocabularyActivity extends AppCompatActivity {
         txtTittle = dialog.findViewById(R.id.txtTittle);
         edWord = dialog.findViewById(R.id.edWord);
         edMeaning = dialog.findViewById(R.id.edMeaning);
+        progressBar = dialog.findViewById(R.id.progressBar);
 
         // Open file chooser when clicking on the image
         imgVocab = dialog.findViewById(R.id.imgVocab);
@@ -192,7 +198,6 @@ public class ManagerVocabularyActivity extends AppCompatActivity {
                 // Call save with mode and position
                 saveVocab(mode, position);
             }
-            dialog.dismiss();
         });
 
         dialog.show();
@@ -215,6 +220,7 @@ public class ManagerVocabularyActivity extends AppCompatActivity {
             mImageUri = data.getData();
 
             Picasso.get().load(mImageUri).into(imgVocab);
+            chooseFileFlag = true;
         }
     }
 
@@ -225,40 +231,50 @@ public class ManagerVocabularyActivity extends AppCompatActivity {
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
     }
 
-
     /**
      * Save vocabulary to database
      * @param mode: insert or update
      * @param position: position of selected vocab (equal -1 if mode is insert)
      */
     private void saveVocab(int mode, int position) {
-        if(mImageUri != null) {
 
-            String vocabId = mDataBase.push().getKey();
-            String vocabWord = edWord.getText().toString().trim();
-            String vocabMeaning = edMeaning.getText().toString().trim();
+        String vocabWord = edWord.getText().toString().trim();
+        String vocabMeaning = edMeaning.getText().toString().trim();
 
-            if(vocabWord.equals("")) {
-                edWord.setError("Từ vựng không được để trống!");
+        if(vocabWord.equals("")) {
+            edWord.setError("Từ vựng không được để trống!");
+            return;
+        }
+
+        if(vocabMeaning.equals("")) {
+            edMeaning.setError("Nghĩa không được để trống!");
+        }
+
+        if(mode == UPDATE_MODE) {
+            // Set new value for vocab
+            vocab = vocabularies.get(position);
+
+            vocab.setWord(vocabWord);
+            vocab.setMeaning(vocabMeaning);
+
+            // If user don't change image -> only save on runtime database
+            if(chooseFileFlag == false) {
+                //mDataBase.child(vocab.getId()).setValue(vocab);
+                VocabularyDAO.getInstance().saveWordWithPhonetic(vocab);
+                Toast.makeText(ManagerVocabularyActivity.this, "Lưu thành công!", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
                 return;
             }
+        } else {
+            // Get key and save new vocab with id equals this key
+            String vocabId = mDataBase.push().getKey();
+            // Create a vocabulary object using builder pattern
+            vocab = new Vocabulary.VocabularyBuilder(vocabId, vocabWord, vocabMeaning)
+                    .setLessonId(lesson.getId())
+                    .build();
+        }
 
-            if(vocabMeaning.equals("")) {
-                edMeaning.setError("Nghĩa không được để trống!");
-            }
-
-            Vocabulary vocab;
-
-            if(mode == INSERT_MODE) {
-                vocab = new Vocabulary.VocabularyBuilder(vocabId, vocabWord, vocabMeaning)
-                        .setLessonId(lesson.getId())
-                        .build();
-            } else {
-                vocab = vocabularies.get(position);
-                vocab.setWord(vocabWord);
-                vocab.setMeaning(vocabMeaning);
-            }
-
+        if(mImageUri != null) {
             // This comment will save file with file extension.
             // But I don't use it because I want file name is as same as vocab id
             // It's easy for when I upload or delete a word --> I will delete file with name = vocab id
@@ -267,6 +283,7 @@ public class ManagerVocabularyActivity extends AppCompatActivity {
 
             // Show progress bar when start task
             progressBar.setVisibility(View.VISIBLE);
+
             mUploadTask = fileReference.putFile(mImageUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -277,7 +294,8 @@ public class ManagerVocabularyActivity extends AppCompatActivity {
                                     // Set image url
                                     vocab.setImageUrl(uri.toString());
                                     // Save vocab into Firebase Database
-                                    mDataBase.child(vocab.getId()).setValue(vocab);
+                                    // mDataBase.child(vocab.getId()).setValue(vocab);
+                                    VocabularyDAO.getInstance().saveWordWithPhonetic(vocab);
 
                                     // If mode is insert -> increase word count 1
                                     if (mode == INSERT_MODE) {
@@ -286,6 +304,8 @@ public class ManagerVocabularyActivity extends AppCompatActivity {
                                     }
 
                                     // Hide progress bar when task finish
+                                    dialog.dismiss();
+                                    chooseFileFlag = false;
                                     progressBar.setVisibility(View.GONE);
                                     Toast.makeText(ManagerVocabularyActivity.this, "Lưu thành công!", Toast.LENGTH_SHORT).show();
                                 }
@@ -297,7 +317,9 @@ public class ManagerVocabularyActivity extends AppCompatActivity {
                         public void onFailure(@NonNull Exception e) {
                             // Hide progress bar when task fail
                             progressBar.setVisibility(View.GONE);
+                            chooseFileFlag = false;
                             Toast.makeText(ManagerVocabularyActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
                         }
                     });
         } else {
@@ -325,6 +347,18 @@ public class ManagerVocabularyActivity extends AppCompatActivity {
                 // Change status of vocabulary when check/uncheck
                 if(position >= 0) {
                     Vocabulary vocabulary = vocabularies.get(position);
+
+                    /*
+                    // If change active -> not active: decrease active word count 1
+                    if(vocabulary.isActive()) {
+                        lesson.setActiveWordCount(lesson.getActiveWordCount() - 1);
+                    }
+                    // If change not active -> active: increase active word count 1
+                    else {
+                        lesson.setActiveWordCount(lesson.getActiveWordCount() + 1);
+                    }
+
+                    LessonDAO.getInstance().setLessonValue(lesson);*/
                     VocabularyDAO.getInstance().changeStatus(vocabulary);
                 }
             }
@@ -349,6 +383,12 @@ public class ManagerVocabularyActivity extends AppCompatActivity {
 
                     // Decrease word count 1
                     lesson.setWordCount(lesson.getWordCount() - 1);
+
+                    // If vocabulary is active: decrease active word count 1
+                    if(vocabulary.isActive()) {
+                        lesson.setActiveWordCount(lesson.getActiveWordCount() - 1);
+                    }
+
                     LessonDAO.getInstance().setLessonValue(lesson);
 
                     Toast.makeText(this, "Xóa từ vựng thành công!", Toast.LENGTH_SHORT).show();
@@ -371,16 +411,22 @@ public class ManagerVocabularyActivity extends AppCompatActivity {
 
         // Get data from firebase
         // Data is list vocabularies in current lesson
-        mDataBase = FirebaseDatabase.getInstance().getReference("Vocabularies").child(Common.language.getId());
         Query query = mDataBase.orderByChild("lessonId").equalTo(lesson.getId());
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 vocabularies.clear();
+                int activeCount = 0;
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     Vocabulary vocabulary = dataSnapshot.getValue(Vocabulary.class);
                     vocabularies.add(vocabulary);
+
+                    if(vocabulary.isActive()) {
+                        activeCount += 1;
+                    }
                 }
+                lesson.setActiveWordCount(activeCount);
+                LessonDAO.getInstance().setLessonValue(lesson);
                 adapter.notifyDataSetChanged();
             }
 
@@ -390,4 +436,6 @@ public class ManagerVocabularyActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }

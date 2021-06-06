@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.example.languages_learning_app.R;
@@ -20,6 +21,7 @@ public class TraineeHomeFragment extends Fragment {
     ImageView contry_flag;
     TextView languageTitle;
     Button btAudio, btTest, btPratice;
+    CardView cvFlashcard;
     String languageN, languageDN, languageIM;
 
     Fragment selectedFragment;
@@ -38,11 +40,11 @@ public class TraineeHomeFragment extends Fragment {
             }
         });
 
-        btAudio = (Button) view.findViewById(R.id.btAudio);
-        btAudio.setOnClickListener(new View.OnClickListener() {
+        cvFlashcard = (CardView) view.findViewById(R.id.cvFlashcard);
+        cvFlashcard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((TraineeMainActivity)getActivity()).bottomNav.setSelectedItemId(R.id.nav_audio);
+                ((TraineeMainActivity)getActivity()).bottomNav.setSelectedItemId(R.id.nav_flashcard);
             }
         });
 

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_while_corner_16"
-    android:orientation="vertical"
-    android:layout_margin="16dp">
+    android:layout_margin="16dp"
+    android:background="@drawable/background_adddialog"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/txtTittle"
@@ -22,6 +22,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/txtTittle"
         android:orientation="vertical"
         android:padding="16dp">
 
@@ -30,48 +31,46 @@
             android:layout_width="150dp"
             android:layout_height="100dp"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/no_image"/>
+            android:src="@drawable/no_image" />
 
         <TextView
             android:id="@+id/txtWord"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Từ vưng"
+            android:layout_marginTop="16dp"
             android:paddingLeft="8dp"
             android:paddingBottom="4dp"
-            android:textSize="14sp"
-            android:textStyle="bold"
+            android:text="Từ vưng"
             android:textColor="@color/black"
-            android:layout_marginTop="16dp"/>
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/edWord"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp"
             android:background="@drawable/bg_while_corner_10_border_grey"
             android:hint="Nhập từ vựng"
-            />
+            android:padding="8dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nghĩa"
+            android:layout_marginTop="16dp"
             android:paddingLeft="8dp"
             android:paddingBottom="4dp"
-            android:textSize="14sp"
-            android:textStyle="bold"
+            android:text="Nghĩa"
             android:textColor="@color/black"
-            android:layout_marginTop="16dp"/>
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/edMeaning"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp"
             android:background="@drawable/bg_while_corner_10_border_grey"
             android:hint="Nhập nghĩa của từ"
-            />
+            android:padding="8dp" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -87,6 +86,7 @@
                 android:layout_weight="1"
                 android:backgroundTint="@color/shadow_color"
                 android:text="Thoát"
+                android:textStyle="bold"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="14sp"
@@ -101,7 +101,9 @@
                 android:layout_marginEnd="48dp"
                 android:layout_weight="1"
                 android:text="Lưu"
+                android:textStyle="bold"
                 android:textAlignment="center"
+                android:backgroundTint="@color/green_bright"
                 android:textColor="@color/white"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -112,4 +114,12 @@
 
     </LinearLayout>
 
-</LinearLayout>
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+</RelativeLayout>

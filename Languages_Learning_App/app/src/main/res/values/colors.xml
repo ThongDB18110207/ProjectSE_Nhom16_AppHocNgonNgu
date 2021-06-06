@@ -19,4 +19,7 @@
     <color name="holo_red_light">#ffff4444</color>
     <color name="errorColor">#DD1C1C</color>
     <color name="successColor">#258929</color>
+    <color name="green_bright">#1DDA73</color>
+    <color name="blue_light">#4FDCDF</color>
+    <color name="grey">#AAAAAA</color>
 </resources>
