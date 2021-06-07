@@ -15,10 +15,14 @@ import androidx.fragment.app.Fragment;
 
 import com.example.languages_learning_app.Common.Common;
 import com.example.languages_learning_app.R;
+import com.example.languages_learning_app.Views.Trainee.TraineeRankActivity;
 import com.google.firebase.auth.FirebaseAuth;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MoreFragment extends Fragment {
     TextView edtFullName, edtEmail;
+    CircleImageView civAvatar;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -26,6 +30,7 @@ public class MoreFragment extends Fragment {
 
         CardView cvManageProfile = (CardView) view.findViewById(R.id.cvManageProfile);
         CardView cvChangePassword = (CardView) view.findViewById(R.id.cvChangePassword);
+        CardView cvRank = (CardView) view.findViewById(R.id.cvRank);
         Button btLogOut = (Button) view.findViewById(R.id.btUpdate);
 
         edtFullName = view.findViewById(R.id.tvFullName);
@@ -33,6 +38,9 @@ public class MoreFragment extends Fragment {
 
         edtFullName.setText(Common.user.getFullName());
         edtEmail.setText(Common.user.getEmail());
+
+        civAvatar = view.findViewById(R.id.imgProfile);
+        civAvatar.setImageResource(R.drawable.flag_english);
 
         cvManageProfile.setOnClickListener((View v) -> {
             startActivity(new Intent(getActivity(), ProfileActivity.class));
@@ -42,11 +50,19 @@ public class MoreFragment extends Fragment {
             startActivity(new Intent(getActivity(), ChangePasswordActivity.class));
         });
 
+        cvRank.setOnClickListener((View v) -> {
+            startActivity(new Intent(getActivity(), TraineeRankActivity.class));
+        });
+
         btLogOut.setOnClickListener((View v) -> {
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(this.getContext(), LoginActivity.class));
             this.getActivity().finish();
         });
+
+        if(Common.role.equals(Common.RoleAdmin)){
+            cvRank.setVisibility(View.GONE);
+        }
 
         return view;
     }

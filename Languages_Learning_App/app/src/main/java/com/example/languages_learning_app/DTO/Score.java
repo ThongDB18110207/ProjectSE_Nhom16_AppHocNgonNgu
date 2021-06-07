@@ -24,9 +24,10 @@ public class Score implements Serializable {
     private int selectionPercentile;
     private int audioScore;
     private int audioPercentile;
+    private int totalScore;
     private String createDate;
 
-    private Score(){}
+    public Score(){}
 
     public Score(String traineeId, String lessonId) {
         this.traineeId = traineeId;
@@ -152,6 +153,14 @@ public class Score implements Serializable {
 
     public void setAudioPercentile(int audioPercentile) {
         this.audioPercentile = audioPercentile;
+    }
+
+    public int getTotalScore() {
+        return totalScore;
+    }
+
+    public void setTotalScore(int totalScore) {
+        this.totalScore = totalScore;
     }
 
     public String getCreateDate() {

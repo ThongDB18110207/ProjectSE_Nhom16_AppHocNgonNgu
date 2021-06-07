@@ -4,10 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
@@ -29,11 +31,14 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private  TextView register, fogotPassword;
-    private EditText editTextEmail, editTextPassword;
+    private TextView register, fogotPassword;
+    private EditText etEmail, etPassword;
     private Button signIn;
     private RadioButton rbAdmin, rbManager, rbTrainee;
     private ProgressBar progressBar;
+
+    CheckBox checkBox;
+    SharedPreferences sharedPreferences;
 
     private FirebaseAuth mAuth;
     DatabaseReference mDatabase;
@@ -42,11 +47,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        editTextEmail = (EditText) findViewById(R.id.etEmail);
-        editTextPassword = (EditText) findViewById(R.id.etPassword);
-
-        editTextEmail.setText("lenhattuong12345@gmail.com");
-        editTextPassword.setText("12345678");
+        mapAndSetView();
+        rememberUser();
+    }
+    
+    private void mapAndSetView(){
+        etEmail = (EditText) findViewById(R.id.etEmail);
+        etPassword = (EditText) findViewById(R.id.etPassword);
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
@@ -63,7 +70,31 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         fogotPassword = (TextView) findViewById(R.id.tvForgotPassword);
         fogotPassword.setOnClickListener(this);
 
+        //Shared Preferences
+        sharedPreferences = getSharedPreferences("dataLogin", MODE_PRIVATE);
+        checkBox = findViewById(R.id.checkBox);
+
         mAuth = FirebaseAuth.getInstance();
+    }
+
+    public void rememberUser(){
+        etEmail.setText(sharedPreferences.getString("email",""));
+        etPassword.setText(sharedPreferences.getString("password",""));
+        checkBox.setChecked(sharedPreferences.getBoolean("checked",false));
+    }
+
+    private void addRememberMe(String emailLogin, String passLogin){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        if (checkBox.isChecked()) {
+            editor.putString("email", emailLogin);
+            editor.putString("password", passLogin);
+            editor.putBoolean("checked", true);
+        } else {
+            editor.remove("email");
+            editor.remove("password");
+            editor.remove("checked");
+        }
+        editor.commit();
     }
 
     @Override
@@ -82,30 +113,30 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void userLogin() {
-        String email = editTextEmail.getText().toString().trim();
-        String password = editTextPassword.getText().toString().trim();
+        String email = etEmail.getText().toString().trim();
+        String password = etPassword.getText().toString().trim();
 
         if (email.isEmpty()){
-            editTextEmail.setError("Email is required!");
-            editTextEmail.requestFocus();
+            etEmail.setError("Chưa nhập Email!");
+            etEmail.requestFocus();
             return;
         }
 
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            editTextEmail.setError("Please enter a valid Email!");
-            editTextEmail.requestFocus();
+            etEmail.setError("Email không hợp lệ!");
+            etEmail.requestFocus();
             return;
         }
 
         if(password.isEmpty()) {
-            editTextPassword.setError("Password is required!");
-            editTextPassword.requestFocus();
+            etPassword.setError("Chưa nhập mật khẩu!");
+            etPassword.requestFocus();
             return;
         }
 
         if(password.length() < 8){
-            editTextPassword.setError("Min password length is 8 characters!");
-            editTextPassword.requestFocus();
+            etPassword.setError("Mật khẩu tối thiểu 8 ký tự!");
+            etPassword.requestFocus();
             return;
         }
 
@@ -119,16 +150,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     // Validate Email
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     if(user.isEmailVerified()){
-
                         chooseRole(user.getUid());
+                        addRememberMe(email, password);
                     }
                     else{
                         user.sendEmailVerification();
-                        Toast.makeText(LoginActivity.this, "Check your Email to verify your account", Toast.LENGTH_LONG).show();
+                        Toast.makeText(LoginActivity.this, "Kiểm tra Email để kích hoạt tài khoản", Toast.LENGTH_LONG).show();
                     }
                 }
                 else {
-                    Toast.makeText(LoginActivity.this, "Failed to Login! Please check your credentials", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, "Sai thông tin đăng nhập", Toast.LENGTH_LONG).show();
                 }
                 progressBar.setVisibility(View.GONE);
             }
@@ -146,7 +177,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Common.user = task.getResult().getValue(User.class);
                     
                     if(!Common.user.isActive()){
-                        Toast.makeText(LoginActivity.this, "Your account has been clocked!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(LoginActivity.this, "Tài khoản của bạn đang tạm khóa!", Toast.LENGTH_LONG).show();
                         return;
                     }
 
@@ -190,8 +221,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 return;
                             }
                         }
-                        Toast.makeText(LoginActivity.this, "Your account doesn't have permission!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(LoginActivity.this, "Truy cập sai quyền!", Toast.LENGTH_LONG).show();
                     }
+                    Toast.makeText(LoginActivity.this, "Tài khoản của bạn không tồn tại!", Toast.LENGTH_LONG).show();
                 }
             }
         });

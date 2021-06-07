@@ -10,6 +10,8 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -34,6 +36,7 @@ import com.google.firebase.database.ValueEventListener;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Random;
 
 public class TraineeAudioTestActivity extends AppCompatActivity {
@@ -52,6 +55,7 @@ public class TraineeAudioTestActivity extends AppCompatActivity {
     DatabaseReference mDataBase;
 
     MediaPlayer mpCorrect, mpIncorrect;
+    private TextToSpeech mTTS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +76,7 @@ public class TraineeAudioTestActivity extends AppCompatActivity {
         mpCorrect = MediaPlayer.create(this, R.raw.audio_correct);
         mpIncorrect = MediaPlayer.create(this, R.raw.audio_incorrect);
 
+        setTextToSpeech();
         mapAndSetView();
         getListVocabulary();
     }
@@ -130,17 +135,14 @@ public class TraineeAudioTestActivity extends AppCompatActivity {
 
         Vocabulary vocabulary = vocabularies.get(indexQuestion);
 
-        tvWord.setText(vocabulary.getWord());
+        tvWord.setText(vocabulary.getPronunciation());
         correctAnswer = vocabulary.getMeaning();
 
         chooseOtherVocabulary();
-        
-        startAudio(vocabulary.getWord());
+
+        speak(vocabulary.getWord());
 
         indexQuestion++;
-    }
-
-    private void startAudio(String word) {
     }
 
     private void chooseOtherVocabulary() {
@@ -223,8 +225,8 @@ public class TraineeAudioTestActivity extends AppCompatActivity {
 
         int percentile = (totalCorrectAnswer * 100) / totalQuestion;
 
-        score.setSelectionScore(totalCorrectAnswer);
-        score.setSelectionPercentile(percentile);
+        score.setAudioScore(totalCorrectAnswer);
+        score.setAudioPercentile(percentile);
 
         ScoreDAO.getInstance().setValue(score);
         openDialogNotification();
@@ -291,6 +293,42 @@ public class TraineeAudioTestActivity extends AppCompatActivity {
             }
         };
         query.addValueEventListener(valueEventListener);
+    }
+
+    private void setTextToSpeech() {
+        mTTS = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if (status == TextToSpeech.SUCCESS) {
+                    int result = mTTS.setLanguage(Locale.ENGLISH);
+
+                    if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                        Log.e("TTS", "Language not supported");
+                    }
+                } else {
+                    Log.e("TTS", "Initialization failed");
+                }
+            }
+        });
+    }
+
+    private void speak(String word) {
+        float pitch = 1;
+        float speed = 1;
+        mTTS.setPitch(pitch);
+        mTTS.setSpeechRate(speed);
+
+        mTTS.speak(word, TextToSpeech.QUEUE_FLUSH, null);
+    }
+
+    @Override
+    public void onDestroy() {
+        if (mTTS != null) {
+            mTTS.stop();
+            mTTS.shutdown();
+        }
+
+        super.onDestroy();
     }
 
     // Toolbar on the top of screen

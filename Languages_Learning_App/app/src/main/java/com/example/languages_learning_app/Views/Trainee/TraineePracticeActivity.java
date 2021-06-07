@@ -39,7 +39,7 @@ import java.util.Random;
 
 public class TraineePracticeActivity extends AppCompatActivity {
     ImageView ivShowResult;
-    TextView tvSentence, tvAnswer_1, tvAnswer_2, tvAnswer_3;
+    TextView tvSentence, tvAnswer_1, tvAnswer_2, tvAnswer_3, tvCorrectAnswer;
     CardView cvAnswer_1, cvAnswer_2, cvAnswer_3;
     Button btNextQuestion;
 
@@ -91,6 +91,7 @@ public class TraineePracticeActivity extends AppCompatActivity {
         tvAnswer_3 = findViewById(R.id.tvAnswer_3);
 
         ivShowResult = findViewById(R.id.ivShowResult);
+        tvCorrectAnswer = findViewById(R.id.tvCorrectAnswer);
 
         cvAnswer_1 = findViewById(R.id.cvAnswer_1);
         cvAnswer_1.setOnClickListener((View v) -> {
@@ -133,6 +134,7 @@ public class TraineePracticeActivity extends AppCompatActivity {
         cvAnswer_3.setCardBackgroundColor(Color.WHITE);
         btNextQuestion.setEnabled(false);
         ivShowResult.setVisibility(View.GONE);
+        tvCorrectAnswer.setVisibility(View.GONE);
 
         if(indexQuestion == totalQuestion){
             donePractice();
@@ -219,6 +221,10 @@ public class TraineePracticeActivity extends AppCompatActivity {
             mpIncorrect.start();
 
             cvAnswer.setCardBackgroundColor(Color.RED);
+
+            tvCorrectAnswer.setText(correctAnswer);
+
+            tvCorrectAnswer.setVisibility(View.VISIBLE);
             ivShowResult.setImageResource(R.drawable.bg_incorrect);
         }
     }

@@ -7,18 +7,16 @@
     tools:context=".Views.ChooseLanguageActivity"
     android:background="@color/main_color">
 
-    <Button
-        android:id="@+id/btBack"
+    <ImageView
+        android:id="@+id/ivBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:accessibilityHeading="true"
-        android:outlineSpotShadowColor="@color/main_color"
-        android:textColorLink="#FFFFFF"
-        app:icon="@drawable/ic_baseline_arrow_back_ios_24"
+        android:layout_centerVertical="true"
+        android:padding="16dp"
+        android:src="@drawable/ic_baseline_arrow_back_ios_24"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/white" />
 
     <TextView
         android:id="@+id/textView"
@@ -30,7 +28,7 @@
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btBack" />
+        app:layout_constraintTop_toBottomOf="@+id/ivBack" />
 
     <TextView
         android:id="@+id/textView2"
