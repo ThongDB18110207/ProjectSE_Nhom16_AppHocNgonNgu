@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.languages_learning_app.Adapters.LanguageAdapter;
 import com.example.languages_learning_app.Common.Common;
@@ -26,7 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class ChooseLanguageActivity extends AppCompatActivity {
-    Button back;
+    ImageView ivBack;
     RecyclerView recyclerView;
     ArrayList<Language> listLanguage;
     LanguageAdapter languageAdapter;
@@ -42,8 +43,8 @@ public class ChooseLanguageActivity extends AppCompatActivity {
         setOnClickListener();
         setRecyclerView();
 
-        back = (Button) findViewById(R.id.btBack);
-        back.setOnClickListener(new View.OnClickListener() {
+        ivBack = (ImageView) findViewById(R.id.ivBack);
+        ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { finish();
             }

@@ -7,18 +7,16 @@
     android:background="@drawable/background"
     tools:context=".Views.RegisterUserActivity">
 
-    <Button
-        android:id="@+id/btBack"
+    <ImageView
+        android:id="@+id/ivBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:accessibilityHeading="true"
-        android:outlineSpotShadowColor="@color/main_color"
-        android:textColorLink="#FFFFFF"
-        app:icon="@drawable/ic_baseline_arrow_back_ios_24"
+        android:layout_centerVertical="true"
+        android:padding="16dp"
+        android:src="@drawable/ic_baseline_arrow_back_ios_24"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/white" />
 
     <TextView
         android:id="@+id/tvBanner"
@@ -31,6 +29,7 @@
         android:textColor="@color/white"
         android:textSize="60sp"
         android:textStyle="bold"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -72,7 +71,7 @@
         android:layout_marginRight="12dp"
         android:background="@drawable/input_bg"
         android:ems="10"
-        android:hint="Full Name"
+        android:hint="Họ tên"
         android:inputType="text"
         android:paddingLeft="20dp"
         android:paddingTop="10dp"
@@ -92,7 +91,7 @@
         android:layout_marginRight="12dp"
         android:background="@drawable/input_bg"
         android:ems="10"
-        android:hint="Phone Number"
+        android:hint="Số điện thoại"
         android:inputType="number"
         android:paddingLeft="20dp"
         android:paddingTop="10dp"
@@ -112,7 +111,7 @@
         android:layout_marginRight="12dp"
         android:background="@drawable/input_bg"
         android:ems="10"
-        android:hint="Email"
+        android:hint="Địa chỉ Email"
         android:inputType="textEmailAddress"
         android:paddingLeft="20dp"
         android:paddingTop="10dp"
@@ -132,7 +131,7 @@
         android:layout_marginRight="12dp"
         android:background="@drawable/input_bg"
         android:ems="10"
-        android:hint="Password"
+        android:hint="Mật khẩu"
         android:inputType="textPassword"
         android:paddingLeft="20dp"
         android:paddingTop="10dp"

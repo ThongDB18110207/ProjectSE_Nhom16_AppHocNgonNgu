@@ -8,6 +8,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ public class FogotPasswordActivity extends AppCompatActivity {
     private EditText emailEditText;
     private Button resetPasswordButton;
     private ProgressBar progressBar;
+    ImageView ivBack;
 
     FirebaseAuth auth;
 
@@ -29,11 +31,17 @@ public class FogotPasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fogot_password);
 
+        ivBack = findViewById(R.id.ivBack);
         emailEditText = (EditText) findViewById(R.id.etEmailAdd);
         resetPasswordButton =(Button) findViewById(R.id.btResetPassword);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         auth = FirebaseAuth.getInstance();
+
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { finish(); }
+        });
 
         resetPasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,13 +55,13 @@ public class FogotPasswordActivity extends AppCompatActivity {
         String email = emailEditText.getText().toString().trim();
 
         if (email.isEmpty()){
-            emailEditText.setError("Email is required!");
+            emailEditText.setError("Chưa nhập Email!");
             emailEditText.requestFocus();
             return;
         }
 
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            emailEditText.setError("Please provide valid email!");
+            emailEditText.setError("Email không hợp lệ!");
             emailEditText.requestFocus();
             return;
         }
@@ -65,10 +73,10 @@ public class FogotPasswordActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(FogotPasswordActivity.this, "Check your email to reset your password!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(FogotPasswordActivity.this, "Kiểm tra Email để lấy lại mật khẩu!", Toast.LENGTH_LONG).show();
                 }
                 else {
-                    Toast.makeText(FogotPasswordActivity.this, "Try again! Something wrong happened!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(FogotPasswordActivity.this, "Tài khoản không tồn tại!", Toast.LENGTH_LONG).show();
                 }
                 progressBar.setVisibility(View.GONE);
             }

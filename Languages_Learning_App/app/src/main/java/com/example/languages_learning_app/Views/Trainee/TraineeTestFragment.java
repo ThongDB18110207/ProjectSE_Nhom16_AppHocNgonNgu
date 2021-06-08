@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.languages_learning_app.Adapters.Trainee.ScoreTestAdapter;
 import com.example.languages_learning_app.Common.Common;
+import com.example.languages_learning_app.DAO.ScoreDAO;
 import com.example.languages_learning_app.DTO.Lesson;
 import com.example.languages_learning_app.DTO.Score;
 import com.example.languages_learning_app.R;
@@ -33,6 +34,7 @@ public class TraineeTestFragment extends Fragment {
     DatabaseReference mDatabase;
 
     ArrayList<Score> scores;
+    Score finalScore;
 
     private ScoreTestAdapter.RecyclerViewClickListener listener;
 
@@ -40,6 +42,9 @@ public class TraineeTestFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_trainee_test, container, false);
+
+        finalScore = new Score();
+        finalScore.setTraineeId(Common.user.getUserId());
 
         setOnClickListener();
         setRecyclerView(root);
@@ -98,14 +103,30 @@ public class TraineeTestFragment extends Fragment {
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int writingScore = 0, selectionScore = 0, audioScore = 0;
+                int numOfScore = 0;
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     Score score = dataSnapshot.getValue(Score.class);
+
+                    writingScore += score.getWritingScore();
+                    selectionScore += score.getSelectionScore();
+                    audioScore += score.getAudioScore();
 
                     for (int i=0;i<scores.size();i++){
                         if(scores.get(i).getLessonId().equals(score.getLessonId())){
                             scores.set(i, score);
                         }
                     }
+                    numOfScore += 1;
+
+                }
+                finalScore.setWritingScore(writingScore);
+                finalScore.setSelectionScore(selectionScore);
+                finalScore.setAudioScore(audioScore);
+                finalScore.setTotalScore((writingScore+selectionScore+audioScore)*10);
+
+                if(numOfScore > 0){
+                    ScoreDAO.getInstance().setFinalScore(finalScore);
                 }
                 adapter.notifyDataSetChanged();
             }

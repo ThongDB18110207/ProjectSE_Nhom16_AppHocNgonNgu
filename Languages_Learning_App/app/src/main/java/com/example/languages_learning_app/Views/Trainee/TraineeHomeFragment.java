@@ -14,13 +14,15 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import com.example.languages_learning_app.Common.Common;
 import com.example.languages_learning_app.R;
 import com.example.languages_learning_app.Views.ChooseLanguageActivity;
 
 public class TraineeHomeFragment extends Fragment {
     ImageView contry_flag;
     TextView languageTitle;
-    Button btAudio, btTest, btPratice;
+
+    Button btAudio, btTest, btPractice;
     CardView cvFlashcard, cvSongs;
     String languageN, languageDN, languageIM;
 
@@ -64,8 +66,8 @@ public class TraineeHomeFragment extends Fragment {
             }
         });
 
-        btPratice = (Button) view.findViewById(R.id.btPractice);
-        btPratice.setOnClickListener(new View.OnClickListener() {
+        btPractice = (Button) view.findViewById(R.id.btPractice);
+        btPractice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((TraineeMainActivity)getActivity()).bottomNav.setSelectedItemId(R.id.nav_practice);
@@ -79,16 +81,7 @@ public class TraineeHomeFragment extends Fragment {
         languageTitle = (TextView) view.findViewById(R.id.tvLanguageTitle);
         contry_flag = (ImageView) view.findViewById(R.id.ivChangeLanguage);
 
-        Bundle extras = getActivity().getIntent().getExtras();
-
-        if (extras !=null) {
-            languageN = extras.getString("LanguageN");
-            languageDN = extras.getString("LanguageDN");
-            languageIM = extras.getString("LanguageIM");
-        }
-
-        languageTitle.setText(languageDN);
-        int id = Integer.parseInt(languageIM);
-        contry_flag.setImageResource(id);
+        languageTitle.setText(Common.language.getDisplayName());
+        contry_flag.setImageResource(Common.language.getImage());
     }
 }

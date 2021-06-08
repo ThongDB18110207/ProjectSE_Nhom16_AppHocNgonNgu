@@ -17,7 +17,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Languages_Learning_App">
+
         <activity android:name=".Views.Trainee.TraineeSongActivity"></activity>
+        <activity android:name=".Views.Trainee.TraineeRankActivity"></activity>
         <activity android:name=".Views.Trainee.TraineeWritingTestActivity" />
         <activity android:name=".Views.Trainee.TraineeAudioTestActivity" />
         <activity android:name=".Views.Trainee.TraineeSelectionTestActivity" />

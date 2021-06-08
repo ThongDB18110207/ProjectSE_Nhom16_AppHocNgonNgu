@@ -5,6 +5,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,8 +24,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterUserActivity extends AppCompatActivity implements View.OnClickListener  {
 
-    private TextView banner;
-    private Button registerUser, back;
+    private Button registerUser;
+    private ImageView ivBack;
     private EditText editTextFullName, editTextPhone, editTextEmail, editTextPassword;
     private ProgressBar progressBar;
 
@@ -43,8 +44,8 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
         registerUser = (Button) findViewById(R.id.btRegisterUser);
         registerUser.setOnClickListener(this);
 
-        back = (Button) findViewById(R.id.btBack);
-        back.setOnClickListener(this);
+        ivBack = (ImageView) findViewById(R.id.ivBack);
+        ivBack.setOnClickListener(this);
 
         editTextFullName = (EditText) findViewById(R.id.etFullName);
         editTextPhone = (EditText) findViewById(R.id.etPhone);
@@ -60,7 +61,7 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
             case R.id.btRegisterUser:
                 registerUser();
                 break;
-            case R.id.btBack:
+            case R.id.ivBack:
                 finish();
                 break;
         }
@@ -73,37 +74,37 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
         String fullName = editTextFullName.getText().toString().trim();
 
         if(fullName.isEmpty()){
-            editTextFullName.setError("Full name is required!");
+            editTextFullName.setError("Chưa nhập tên!");
             editTextFullName.requestFocus();
             return;
         }
 
         if(phone.isEmpty()){
-            editTextPhone.setError("Phone is required!");
+            editTextPhone.setError("Chưa nhập số điện thoại!");
             editTextPhone.requestFocus();
             return;
         }
 
         if(email.isEmpty()){
-            editTextEmail.setError("Email is required!");
+            editTextEmail.setError("Chưa nhập Email!");
             editTextEmail.requestFocus();
             return;
         }
 
         if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            editTextEmail.setError("Please provide valid email!");
+            editTextEmail.setError("Email không hợp lệ!");
             editTextEmail.requestFocus();
             return;
         }
 
         if (password.isEmpty()){
-            editTextPassword.setError("Password is required!");
+            editTextPassword.setError("Chưa nhập mật khẩu!");
             editTextPassword.requestFocus();
             return;
         }
 
         if(password.length()<8){
-            editTextPassword.setError("Min password length should be 8 characters!");
+            editTextPassword.setError("Mật khẩu tối tiểu 8 ký tự!");
             editTextPassword.requestFocus();
             return;
         }
@@ -129,18 +130,18 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful()){
-                                        Toast.makeText(RegisterUserActivity.this, "User has been registered successfully", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(RegisterUserActivity.this, "Đăng ký thành công", Toast.LENGTH_LONG).show();
                                         progressBar.setVisibility(View.GONE);
                                     }
                                     else{
-                                        Toast.makeText(RegisterUserActivity.this, "Failed to register! Try again", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(RegisterUserActivity.this, "Lỗi đăng ký!", Toast.LENGTH_LONG).show();
                                         progressBar.setVisibility(View.GONE);
                                     }
                                 }
                             });
                         }
                         else {
-                            Toast.makeText(RegisterUserActivity.this, "Failed to register! Try again", Toast.LENGTH_LONG).show();
+                            Toast.makeText(RegisterUserActivity.this, "Lỗi đăng ký!", Toast.LENGTH_LONG).show();
                             progressBar.setVisibility(View.GONE);
                         }
                     }

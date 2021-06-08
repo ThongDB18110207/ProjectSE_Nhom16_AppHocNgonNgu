@@ -8,7 +8,7 @@
 
     <include
         android:id="@+id/include"
-        layout="@layout/toolbar"/>
+        layout="@layout/toolbar" />
 
     <TextView
         android:id="@+id/tvSentence"
@@ -140,7 +140,7 @@
 
     <ImageView
         android:id="@+id/ivShowResult"
-        android:layout_width="380dp"
+        android:layout_width="0dp"
         android:layout_height="120dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
@@ -148,7 +148,23 @@
         app:layout_constraintBottom_toTopOf="@+id/btNextQuestion"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/bg_correct" />
+        app:srcCompat="@drawable/bg_incorrect" />
+
+    <TextView
+        android:id="@+id/tvCorrectAnswer"
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginBottom="16dp"
+        android:text="______|______"
+        android:textAlignment="center"
+        android:textColor="@color/main_color"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/ivShowResult"
+        app:layout_constraintEnd_toEndOf="@+id/ivShowResult"
+        app:layout_constraintStart_toStartOf="@+id/ivShowResult" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
