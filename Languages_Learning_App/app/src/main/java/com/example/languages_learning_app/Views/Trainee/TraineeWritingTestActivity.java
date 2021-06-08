@@ -39,7 +39,7 @@ import java.util.Random;
 
 public class TraineeWritingTestActivity extends AppCompatActivity {
     ImageView ivShowResult;
-    TextView tvMeaning;
+    TextView tvMeaning, tvCorrectAnswer;
     EditText edtEnterWord;
     Button btNextQuestion;
 
@@ -84,6 +84,7 @@ public class TraineeWritingTestActivity extends AppCompatActivity {
         edtEnterWord = findViewById(R.id.edtEnterWord);
 
         ivShowResult = findViewById(R.id.ivShowResult);
+        tvCorrectAnswer = findViewById(R.id.tvCorrectAnswer);
 
         btNextQuestion = findViewById(R.id.btNextQuestion);
         btNextQuestion.setOnClickListener((View v) -> {
@@ -103,6 +104,7 @@ public class TraineeWritingTestActivity extends AppCompatActivity {
         btNextQuestion.setText("Kiểm tra");
         edtEnterWord.setText("");
         ivShowResult.setVisibility(View.GONE);
+        tvCorrectAnswer.setVisibility(View.GONE);
 
         if (indexQuestion == totalQuestion) {
             donePractice();
@@ -132,6 +134,9 @@ public class TraineeWritingTestActivity extends AppCompatActivity {
             ivShowResult.setImageResource(R.drawable.bg_correct);
         } else {
             mpIncorrect.start();
+
+            tvCorrectAnswer.setText(correctAnswer);
+            tvCorrectAnswer.setVisibility(View.VISIBLE);
             ivShowResult.setImageResource(R.drawable.bg_incorrect);
         }
     }
