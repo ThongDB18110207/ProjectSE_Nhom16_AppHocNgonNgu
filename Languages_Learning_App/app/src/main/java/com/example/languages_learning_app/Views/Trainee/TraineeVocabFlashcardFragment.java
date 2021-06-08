@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.languages_learning_app.Common.Common;
 import com.example.languages_learning_app.DTO.Lesson;
 import com.example.languages_learning_app.DTO.Vocabulary;
 import com.example.languages_learning_app.R;
@@ -98,11 +99,12 @@ public class TraineeVocabFlashcardFragment extends Fragment {
     }
 
     private void setTextToSpeech() {
+        Locale locale = Common.getLocale(Common.language.getName());
         mTTS = new TextToSpeech(getContext(), new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
                 if (status == TextToSpeech.SUCCESS) {
-                    int result = mTTS.setLanguage(Locale.ENGLISH);
+                    int result = mTTS.setLanguage(locale);
 
                     if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                         Log.e("TTS", "Language not supported");

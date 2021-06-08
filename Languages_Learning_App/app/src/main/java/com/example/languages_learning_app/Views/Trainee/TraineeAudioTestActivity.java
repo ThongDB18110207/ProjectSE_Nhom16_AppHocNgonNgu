@@ -303,11 +303,12 @@ public class TraineeAudioTestActivity extends AppCompatActivity {
     }
 
     private void setTextToSpeech() {
+        Locale locale = Common.getLocale(Common.language.getName());
         mTTS = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
                 if (status == TextToSpeech.SUCCESS) {
-                    int result = mTTS.setLanguage(Locale.ENGLISH);
+                    int result = mTTS.setLanguage(locale);
 
                     if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                         Log.e("TTS", "Language not supported");

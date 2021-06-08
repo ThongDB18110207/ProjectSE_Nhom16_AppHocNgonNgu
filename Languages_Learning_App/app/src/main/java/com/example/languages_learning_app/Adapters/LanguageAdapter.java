@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.languages_learning_app.Common.Common;
 import com.example.languages_learning_app.DTO.Language;
 import com.example.languages_learning_app.R;
 
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 public class LanguageAdapter extends RecyclerView.Adapter<LanguageAdapter.ViewHolder>{
     Context context;
     ArrayList<Language> listLanguage;
+    int imageLanguage;
 
     private RecyclerViewClickListener listener;
 
@@ -45,7 +47,9 @@ public class LanguageAdapter extends RecyclerView.Adapter<LanguageAdapter.ViewHo
     public void onBindViewHolder(@NonNull LanguageAdapter.ViewHolder holder, int position) {
         Language language = listLanguage.get(position);
 
-        holder.imageView.setImageResource(language.getImage());
+        imageLanguage = Common.getFlagLanguage(language.getName());
+
+        holder.imageView.setImageResource(imageLanguage);
         holder.tvLanguage.setText(language.getDisplayName());
         holder.rbIsChecked.setChecked(language.isStatus());
     }

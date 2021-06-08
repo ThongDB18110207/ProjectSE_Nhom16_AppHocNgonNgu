@@ -13,10 +13,13 @@ import com.example.languages_learning_app.DTO.User;
 import com.example.languages_learning_app.R;
 import com.google.android.material.textfield.TextInputEditText;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class ProfileActivity extends AppCompatActivity {
 
     private TextInputEditText tetName, tetEmail, tetPhone;
     private Button btUpdate;
+    CircleImageView civAvatar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +29,10 @@ public class ProfileActivity extends AppCompatActivity {
         tetName = (TextInputEditText) findViewById(R.id.tetName);
         tetEmail = (TextInputEditText) findViewById(R.id.tetEmail);
         tetPhone = (TextInputEditText) findViewById(R.id.tetPhone);
+
+        civAvatar = findViewById(R.id.imgProfile);
+        int imageLanguage = Common.getFlagLanguage(Common.language.getName());
+        civAvatar.setImageResource(imageLanguage);
 
         fillInUserInfo(Common.user);
 

@@ -24,7 +24,6 @@ public class TraineeHomeFragment extends Fragment {
 
     Button btAudio, btTest, btPractice;
     CardView cvFlashcard, cvSongs;
-    String languageN, languageDN, languageIM;
 
     Fragment selectedFragment;
 
@@ -82,6 +81,8 @@ public class TraineeHomeFragment extends Fragment {
         contry_flag = (ImageView) view.findViewById(R.id.ivChangeLanguage);
 
         languageTitle.setText(Common.language.getDisplayName());
-        contry_flag.setImageResource(Common.language.getImage());
+
+        int imgLanguage = Common.getFlagLanguage(Common.language.getName());
+        contry_flag.setImageResource(imgLanguage);
     }
 }

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.languages_learning_app.Common.Common;
 import com.example.languages_learning_app.DTO.Score;
 import com.example.languages_learning_app.R;
 
@@ -20,7 +21,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ScoreRankAdapter extends RecyclerView.Adapter<ScoreRankAdapter.ViewHolder> {
     Context context;
     ArrayList<Score> scores;
-
+    int imageLanguage;
 
     public ScoreRankAdapter(Context context, ArrayList<Score> scores){
         this.context = context;
@@ -42,7 +43,9 @@ public class ScoreRankAdapter extends RecyclerView.Adapter<ScoreRankAdapter.View
         holder.tvRank.setText(String.valueOf(position + 1));
         holder.tvTraineeName.setText(score.getTraineeName());
         holder.tvTotalScore.setText(String.valueOf(score.getTotalScore()));
-        holder.imgAvatar.setImageResource(R.drawable.flag_english);
+
+        imageLanguage = Common.getFlagLanguage(Common.language.getName());
+        holder.imgAvatar.setImageResource(imageLanguage);
     }
 
     @Override
