@@ -61,7 +61,7 @@ public class MoreFragment extends Fragment {
         });
 
         civAvatar.setOnClickListener((View v) -> {
-            if(!Common.role.equals(Common.RoleTrainee)) {
+            if(Common.role.equals(Common.RoleTrainee)) {
                 startActivity(new Intent(getActivity(), TraineeDetailProfileActivity.class));
             }
         });

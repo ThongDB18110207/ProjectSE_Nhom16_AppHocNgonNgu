@@ -39,7 +39,7 @@ public class ScoreDAO<changeIsActivedLanguage> {
     public void setFinalScore(Score score){
         mDatabase = FirebaseDatabase.getInstance().getReference("FinalScores");
 
-        mDatabase.child(Common.language.getId()).child(score.getTraineeId()).setValue(score);
+        mDatabase.child(Common.language.getId()).child(score.getId()).setValue(score);
     }
 
     public boolean delete(String id) {

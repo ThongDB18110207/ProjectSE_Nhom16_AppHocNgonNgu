@@ -22,10 +22,7 @@ public class TraineeHomeFragment extends Fragment {
     ImageView contry_flag;
     TextView languageTitle;
 
-    Button btAudio, btTest, btPractice;
-    CardView cvFlashcard, cvSongs, cvPractice, cvTest, cvTranslate;
-    String languageN, languageDN, languageIM;
-    Fragment selectedFragment;
+    CardView cvFlashcard, cvSongs, cvPractice, cvTest, cvTranslate, cvRank;
 
     @Nullable
     @Override
@@ -78,6 +75,14 @@ public class TraineeHomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getContext(), TraineeTranslateActivity.class));
+            }
+        });
+
+        cvRank = (CardView) view.findViewById(R.id.cvStory);
+        cvRank.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), TraineeRankActivity.class));
             }
         });
 

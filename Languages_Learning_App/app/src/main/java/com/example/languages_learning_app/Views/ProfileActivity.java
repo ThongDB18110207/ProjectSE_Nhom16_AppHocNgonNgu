@@ -31,8 +31,12 @@ public class ProfileActivity extends AppCompatActivity {
         tetPhone = (TextInputEditText) findViewById(R.id.tetPhone);
 
         civAvatar = findViewById(R.id.imgProfile);
-        int imageLanguage = Common.getFlagLanguage(Common.language.getName());
-        civAvatar.setImageResource(imageLanguage);
+        if(Common.language !=null){
+            int imageLanguage = Common.getFlagLanguage(Common.language.getName());
+            civAvatar.setImageResource(imageLanguage);
+        } else {
+            civAvatar.setImageResource(R.drawable.bg_logo);
+        }
 
         fillInUserInfo(Common.user);
 

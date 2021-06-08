@@ -45,6 +45,7 @@ public class TraineeTestFragment extends Fragment {
 
         finalScore = new Score();
         finalScore.setTraineeId(Common.user.getUserId());
+        finalScore.setId(Common.user.getUserId());
 
         setOnClickListener();
         setRecyclerView(root);

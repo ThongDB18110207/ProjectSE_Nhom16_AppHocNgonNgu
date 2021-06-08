@@ -38,9 +38,6 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
 
         mAuth = FirebaseAuth.getInstance();
 
-        //banner = (TextView) findViewById(R.id.banner);
-        //banner.setOnClickListener(this);
-
         registerUser = (Button) findViewById(R.id.btRegisterUser);
         registerUser.setOnClickListener(this);
 

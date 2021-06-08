@@ -280,7 +280,10 @@ public class TraineeAudioTestActivity extends AppCompatActivity {
                     vocabularies.clear();
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         Vocabulary vocabulary = dataSnapshot.getValue(Vocabulary.class);
-                        vocabularies.add(vocabulary);
+
+                        if(vocabulary.isActive()) {
+                            vocabularies.add(vocabulary);
+                        }
                     }
                     NEED_TO_ADD_VOCABULARY = false;
 
