@@ -32,6 +32,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class TraineeRankActivity extends AppCompatActivity {
     RecyclerView recyclerView;
@@ -79,8 +81,8 @@ public class TraineeRankActivity extends AppCompatActivity {
     private void getListScore(){
         // Get data from firebase
         mDatabase = FirebaseDatabase.getInstance().getReference("FinalScores");
-        Query query =  mDatabase.child(Common.language.getId()).orderByChild("totalScore");
-        query.addValueEventListener(new ValueEventListener() {
+        mDatabase =  mDatabase.child(Common.language.getId());
+        mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 scores.clear();
@@ -88,6 +90,17 @@ public class TraineeRankActivity extends AppCompatActivity {
                     Score score = dataSnapshot.getValue(Score.class);
                     scores.add(score);
                 }
+                Score score;
+                for (int i = 0; i<scores.size()-1;i++)
+                    for (int j = i; j<scores.size();j++){
+                        if (scores.get(i).getTotalScore() < scores.get(j).getTotalScore())
+                        {
+                            score = scores.get(i);
+                            scores.set(i, scores.get(j));
+                            scores.set(j, score);
+                        }
+                    }
+
                 getListUser();
             }
 
@@ -101,7 +114,7 @@ public class TraineeRankActivity extends AppCompatActivity {
     private void getListUser(){
         // Get data from firebase
         mDatabase = FirebaseDatabase.getInstance().getReference("Users");
-        Query query = mDatabase.orderByChild("role").equalTo(Common.RoleAdmin);
+        Query query = mDatabase.orderByChild("role");
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -111,6 +124,7 @@ public class TraineeRankActivity extends AppCompatActivity {
                     for (int i=0;i<scores.size();i++){
                         if (scores.get(i).getTraineeId().equals(user.getUserId())){
                             scores.get(i).setTraineeName(user.getFullName());
+                            break;
                         }
                     }
                 }

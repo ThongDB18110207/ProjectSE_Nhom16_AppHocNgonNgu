@@ -42,8 +42,8 @@ public class ScoreTestAdapter extends RecyclerView.Adapter<ScoreTestAdapter.View
         Score score = scores.get(position);
 
         holder.tvLessonName.setText(score.getLessonName());
-        holder.tvWriting.setText(Common.language.getBriefName() + "-Việt");
-        holder.tvSelection.setText("Việt-" + Common.language.getBriefName());
+        holder.tvWriting.setText("Việt-" + Common.language.getBriefName());
+        holder.tvSelection.setText(Common.language.getBriefName() + "-Việt");
 
         holder.tvWritingScore.setText(score.getWritingPercentile() + "%");
         holder.tvSelectionScore.setText(score.getSelectionPercentile() + "%");

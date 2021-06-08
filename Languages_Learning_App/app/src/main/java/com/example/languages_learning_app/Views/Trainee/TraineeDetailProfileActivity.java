@@ -47,7 +47,7 @@ public class TraineeDetailProfileActivity extends AppCompatActivity {
         tvFullName = findViewById(R.id.tvFullName);
         tvEmail = findViewById(R.id.tvEmail);
         tvPhoneNumber = findViewById(R.id.tvPhoneNumber);
-        tvWritingCount = findViewById(R.id.tvEasyPracticeCount);
+        tvWritingCount = findViewById(R.id.tvWritingCount);
         tvWriting = findViewById(R.id.tvWriting);
         tvSelectionCount = findViewById(R.id.tvSelectionCount);
         tvSelection = findViewById(R.id.tvSelection);
@@ -71,9 +71,11 @@ public class TraineeDetailProfileActivity extends AppCompatActivity {
                 else {
                     Score score = task.getResult().getValue(Score.class);
 
-                    tvWritingCount.setText(String.valueOf(score.getWritingScore()));
-                    tvSelectionCount.setText(String.valueOf(score.getSelectionScore()));
-                    tvAudioCount.setText(String.valueOf(score.getAudioScore()));
+                    if(score != null) {
+                        tvWritingCount.setText(String.valueOf(score.getWritingScore()));
+                        tvSelectionCount.setText(String.valueOf(score.getSelectionScore()));
+                        tvAudioCount.setText(String.valueOf(score.getAudioScore()));
+                    }
                 }
             }
         });

@@ -93,19 +93,12 @@ public class AdminManagerFragment extends Fragment implements View.OnClickListen
         edtEmail = view.findViewById(R.id.edtEmail);
         edtPhone = view.findViewById(R.id.edtPhone);
 
-        if (mode == Common.mode.update || mode == mode.read){
+        if (mode == Common.mode.update){
             User user  = listUser.get(position);
             edtFullName.setText(user.getFullName());
             edtEmail.setText(user.getEmail());
             edtPhone.setText(user.getPhone());
-
-            if(mode == Common.mode.update){
-                btSetUser.setText("Update");
-                edtEmail.setEnabled(false);
-            }
-            if (mode == Common.mode.read){
-                btSetUser.setVisibility(View.GONE);
-            }
+            btSetUser.setText("Cập nhật");
         }
 
         btSetUser.setOnClickListener(new View.OnClickListener() {
@@ -116,27 +109,27 @@ public class AdminManagerFragment extends Fragment implements View.OnClickListen
                 String phone = edtPhone.getText().toString().trim();
 
                 if (fullName.isEmpty()){
-                    edtFullName.setError("Enter Full Name");
+                    edtFullName.setError("Chưa nhập họ tên ");
                     return;
                 }
                 if (email.isEmpty()){
-                    edtEmail.setError("Enter Email");
+                    edtEmail.setError("Chưa nhập Email");
                     return;
                 }
                 if (phone.isEmpty()){
-                    edtPhone.setError("Enter Phone Number");
+                    edtPhone.setError("Chưa nhập số điện thoại");
                     return;
                 }
 
                 if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-                    edtEmail.setError("Please provide valid email!");
+                    edtEmail.setError("Email không đúng định dạng!");
                     return;
                 }
 
                 if(mode == Common.mode.create){
                     for(int i=0;i<listUser.size();i++){
                         if(email.equals(listUser.get(i).getEmail())){
-                            edtEmail.setError("Email is duplicated");
+                            edtEmail.setError("Email đã tồn tại trong hệ thống");
                             return;
                         }
                     }
@@ -181,16 +174,16 @@ public class AdminManagerFragment extends Fragment implements View.OnClickListen
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful()){
-                                        Toast.makeText(getContext(), "Add Manager successfully!", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getContext(), "Thêm quản lý thành công!", Toast.LENGTH_LONG).show();
                                     }
                                     else{
-                                        Toast.makeText(getContext(), "Failed to register! Try again", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getContext(), "Lỗi khi thêm quản lý! Thử lại", Toast.LENGTH_LONG).show();
                                     }
                                 }
                             });
                         }
                         else {
-                            Toast.makeText(getContext(), "Failed to register! Try again", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), "Lỗi khi thêm quản lý! Thử lại", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
@@ -206,9 +199,9 @@ public class AdminManagerFragment extends Fragment implements View.OnClickListen
             case 1:
                 User user = listUser.get(position);
                 if(UserDAO.getInstance().deleteUser(user.getUserId())){
-                    Toast.makeText(this.getContext(), "Delete Manager successfully !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this.getContext(), "Xóa quản lý thành công!", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(this.getContext(), "Failed to delete Manager!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this.getContext(), "Xóa quản lý thất bại!", Toast.LENGTH_SHORT).show();
                 }
                 return true;
         }
@@ -219,7 +212,7 @@ public class AdminManagerFragment extends Fragment implements View.OnClickListen
         listener = new UserAdapter.RecyclerViewClickListener() {
             @Override
             public void onClick(View v, int position) {
-                openDialog(Common.mode.read, position);
+                openDialog(Common.mode.update, position);
             }
 
             @Override

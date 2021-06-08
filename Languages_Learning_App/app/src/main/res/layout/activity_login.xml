@@ -110,7 +110,7 @@
         android:layout_marginRight="16dp"
         android:background="@drawable/button_bg"
         android:backgroundTint="#0ED6B9"
-        android:text="Login"
+        android:text="Đăng nhập"
         android:textColor="@color/white"
         android:textSize="26sp"
         android:textStyle="bold"

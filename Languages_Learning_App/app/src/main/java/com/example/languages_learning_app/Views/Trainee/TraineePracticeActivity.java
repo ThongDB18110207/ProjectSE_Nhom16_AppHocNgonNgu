@@ -285,7 +285,7 @@ public class TraineePracticeActivity extends AppCompatActivity {
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         Practice practice = dataSnapshot.getValue(Practice.class);
 
-                        if (practice.getType() == PRACTICE_TYPE) {
+                        if (practice.getType() == PRACTICE_TYPE && practice.getStatus()) {
                             practices.add(practice);
                         }
                     }
