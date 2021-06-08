@@ -161,7 +161,6 @@ public class TraineeVocabFlashcardFragment extends Fragment {
         txtWord = dialog.findViewById(R.id.txtWord);
         txtPronunciation = dialog.findViewById(R.id.txtPronunciation);
         txtMeaning = dialog.findViewById(R.id.txtMeaning);
-        btnRemembered = dialog.findViewById(R.id.btnRemembered);
         btnResult = dialog.findViewById(R.id.btnResult);
 
         imgClose.setOnClickListener((View v) -> {

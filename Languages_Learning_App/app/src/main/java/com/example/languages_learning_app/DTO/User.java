@@ -54,9 +54,14 @@ public class User {
     private User(){}
 
     public User(UserBuilder builder) {
+        this.userId = builder.userId;
         this.role = builder.role;
         this.isActive = builder.isActive;
         this.createDate = builder.createDate;
+        this.fullName = builder.fullName;
+        this.email = builder.email;
+        this.phone = builder.phone;
+        this.image = builder.image;
     }
 
     // Builder class
