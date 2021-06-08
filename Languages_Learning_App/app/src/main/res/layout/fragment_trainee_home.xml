@@ -51,6 +51,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cvFlashcard" />
 
+    <!-- Flash card -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cvFlashcard"
         android:layout_width="110dp"
@@ -88,15 +89,43 @@
 
     </androidx.cardview.widget.CardView>
 
-    <Button
-        android:id="@+id/btSong"
+    <!-- Songs -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvSongs"
         android:layout_width="110dp"
         android:layout_height="100dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="5dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/button_learn"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toBottomOf="@+id/textView6">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_above="@+id/txtSongs"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="4dp"
+                android:src="@drawable/img_play"/>
+
+            <TextView
+                android:id="@+id/txtSongs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bài hát"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="20dp" />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
 
     <Button
         android:id="@+id/btRating"
@@ -105,7 +134,7 @@
         android:layout_marginEnd="16dp"
         android:background="@drawable/button_learn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btSong" />
+        app:layout_constraintTop_toTopOf="@+id/cvSongs" />
 
     <Button
         android:id="@+id/btDictionary"
@@ -113,8 +142,8 @@
         android:layout_height="100dp"
         android:background="@drawable/button_learn"
         app:layout_constraintEnd_toStartOf="@+id/btRating"
-        app:layout_constraintStart_toEndOf="@+id/btSong"
-        app:layout_constraintTop_toTopOf="@+id/btSong" />
+        app:layout_constraintStart_toEndOf="@+id/cvSongs"
+        app:layout_constraintTop_toTopOf="@+id/cvSongs" />
 
     <Button
         android:id="@+id/btTest"

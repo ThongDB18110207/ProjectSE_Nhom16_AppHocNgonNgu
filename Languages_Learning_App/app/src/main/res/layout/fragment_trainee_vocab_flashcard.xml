@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:src="@drawable/flash_card_bg"/>
 
-    <Button
+    <android.widget.Button
         android:id="@+id/btnShowDialog"
         android:paddingTop="16dp"
         android:paddingBottom="16dp"

@@ -21,7 +21,7 @@ public class TraineeHomeFragment extends Fragment {
     ImageView contry_flag;
     TextView languageTitle;
     Button btAudio, btTest, btPratice;
-    CardView cvFlashcard;
+    CardView cvFlashcard, cvSongs;
     String languageN, languageDN, languageIM;
 
     Fragment selectedFragment;
@@ -45,6 +45,14 @@ public class TraineeHomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 ((TraineeMainActivity)getActivity()).bottomNav.setSelectedItemId(R.id.nav_flashcard);
+            }
+        });
+
+        cvSongs = (CardView) view.findViewById(R.id.cvSongs);
+        cvSongs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), TraineeSongActivity.class));
             }
         });
 

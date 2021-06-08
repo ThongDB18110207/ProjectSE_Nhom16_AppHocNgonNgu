@@ -1,4 +1,4 @@
-package com.example.languages_learning_app.Views.Manager.Fragments;
+package com.example.languages_learning_app.Views.Manager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,7 +16,6 @@ import com.example.languages_learning_app.Adapters.LessonVocabAdapter;
 import com.example.languages_learning_app.Common.Common;
 import com.example.languages_learning_app.DTO.Lesson;
 import com.example.languages_learning_app.R;
-import com.example.languages_learning_app.Views.Manager.ManagerVocabularyActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

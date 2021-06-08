@@ -298,10 +298,10 @@ public class ManagerVocabularyActivity extends AppCompatActivity {
                                     VocabularyDAO.getInstance().saveWordWithPhonetic(vocab);
 
                                     // If mode is insert -> increase word count 1
-                                    if (mode == INSERT_MODE) {
-                                        lesson.setWordCount(lesson.getWordCount() + 1);
-                                        LessonDAO.getInstance().setLessonValue(lesson);
-                                    }
+                                    // if (mode == INSERT_MODE) {
+                                    //     lesson.setWordCount(lesson.getWordCount() + 1);
+                                    //     LessonDAO.getInstance().setLessonValue(lesson);
+                                    // }
 
                                     // Hide progress bar when task finish
                                     dialog.dismiss();
@@ -347,18 +347,6 @@ public class ManagerVocabularyActivity extends AppCompatActivity {
                 // Change status of vocabulary when check/uncheck
                 if(position >= 0) {
                     Vocabulary vocabulary = vocabularies.get(position);
-
-                    /*
-                    // If change active -> not active: decrease active word count 1
-                    if(vocabulary.isActive()) {
-                        lesson.setActiveWordCount(lesson.getActiveWordCount() - 1);
-                    }
-                    // If change not active -> active: increase active word count 1
-                    else {
-                        lesson.setActiveWordCount(lesson.getActiveWordCount() + 1);
-                    }
-
-                    LessonDAO.getInstance().setLessonValue(lesson);*/
                     VocabularyDAO.getInstance().changeStatus(vocabulary);
                 }
             }
@@ -382,14 +370,8 @@ public class ManagerVocabularyActivity extends AppCompatActivity {
                     fileReference.delete();
 
                     // Decrease word count 1
-                    lesson.setWordCount(lesson.getWordCount() - 1);
-
-                    // If vocabulary is active: decrease active word count 1
-                    if(vocabulary.isActive()) {
-                        lesson.setActiveWordCount(lesson.getActiveWordCount() - 1);
-                    }
-
-                    LessonDAO.getInstance().setLessonValue(lesson);
+                    // lesson.setWordCount(lesson.getWordCount() - 1);
+                    // LessonDAO.getInstance().setLessonValue(lesson);
 
                     Toast.makeText(this, "Xóa từ vựng thành công!", Toast.LENGTH_SHORT).show();
                 } else {
@@ -422,11 +404,14 @@ public class ManagerVocabularyActivity extends AppCompatActivity {
                     vocabularies.add(vocabulary);
 
                     if(vocabulary.isActive()) {
-                        activeCount += 1;
+                        activeCount ++;
                     }
                 }
+
+                lesson.setWordCount(vocabularies.size());
                 lesson.setActiveWordCount(activeCount);
                 LessonDAO.getInstance().setLessonValue(lesson);
+
                 adapter.notifyDataSetChanged();
             }
 
@@ -436,6 +421,4 @@ public class ManagerVocabularyActivity extends AppCompatActivity {
             }
         });
     }
-
-
 }

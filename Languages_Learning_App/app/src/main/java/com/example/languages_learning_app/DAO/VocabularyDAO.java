@@ -65,14 +65,18 @@ public class VocabularyDAO<changeIsActivedLanguage> {
                     phonetic = phonetic.substring(0, phonetic.length() - 1);
                     vocabulary.setPronunciation(phonetic);
 
-                    mDatabase = FirebaseDatabase.getInstance().getReference(path);
-                    mDatabase.child(Common.language.getId()).child(vocabulary.getId()).setValue(vocabulary);
+                } else {
+                    vocabulary.setPronunciation("");
                 }
+
+                mDatabase = FirebaseDatabase.getInstance().getReference(path);
+                mDatabase.child(Common.language.getId()).child(vocabulary.getId()).setValue(vocabulary);
             }
 
             @Override
             public void onFailure(Call<List<Dictionary>> call, Throwable t) {
                 Log.e("Api",t.getMessage());
+
             }
         });
     }

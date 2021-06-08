@@ -1,14 +1,13 @@
 package com.example.languages_learning_app.Views.Manager;
 
+import android.os.Bundle;
+import android.view.MenuItem;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.os.Bundle;
-import android.view.MenuItem;
-
 import com.example.languages_learning_app.R;
-import com.example.languages_learning_app.Views.Manager.Fragments.ManagerWordFragment;
 import com.example.languages_learning_app.Views.MoreFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
