@@ -23,7 +23,7 @@ public class TraineeHomeFragment extends Fragment {
     TextView languageTitle;
 
     Button btAudio, btTest, btPractice;
-    CardView cvFlashcard, cvSongs;
+    CardView cvFlashcard, cvSongs, cvPractice, cvTest;
     String languageN, languageDN, languageIM;
 
     Fragment selectedFragment;
@@ -58,16 +58,16 @@ public class TraineeHomeFragment extends Fragment {
             }
         });
 
-        btTest = (Button) view.findViewById(R.id.btTest);
-        btTest.setOnClickListener(new View.OnClickListener() {
+        cvTest = (CardView) view.findViewById(R.id.cvTest);
+        cvTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((TraineeMainActivity)getActivity()).bottomNav.setSelectedItemId(R.id.nav_test);
             }
         });
 
-        btPractice = (Button) view.findViewById(R.id.btPractice);
-        btPractice.setOnClickListener(new View.OnClickListener() {
+        cvPractice = (CardView) view.findViewById(R.id.cvPractice);
+        cvPractice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((TraineeMainActivity)getActivity()).bottomNav.setSelectedItemId(R.id.nav_practice);
