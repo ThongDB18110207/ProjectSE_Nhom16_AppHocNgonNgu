@@ -22,7 +22,7 @@ public class TraineeHomeFragment extends Fragment {
     ImageView contry_flag;
     TextView languageTitle;
 
-    Button btAudio, btTest, btPractice;
+    Button btAudio, btTest, btPractice, btTranslate;
     CardView cvFlashcard, cvSongs;
 
     Fragment selectedFragment;
@@ -70,6 +70,14 @@ public class TraineeHomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 ((TraineeMainActivity)getActivity()).bottomNav.setSelectedItemId(R.id.nav_practice);
+            }
+        });
+
+        btTranslate = (Button) view.findViewById(R.id.btTranslate);
+        btTranslate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), TraineeTranslateActivity.class));
             }
         });
 

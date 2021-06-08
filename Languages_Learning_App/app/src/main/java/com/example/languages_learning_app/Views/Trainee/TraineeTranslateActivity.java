@@ -40,7 +40,7 @@ public class TraineeTranslateActivity extends AppCompatActivity {
 
         TranslateAPI translateAPI = new TranslateAPI(
                 Language.AUTO_DETECT,
-                Language.INDONESIAN,
+                Language.VIETNAMESE,
                 sentence
         );
 

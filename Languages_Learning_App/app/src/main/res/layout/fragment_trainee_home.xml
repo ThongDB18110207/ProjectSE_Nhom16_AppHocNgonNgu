@@ -137,7 +137,7 @@
         app:layout_constraintTop_toTopOf="@+id/cvSongs" />
 
     <Button
-        android:id="@+id/btDictionary"
+        android:id="@+id/btTranslate"
         android:layout_width="110dp"
         android:layout_height="100dp"
         android:background="@drawable/button_learn"
