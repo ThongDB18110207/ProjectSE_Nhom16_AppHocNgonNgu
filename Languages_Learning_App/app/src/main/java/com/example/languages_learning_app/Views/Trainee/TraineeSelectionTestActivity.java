@@ -38,7 +38,7 @@ import java.util.Random;
 
 public class TraineeSelectionTestActivity extends AppCompatActivity {
     ImageView ivShowResult;
-    TextView tvWord, tvAnswer_1, tvAnswer_2, tvAnswer_3;
+    TextView tvWord, tvAnswer_1, tvAnswer_2, tvAnswer_3, tvCorrectAnswer;
     CardView cvAnswer_1, cvAnswer_2, cvAnswer_3;
     Button btNextQuestion;
 
@@ -84,6 +84,7 @@ public class TraineeSelectionTestActivity extends AppCompatActivity {
         tvAnswer_3 = findViewById(R.id.tvAnswer_3);
 
         ivShowResult = findViewById(R.id.ivShowResult);
+        tvCorrectAnswer = findViewById(R.id.tvCorrectAnswer);
 
         cvAnswer_1 = findViewById(R.id.cvAnswer_1);
         cvAnswer_1.setOnClickListener((View v) -> {
@@ -109,7 +110,7 @@ public class TraineeSelectionTestActivity extends AppCompatActivity {
             showNextQuestion();
         });
 
-        setToolbar(Common.language.getBriefName() + " - Việt");
+        setToolbar("Việt - " + Common.language.getBriefName());
 
     }
 
@@ -122,6 +123,7 @@ public class TraineeSelectionTestActivity extends AppCompatActivity {
         cvAnswer_3.setCardBackgroundColor(Color.WHITE);
         btNextQuestion.setEnabled(false);
         ivShowResult.setVisibility(View.GONE);
+        tvCorrectAnswer.setVisibility(View.GONE);
 
         if (indexQuestion == totalQuestion) {
             donePractice();
@@ -209,6 +211,8 @@ public class TraineeSelectionTestActivity extends AppCompatActivity {
             mpIncorrect.start();
 
             cvAnswer.setCardBackgroundColor(Color.RED);
+            tvCorrectAnswer.setText(correctAnswer);
+            tvCorrectAnswer.setVisibility(View.VISIBLE);
             ivShowResult.setImageResource(R.drawable.bg_incorrect);
         }
     }

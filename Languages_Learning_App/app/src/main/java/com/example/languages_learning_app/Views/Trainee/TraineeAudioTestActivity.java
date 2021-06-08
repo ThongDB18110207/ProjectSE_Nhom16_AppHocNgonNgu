@@ -40,8 +40,8 @@ import java.util.Locale;
 import java.util.Random;
 
 public class TraineeAudioTestActivity extends AppCompatActivity {
-    ImageView ivShowResult;
-    TextView tvWord, tvAnswer_1, tvAnswer_2, tvAnswer_3;
+    ImageView ivShowResult, ivAudioWord;
+    TextView tvAnswer_1, tvAnswer_2, tvAnswer_3, tvCorrectAnswer;
     CardView cvAnswer_1, cvAnswer_2, cvAnswer_3;
     Button btNextQuestion;
 
@@ -82,13 +82,18 @@ public class TraineeAudioTestActivity extends AppCompatActivity {
     }
 
     private void mapAndSetView() {
-        tvWord = findViewById(R.id.tvWord);
+        ivAudioWord = findViewById(R.id.ivAudioWord);
 
         tvAnswer_1 = findViewById(R.id.tvAnswer_1);
         tvAnswer_2 = findViewById(R.id.tvAnswer_2);
         tvAnswer_3 = findViewById(R.id.tvAnswer_3);
 
         ivShowResult = findViewById(R.id.ivShowResult);
+        tvCorrectAnswer = findViewById(R.id.tvCorrectAnswer);
+
+        ivAudioWord.setOnClickListener((View v) -> {
+            speak(vocabularies.get(indexQuestion - 1).getWord());
+        });
 
         cvAnswer_1 = findViewById(R.id.cvAnswer_1);
         cvAnswer_1.setOnClickListener((View v) -> {
@@ -114,7 +119,7 @@ public class TraineeAudioTestActivity extends AppCompatActivity {
             showNextQuestion();
         });
 
-        setToolbar(Common.language.getBriefName() + " - Việt");
+        setToolbar("Âm thanh");
 
     }
 
@@ -127,6 +132,7 @@ public class TraineeAudioTestActivity extends AppCompatActivity {
         cvAnswer_3.setCardBackgroundColor(Color.WHITE);
         btNextQuestion.setEnabled(false);
         ivShowResult.setVisibility(View.GONE);
+        tvCorrectAnswer.setVisibility(View.GONE);
 
         if (indexQuestion == totalQuestion) {
             donePractice();
@@ -135,7 +141,6 @@ public class TraineeAudioTestActivity extends AppCompatActivity {
 
         Vocabulary vocabulary = vocabularies.get(indexQuestion);
 
-        tvWord.setText(vocabulary.getPronunciation());
         correctAnswer = vocabulary.getMeaning();
 
         chooseOtherVocabulary();
@@ -216,6 +221,8 @@ public class TraineeAudioTestActivity extends AppCompatActivity {
             mpIncorrect.start();
 
             cvAnswer.setCardBackgroundColor(Color.RED);
+            tvCorrectAnswer.setText(correctAnswer);
+            tvCorrectAnswer.setVisibility(View.VISIBLE);
             ivShowResult.setImageResource(R.drawable.bg_incorrect);
         }
     }

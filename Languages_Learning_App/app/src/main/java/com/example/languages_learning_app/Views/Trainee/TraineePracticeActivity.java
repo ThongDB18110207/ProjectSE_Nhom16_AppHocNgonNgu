@@ -223,7 +223,6 @@ public class TraineePracticeActivity extends AppCompatActivity {
             cvAnswer.setCardBackgroundColor(Color.RED);
 
             tvCorrectAnswer.setText(correctAnswer);
-
             tvCorrectAnswer.setVisibility(View.VISIBLE);
             ivShowResult.setImageResource(R.drawable.bg_incorrect);
         }
