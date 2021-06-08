@@ -23,9 +23,8 @@ public class TraineeHomeFragment extends Fragment {
     TextView languageTitle;
 
     Button btAudio, btTest, btPractice;
-    CardView cvFlashcard, cvSongs, cvPractice, cvTest;
+    CardView cvFlashcard, cvSongs, cvPractice, cvTest, cvTranslate;
     String languageN, languageDN, languageIM;
-
     Fragment selectedFragment;
 
     @Nullable
@@ -74,6 +73,14 @@ public class TraineeHomeFragment extends Fragment {
             }
         });
 
+        cvTranslate = (CardView) view.findViewById(R.id.cvTranslate);
+        cvTranslate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), TraineeTranslateActivity.class));
+            }
+        });
+
         return view;
     }
 
@@ -82,6 +89,8 @@ public class TraineeHomeFragment extends Fragment {
         contry_flag = (ImageView) view.findViewById(R.id.ivChangeLanguage);
 
         languageTitle.setText(Common.language.getDisplayName());
-        contry_flag.setImageResource(Common.language.getImage());
+
+        int imgLanguage = Common.getFlagLanguage(Common.language.getName());
+        contry_flag.setImageResource(imgLanguage);
     }
 }

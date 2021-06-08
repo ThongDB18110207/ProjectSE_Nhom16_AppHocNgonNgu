@@ -20,6 +20,8 @@
         android:theme="@style/Theme.Languages_Learning_App">
 
         <activity android:name=".Views.PlayVideoActivity"></activity>
+        <activity android:name=".Views.Trainee.TraineeDetailProfileActivity"></activity>
+        <activity android:name=".Views.Trainee.TraineeTranslateActivity" />
         <activity android:name=".Views.Trainee.TraineeSongActivity" />
         <activity android:name=".Views.Trainee.TraineeRankActivity" />
         <activity android:name=".Views.Trainee.TraineeWritingTestActivity" />

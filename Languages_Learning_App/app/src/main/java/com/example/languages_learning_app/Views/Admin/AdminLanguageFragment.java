@@ -127,7 +127,7 @@ public class AdminLanguageFragment extends Fragment implements View.OnClickListe
                             return;
                         }
                     }
-                    Language language = new Language(name, vietnamese, briefName, R.drawable.flag_english);
+                    Language language = new Language(name, vietnamese, briefName, R.drawable.flag_of_english);
                     LanguageDAO.getInstance().setLanguageValue(language);
                 }
                 if (mode == Common.mode.update){

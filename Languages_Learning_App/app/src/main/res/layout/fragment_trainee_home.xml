@@ -163,7 +163,7 @@
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
-
+    
     <!-- Story -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cvTranslate"

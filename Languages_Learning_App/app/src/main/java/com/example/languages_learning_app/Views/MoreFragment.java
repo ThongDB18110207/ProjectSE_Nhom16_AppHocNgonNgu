@@ -40,7 +40,6 @@ public class MoreFragment extends Fragment {
         edtEmail.setText(Common.user.getEmail());
 
         civAvatar = view.findViewById(R.id.imgProfile);
-        civAvatar.setImageResource(R.drawable.flag_english);
 
         cvManageProfile.setOnClickListener((View v) -> {
             startActivity(new Intent(getActivity(), ProfileActivity.class));
@@ -59,6 +58,13 @@ public class MoreFragment extends Fragment {
             startActivity(new Intent(this.getContext(), LoginActivity.class));
             this.getActivity().finish();
         });
+
+        if(!Common.role.equals(Common.RoleAdmin)){
+            int imageLanguage = Common.getFlagLanguage(Common.language.getName());
+            civAvatar.setImageResource(imageLanguage);
+        } else {
+            civAvatar.setImageResource(R.drawable.bg_logo);
+        }
 
         if(Common.role.equals(Common.RoleAdmin)){
             cvRank.setVisibility(View.GONE);
