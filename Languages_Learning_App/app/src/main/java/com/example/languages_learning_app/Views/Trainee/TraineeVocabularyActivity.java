@@ -29,7 +29,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Random;
 
 public class TraineeVocabularyActivity extends AppCompatActivity {
@@ -97,7 +96,7 @@ public class TraineeVocabularyActivity extends AppCompatActivity {
             @Override
             public void onInit(int status) {
                 if (status == TextToSpeech.SUCCESS) {
-                    int result = mTTS.setLanguage(Locale.ENGLISH);
+                    int result = mTTS.setLanguage(Common.getLocale(Common.language.getName()));
 
                     if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                         Log.e("TTS", "Language not supported");
