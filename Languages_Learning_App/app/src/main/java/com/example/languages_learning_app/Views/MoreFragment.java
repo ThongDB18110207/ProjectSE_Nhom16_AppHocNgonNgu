@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.languages_learning_app.Common.Common;
 import com.example.languages_learning_app.R;
+import com.example.languages_learning_app.Views.Trainee.TraineeDetailProfileActivity;
 import com.example.languages_learning_app.Views.Trainee.TraineeRankActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -57,6 +58,12 @@ public class MoreFragment extends Fragment {
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(this.getContext(), LoginActivity.class));
             this.getActivity().finish();
+        });
+
+        civAvatar.setOnClickListener((View v) -> {
+            if(!Common.role.equals(Common.RoleTrainee)) {
+                startActivity(new Intent(getActivity(), TraineeDetailProfileActivity.class));
+            }
         });
 
         if(!Common.role.equals(Common.RoleAdmin)){
