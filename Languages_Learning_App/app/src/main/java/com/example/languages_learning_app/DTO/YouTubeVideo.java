@@ -1,6 +1,8 @@
 package com.example.languages_learning_app.DTO;
 
-public class YouTubeVideo {
+import java.io.Serializable;
+
+public class YouTubeVideo implements Serializable {
 
     private String id;
     private String songName;

@@ -22,9 +22,9 @@ public class TraineeHomeFragment extends Fragment {
     ImageView contry_flag;
     TextView languageTitle;
 
-    Button btAudio, btTest, btPractice, btTranslate;
-    CardView cvFlashcard, cvSongs;
-
+    Button btAudio, btTest, btPractice;
+    CardView cvFlashcard, cvSongs, cvPractice, cvTest, cvTranslate;
+    String languageN, languageDN, languageIM;
     Fragment selectedFragment;
 
     @Nullable
@@ -57,24 +57,24 @@ public class TraineeHomeFragment extends Fragment {
             }
         });
 
-        btTest = (Button) view.findViewById(R.id.btTest);
-        btTest.setOnClickListener(new View.OnClickListener() {
+        cvTest = (CardView) view.findViewById(R.id.cvTest);
+        cvTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((TraineeMainActivity)getActivity()).bottomNav.setSelectedItemId(R.id.nav_test);
             }
         });
 
-        btPractice = (Button) view.findViewById(R.id.btPractice);
-        btPractice.setOnClickListener(new View.OnClickListener() {
+        cvPractice = (CardView) view.findViewById(R.id.cvPractice);
+        cvPractice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((TraineeMainActivity)getActivity()).bottomNav.setSelectedItemId(R.id.nav_practice);
             }
         });
 
-        btTranslate = (Button) view.findViewById(R.id.btTranslate);
-        btTranslate.setOnClickListener(new View.OnClickListener() {
+        cvTranslate = (CardView) view.findViewById(R.id.cvTranslate);
+        cvTranslate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getContext(), TraineeTranslateActivity.class));
