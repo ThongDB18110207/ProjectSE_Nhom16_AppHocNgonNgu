@@ -6,7 +6,6 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -26,14 +25,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.languages_learning_app.Adapters.LessonAdapter;
-import com.example.languages_learning_app.Adapters.Manager.VocabularyAdapter;
 import com.example.languages_learning_app.Adapters.PracticeAdapter;
 import com.example.languages_learning_app.Common.Common;
-import com.example.languages_learning_app.DAO.LanguageDAO;
 import com.example.languages_learning_app.DAO.LessonDAO;
 import com.example.languages_learning_app.DAO.PracticeDAO;
-import com.example.languages_learning_app.DAO.VocabularyDAO;
 import com.example.languages_learning_app.DTO.Lesson;
 import com.example.languages_learning_app.DTO.Practice;
 import com.example.languages_learning_app.DTO.Vocabulary;
