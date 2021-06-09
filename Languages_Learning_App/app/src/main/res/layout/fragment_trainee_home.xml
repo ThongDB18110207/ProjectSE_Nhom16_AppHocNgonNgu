@@ -79,7 +79,7 @@
                 android:id="@+id/txtFlashcard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Flascard"
+                android:text="Flashcard"
                 android:textStyle="bold"
                 android:textAlignment="center"
                 android:layout_alignParentBottom="true"
