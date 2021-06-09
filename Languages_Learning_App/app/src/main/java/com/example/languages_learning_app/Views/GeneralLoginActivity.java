@@ -29,7 +29,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class GeneralLoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView register, fogotPassword;
     private EditText etEmail, etPassword;
@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_general_login);
 
         mapAndSetView();
         rememberUser();
@@ -101,13 +101,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.tvRegister:
-                startActivity(new Intent(this, RegisterUserActivity.class));
+                startActivity(new Intent(this, GeneralRegisterUserActivity.class));
                 break;
             case R.id.btLogin:
                 userLogin();
                 break;
             case R.id.tvForgotPassword:
-                startActivity(new Intent(this, FogotPasswordActivity.class));
+                startActivity(new Intent(this, GeneralFogotPasswordActivity.class));
                 break;
         }
     }
@@ -155,11 +155,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }
                     else{
                         user.sendEmailVerification();
-                        Toast.makeText(LoginActivity.this, "Kiểm tra Email để kích hoạt tài khoản", Toast.LENGTH_LONG).show();
+                        Toast.makeText(GeneralLoginActivity.this, "Kiểm tra Email để kích hoạt tài khoản", Toast.LENGTH_LONG).show();
                     }
                 }
                 else {
-                    Toast.makeText(LoginActivity.this, "Sai thông tin đăng nhập", Toast.LENGTH_LONG).show();
+                    Toast.makeText(GeneralLoginActivity.this, "Sai thông tin đăng nhập", Toast.LENGTH_LONG).show();
                 }
                 progressBar.setVisibility(View.GONE);
             }
@@ -177,7 +177,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Common.user = task.getResult().getValue(User.class);
                     
                     if(!Common.user.isActive()){
-                        Toast.makeText(LoginActivity.this, "Tài khoản của bạn đang tạm khóa!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(GeneralLoginActivity.this, "Tài khoản của bạn đang tạm khóa!", Toast.LENGTH_LONG).show();
                         return;
                     }
 
@@ -185,31 +185,31 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         if (Common.user.getRole().equals(Common.RoleAdmin)) {
                             if (rbAdmin.isChecked()) {
                                 Common.role = Common.RoleAdmin;
-                                startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
+                                startActivity(new Intent(GeneralLoginActivity.this, AdminMainActivity.class));
                                 return;
                             }
 
                             if (rbManager.isChecked()){
                                 Common.role = Common.RoleManager;
-                                startActivity(new Intent(LoginActivity.this, ChooseLanguageActivity.class));
+                                startActivity(new Intent(GeneralLoginActivity.this, GeneralChooseLanguageActivity.class));
                                 return;
                             }
 
                             if (rbTrainee.isChecked()){
                                 Common.role = Common.RoleTrainee;
-                                startActivity(new Intent(LoginActivity.this, ChooseLanguageActivity.class));
+                                startActivity(new Intent(GeneralLoginActivity.this, GeneralChooseLanguageActivity.class));
                                 return;
                             }
                         }
                         if (Common.user.getRole().equals(Common.RoleManager)) {
                             if (rbManager.isChecked()){
                                 Common.role = Common.RoleManager;
-                                startActivity(new Intent(LoginActivity.this, ChooseLanguageActivity.class));
+                                startActivity(new Intent(GeneralLoginActivity.this, GeneralChooseLanguageActivity.class));
                                 return;
                             }
                             if (rbTrainee.isChecked()){
                                 Common.role = Common.RoleTrainee;
-                                startActivity(new Intent(LoginActivity.this, ChooseLanguageActivity.class));
+                                startActivity(new Intent(GeneralLoginActivity.this, GeneralChooseLanguageActivity.class));
                                 return;
                             }
                         }
@@ -217,13 +217,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         if (Common.user.getRole().equals(Common.RoleTrainee)) {
                             if (rbTrainee.isChecked()){
                                 Common.role = Common.RoleTrainee;
-                                startActivity(new Intent(LoginActivity.this, ChooseLanguageActivity.class));
+                                startActivity(new Intent(GeneralLoginActivity.this, GeneralChooseLanguageActivity.class));
                                 return;
                             }
                         }
-                        Toast.makeText(LoginActivity.this, "Truy cập sai quyền!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(GeneralLoginActivity.this, "Truy cập sai quyền!", Toast.LENGTH_LONG).show();
                     }
-                    Toast.makeText(LoginActivity.this, "Tài khoản của bạn không tồn tại!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(GeneralLoginActivity.this, "Tài khoản của bạn không tồn tại!", Toast.LENGTH_LONG).show();
                 }
             }
         });

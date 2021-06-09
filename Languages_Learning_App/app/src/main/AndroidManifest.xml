@@ -19,7 +19,7 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.Languages_Learning_App">
 
-        <activity android:name=".Views.PlayVideoActivity"></activity>
+        <activity android:name=".Views.GeneralPlayVideoActivity"></activity>
         <activity android:name=".Views.Trainee.TraineeDetailProfileActivity"></activity>
         <activity android:name=".Views.Trainee.TraineeTranslateActivity" />
         <activity android:name=".Views.Trainee.TraineeSongActivity" />
@@ -32,14 +32,14 @@
         <activity android:name=".Views.Manager.ManagerVocabularyActivity" />
         <activity android:name=".Views.Manager.ManagerPracticeActivity" />
         <activity android:name=".Views.Manager.ManagerMainActivity" />
-        <activity android:name=".Views.ChangePasswordActivity" />
+        <activity android:name=".Views.GeneralChangePasswordActivity" />
         <activity android:name=".Views.Admin.AdminMainActivity" />
         <activity android:name=".Views.Trainee.TraineeMainActivity" />
-        <activity android:name=".Views.FogotPasswordActivity" />
-        <activity android:name=".Views.ProfileActivity" />
-        <activity android:name=".Views.RegisterUserActivity" />
-        <activity android:name=".Views.ChooseLanguageActivity" />
-        <activity android:name=".Views.LoginActivity">
+        <activity android:name=".Views.GeneralFogotPasswordActivity" />
+        <activity android:name=".Views.GeneralProfileActivity" />
+        <activity android:name=".Views.GeneralRegisterUserActivity" />
+        <activity android:name=".Views.GeneralChooseLanguageActivity" />
+        <activity android:name=".Views.GeneralLoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

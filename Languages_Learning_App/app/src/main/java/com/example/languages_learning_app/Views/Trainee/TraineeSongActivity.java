@@ -17,7 +17,7 @@ import com.example.languages_learning_app.Adapters.Manager.YoutubeVideoAdapter;
 import com.example.languages_learning_app.Common.Common;
 import com.example.languages_learning_app.DTO.YouTubeVideo;
 import com.example.languages_learning_app.R;
-import com.example.languages_learning_app.Views.PlayVideoActivity;
+import com.example.languages_learning_app.Views.GeneralPlayVideoActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -63,7 +63,7 @@ public class TraineeSongActivity extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("video", (Serializable) video);
 
-                Intent intent = new Intent(TraineeSongActivity.this, PlayVideoActivity.class);
+                Intent intent = new Intent(TraineeSongActivity.this, GeneralPlayVideoActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }

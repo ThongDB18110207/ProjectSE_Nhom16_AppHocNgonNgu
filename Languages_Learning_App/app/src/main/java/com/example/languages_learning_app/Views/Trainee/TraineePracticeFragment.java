@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,16 +12,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.languages_learning_app.Adapters.Manager.LessonPracticeAdapter;
 import com.example.languages_learning_app.Adapters.Trainee.ScorePracticeAdapter;
 import com.example.languages_learning_app.Common.Common;
 import com.example.languages_learning_app.DTO.Lesson;
 import com.example.languages_learning_app.DTO.Score;
 import com.example.languages_learning_app.R;
-import com.example.languages_learning_app.Views.FogotPasswordActivity;
-import com.example.languages_learning_app.Views.LoginActivity;
-import com.example.languages_learning_app.Views.Manager.ManagerPracticeActivity;
-import com.example.languages_learning_app.Views.RegisterUserActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

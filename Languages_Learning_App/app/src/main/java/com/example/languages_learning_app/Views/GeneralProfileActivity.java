@@ -15,7 +15,7 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ProfileActivity extends AppCompatActivity {
+public class GeneralProfileActivity extends AppCompatActivity {
 
     private TextInputEditText tetName, tetEmail, tetPhone;
     private Button btUpdate;
@@ -24,7 +24,7 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_general_profile);
 
         tetName = (TextInputEditText) findViewById(R.id.tetName);
         tetEmail = (TextInputEditText) findViewById(R.id.tetEmail);

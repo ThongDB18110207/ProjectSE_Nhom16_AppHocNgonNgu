@@ -17,7 +17,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class FogotPasswordActivity extends AppCompatActivity {
+public class GeneralFogotPasswordActivity extends AppCompatActivity {
 
     private EditText emailEditText;
     private Button resetPasswordButton;
@@ -29,7 +29,7 @@ public class FogotPasswordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fogot_password);
+        setContentView(R.layout.activity_general_fogot_password);
 
         ivBack = findViewById(R.id.ivBack);
         emailEditText = (EditText) findViewById(R.id.etEmailAdd);
@@ -73,10 +73,10 @@ public class FogotPasswordActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(FogotPasswordActivity.this, "Kiểm tra Email để lấy lại mật khẩu!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(GeneralFogotPasswordActivity.this, "Kiểm tra Email để lấy lại mật khẩu!", Toast.LENGTH_LONG).show();
                 }
                 else {
-                    Toast.makeText(FogotPasswordActivity.this, "Tài khoản không tồn tại!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(GeneralFogotPasswordActivity.this, "Tài khoản không tồn tại!", Toast.LENGTH_LONG).show();
                 }
                 progressBar.setVisibility(View.GONE);
             }

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,7 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.languages_learning_app.Common.Common;
 import com.example.languages_learning_app.R;
-import com.example.languages_learning_app.Views.ChooseLanguageActivity;
+import com.example.languages_learning_app.Views.GeneralChooseLanguageActivity;
 
 public class TraineeHomeFragment extends Fragment {
     ImageView contry_flag;
@@ -34,7 +33,7 @@ public class TraineeHomeFragment extends Fragment {
         contry_flag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getContext(), ChooseLanguageActivity.class));
+                startActivity(new Intent(getContext(), GeneralChooseLanguageActivity.class));
             }
         });
 

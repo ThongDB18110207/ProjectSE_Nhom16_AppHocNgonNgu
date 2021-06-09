@@ -7,7 +7,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,7 +21,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class RegisterUserActivity extends AppCompatActivity implements View.OnClickListener  {
+public class GeneralRegisterUserActivity extends AppCompatActivity implements View.OnClickListener  {
 
     private Button registerUser;
     private ImageView ivBack;
@@ -34,7 +33,7 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register_user);
+        setContentView(R.layout.activity_general_register_user);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -127,18 +126,18 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful()){
-                                        Toast.makeText(RegisterUserActivity.this, "Đăng ký thành công", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(GeneralRegisterUserActivity.this, "Đăng ký thành công", Toast.LENGTH_LONG).show();
                                         progressBar.setVisibility(View.GONE);
                                     }
                                     else{
-                                        Toast.makeText(RegisterUserActivity.this, "Lỗi đăng ký!", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(GeneralRegisterUserActivity.this, "Lỗi đăng ký!", Toast.LENGTH_LONG).show();
                                         progressBar.setVisibility(View.GONE);
                                     }
                                 }
                             });
                         }
                         else {
-                            Toast.makeText(RegisterUserActivity.this, "Lỗi đăng ký!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(GeneralRegisterUserActivity.this, "Lỗi đăng ký!", Toast.LENGTH_LONG).show();
                             progressBar.setVisibility(View.GONE);
                         }
                     }

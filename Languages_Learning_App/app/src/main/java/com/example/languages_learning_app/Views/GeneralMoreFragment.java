@@ -21,13 +21,13 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MoreFragment extends Fragment {
+public class GeneralMoreFragment extends Fragment {
     TextView edtFullName, edtEmail;
     CircleImageView civAvatar;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_more, container, false);
+        View view = inflater.inflate(R.layout.fragment_general_more, container, false);
 
         CardView cvManageProfile = (CardView) view.findViewById(R.id.cvManageProfile);
         CardView cvChangePassword = (CardView) view.findViewById(R.id.cvChangePassword);
@@ -43,11 +43,11 @@ public class MoreFragment extends Fragment {
         civAvatar = view.findViewById(R.id.imgProfile);
 
         cvManageProfile.setOnClickListener((View v) -> {
-            startActivity(new Intent(getActivity(), ProfileActivity.class));
+            startActivity(new Intent(getActivity(), GeneralProfileActivity.class));
         });
 
         cvChangePassword.setOnClickListener((View v) -> {
-            startActivity(new Intent(getActivity(), ChangePasswordActivity.class));
+            startActivity(new Intent(getActivity(), GeneralChangePasswordActivity.class));
         });
 
         cvRank.setOnClickListener((View v) -> {
@@ -56,7 +56,7 @@ public class MoreFragment extends Fragment {
 
         btLogOut.setOnClickListener((View v) -> {
             FirebaseAuth.getInstance().signOut();
-            startActivity(new Intent(this.getContext(), LoginActivity.class));
+            startActivity(new Intent(this.getContext(), GeneralLoginActivity.class));
             this.getActivity().finish();
         });
 

@@ -24,7 +24,7 @@ import com.example.languages_learning_app.Common.Common;
 import com.example.languages_learning_app.DAO.YoutubeVideoDAO;
 import com.example.languages_learning_app.DTO.YouTubeVideo;
 import com.example.languages_learning_app.R;
-import com.example.languages_learning_app.Views.PlayVideoActivity;
+import com.example.languages_learning_app.Views.GeneralPlayVideoActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -100,7 +100,7 @@ public class ManagerMusicFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("video", (Serializable) video);
 
-                Intent intent = new Intent(getActivity(), PlayVideoActivity.class);
+                Intent intent = new Intent(getActivity(), GeneralPlayVideoActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }

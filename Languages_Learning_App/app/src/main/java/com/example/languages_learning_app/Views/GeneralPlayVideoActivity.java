@@ -13,7 +13,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
-public class PlayVideoActivity extends AppCompatActivity {
+public class GeneralPlayVideoActivity extends AppCompatActivity {
 
     private TextView tvVideoName, tvSinger, tvLyric;
     private YouTubePlayerView youTubePlayer;
@@ -22,7 +22,7 @@ public class PlayVideoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_play_video);
+        setContentView(R.layout.activity_general_play_video);
 
         // Get data from intent (data is current lesson)
         Intent intent = getIntent();

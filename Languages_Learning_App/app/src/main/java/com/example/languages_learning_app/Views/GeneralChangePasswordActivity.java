@@ -21,7 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import org.jetbrains.annotations.NotNull;
 
 
-public class ChangePasswordActivity extends AppCompatActivity {
+public class GeneralChangePasswordActivity extends AppCompatActivity {
 
     private TextInputEditText tetCurrentPassword, tetNewPassword, tetReNewPassword;
     private Button btChangePassword;
@@ -38,7 +38,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_change_password);
+        setContentView(R.layout.activity_general_change_password);
 
         tetCurrentPassword = (TextInputEditText) findViewById(R.id.tetCurrentPassword);
         tetNewPassword = (TextInputEditText) findViewById(R.id.tetNewPassword);

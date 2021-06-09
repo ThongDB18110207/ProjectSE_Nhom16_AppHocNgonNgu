@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.languages_learning_app.R;
-import com.example.languages_learning_app.Views.MoreFragment;
+import com.example.languages_learning_app.Views.GeneralMoreFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class AdminMainActivity extends AppCompatActivity {
@@ -43,7 +43,7 @@ public class AdminMainActivity extends AppCompatActivity {
                             selectedFragment = new AdminTraineeFragment();
                             break;
                         case R.id.nav_admin_more:
-                            selectedFragment = new MoreFragment();
+                            selectedFragment = new GeneralMoreFragment();
                             break;
                     }
                     getSupportFragmentManager().beginTransaction()
