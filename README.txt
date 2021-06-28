@@ -1,3 +1,5 @@
+Link demo ứng dụng: https://youtu.be/0vkH9NMECsE
+
 Đề tài môn Công nghệ phần mềm
 Tên đề tài: App học Ngôn ngữ
 Nhóm thực hiện: 16
